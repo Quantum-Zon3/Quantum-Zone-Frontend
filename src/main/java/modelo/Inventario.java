@@ -1,53 +1,58 @@
-
 package modelo;
 
-/**
- *
- * @author shadow111285
- */
+import java.util.Map;
+import java.util.UUID;
+
 public class Inventario {
-    private String objeto;
-    private String nombre;
-    private String descripcion;
-    private String fecha;
+	private String id;
+	private Map<String, Consola> consolas;
+	private Map<String, VideoJuego> juegos;
+	private Map<String, Objeto> objetos;
+	private Map<String, Puesto> puestos;
+	
+	public Inventario(Map<String, Consola> consolas, Map<String, VideoJuego> juegos, Map<String, Objeto> objetos,
+			Map<String, Puesto> puestos) {
+		this.id = UUID.randomUUID().toString();
+		this.consolas = consolas;
+		this.juegos = juegos;
+		this.objetos = objetos;
+		this.puestos = puestos;
+	}
 
-    public Inventario(String objeto, String nombre, String descripcion, String fecha) {
-        this.objeto = objeto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getObjeto() {
-        return objeto;
-    }
+	public Map<String, Consola> getConsolas() {
+		return consolas;
+	}
 
-    public void setObjeto(String objeto) {
-        this.objeto = objeto;
-    }
+	public void setConsolas(Map<String, Consola> consolas) {
+		this.consolas = consolas;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Map<String, VideoJuego> getJuegos() {
+		return juegos;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setJuegos(Map<String, VideoJuego> juegos) {
+		this.juegos = juegos;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public Map<String, Objeto> getObjetos() {
+		return objetos;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setObjetos(Map<String, Objeto> objetos) {
+		this.objetos = objetos;
+	}
 
-    public String getFecha() {
-        return fecha;
-    }
+	public Map<String, Puesto> getPuestos() {
+		return puestos;
+	}
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-    
+	public void setPuestos(Map<String, Puesto> puestos) {
+		this.puestos = puestos;
+	}
+	
 }
