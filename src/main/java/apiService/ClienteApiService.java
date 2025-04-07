@@ -32,14 +32,14 @@ public interface ClienteApiService {
 
     @GET("/quantumZone/clientes/buscar")
     Call<List<Cliente>> buscarUsuarios(
-        @Query("id") String id,
-        @Query("nombre") String nombre,
-        @Query("edad") int edad,
-        @Query("direccion") String direccion,
-        @Query("cedula") String cedula,
-        @Query("telefono") String telefono,
-        @Query("fechaRegistro") String fechaRegistro,
-        @Query("email") String email
+        //@Query("id") String id,
+        //@Query("nombre") String nombre,
+        //@Query("edad") int edad,
+        //@Query("direccion") String direccion,
+        @Query("cedula") String cedula
+        //@Query("telefono") String telefono,
+        //@Query("fechaRegistro") String fechaRegistro,
+        //@Query("email") String email
         
     );
 
