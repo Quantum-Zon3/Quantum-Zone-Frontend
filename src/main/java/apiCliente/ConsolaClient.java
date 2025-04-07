@@ -23,6 +23,22 @@ public class ConsolaClient {
 
         consolaService = retrofit.create(ConsolaApiService.class);
     }
+    
+    public static List<Consola> listarConsola() {
+		try {
+			Response<List<Consola>> response = consolaService.getAllConsolas().execute();
+			if(response.isSuccessful()){
+				return response.body();
+			}else {
+				System.out.println("Error " + response.code());
+			}
+			
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 
     public void createConsola(Consola consola) {
         try {
@@ -43,8 +59,28 @@ public class ConsolaClient {
             System.out.println(response.body());
             return response.body();
         } else {
-            System.out.println("Usuario no encontrado: " + response.code());
+            System.out.println("Consola no encontrada: " + response.code());
             throw new Exception("No se ha encontrado una consola");
         }
+    }
+    
+    public static void eliminarConsola(String id) throws Exception {
+		Response<Void> response = consolaService.deleteConsola(id).execute();
+		if(response.isSuccessful()) {
+			System.out.println("Consola eliminada con exito");
+		}else{
+			throw new Exception("Error al eliminar la consola");
+		}
+	}
+    
+    public static void actualizarConsola(String id, Consola consola) throws Exception {
+        Response<Consola> response = consolaService.updateConsola(id, consola).execute();
+        if(response.isSuccessful()){
+            System.out.println("Consola actualizada");
+        }
+        else{
+            throw new Exception("Error al actualizar la consola");
+                    }
+        
     }
 }
