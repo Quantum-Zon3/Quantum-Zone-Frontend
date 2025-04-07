@@ -3,15 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
-import controlador.ControladorInicioSecion;
+import apiCliente.AdministradorApiClient;
 import exceptions.UsuarioNoEncontradoONoRegistradoException;
+import java.io.IOException;
 import javax.swing.JOptionPane;
+import modelo.Administrador;
+import retrofit2.Response;
 /**
  *
  * @author DARIO LOPEZ
  */
 public class InicioSecion extends javax.swing.JFrame {
-    ControladorInicioSecion controlador;
+    
+    private AdministradorApiClient adminClient;
     
 
     /**
@@ -19,39 +23,36 @@ public class InicioSecion extends javax.swing.JFrame {
      */
     public InicioSecion() {
         setLocationRelativeTo(this);
-        this.controlador = new ControladorInicioSecion();
+        this.adminClient = new AdministradorApiClient();
         initComponents();
     }
     private boolean validarCampos() {
-        if (txtDocumento.getText().isEmpty() || txtContraseña.getText().isEmpty()) {
+        if (txtDocumento.getText().isEmpty()) {
             return false;
         }
         return true;
     }
     
     private void iniciarSecion(){
-        if (validarCampos()){
+        if (!(validarCampos())) {
+            JOptionPane.showMessageDialog(null, "Rellene todos los campos");
+        }
+        else{
             try{
-                int documento = Integer.valueOf(txtDocumento.getText());
-                String contraseña = txtContraseña.getText();
-                boolean validacion = controlador.incioSesion(documento, contraseña);
-                if (validacion){
-                    VistaMenu vf = new VistaMenu();
-                            vf.setVisible(true);
-                            this.dispose();
-                }
-            } catch (UsuarioNoEncontradoONoRegistradoException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "La cedula que ingreso no esta en el sistema o no tiene los caracteres correspondientes");
-            }        
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor llene todos los espacios requeridos");
-        }    
-    }
+               String id = txtDocumento.getText();
+               Administrador admin = adminClient.loggearAdmin(id);
+               VistaMenu vista = new VistaMenu();
+               vista.setVisible(true);
+               this.dispose();
+                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
     
     
-
+        
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

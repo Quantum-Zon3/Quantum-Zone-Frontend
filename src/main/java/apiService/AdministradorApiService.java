@@ -13,7 +13,7 @@ public interface AdministradorApiService {
 		Call<List<Administrador>> getAdministradores();
 
 		@GET("/quantumZone/administradores/{id}")
-		Call<Administrador> getAdministradorById(@Path("id") int id);
+		Call<Administrador> getAdministradorById(@Path("id") String id);
 
 		@GET("/quantumZone/administradores/auth")
 		Call<Administrador> getrAuthAdministrador();	
