@@ -4,20 +4,28 @@
  */
 package vista;
 
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import apiCliente.ClienteApiClient;
+import modelo.Cliente;
 
 /**
  *
  * @author DARIO LOPEZ
  */
 public class VistaGestionClientes extends javax.swing.JFrame {
-
+	private final ClienteApiClient clienteApiClient;
+	private Cliente clienteBuscar;
     /**
      * Creates new form VistaGestionClientes
      */
     public VistaGestionClientes() {
         initComponents();
         setLocationRelativeTo(this);
+        this.clienteApiClient = new ClienteApiClient();
+        llenarTablaClientes();
     }
 
     /**
@@ -44,7 +52,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         btnAñadir = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -58,7 +66,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         lblTelefono = new javax.swing.JLabel();
         lblFechaRegistro = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JLabel();
+        lblCedulaToFill = new javax.swing.JLabel();
         txtEdad = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JLabel();
@@ -71,8 +79,8 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtCedula = new javax.swing.JTextField();
+        btnBuscarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,7 +250,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion Usuarios");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Eduardo", "1145643643", "21", "27/02/2025"},
                 {null, null, null, null},
@@ -253,7 +261,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                 "Nombre", "Cedula", "Edad", "Registro"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblClientes);
 
         btnAñadir.setBackground(new java.awt.Color(0, 0, 204));
         btnAñadir.setForeground(new java.awt.Color(255, 255, 255));
@@ -271,7 +279,12 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                try {
+					btnEliminarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -340,7 +353,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         lblCorreo.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         lblCorreo.setText("Correo:");
 
-        txtCedula.setText("1145643643");
+        lblCedulaToFill.setText("1145643643");
 
         txtEdad.setText("21");
 
@@ -441,7 +454,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                                         .addGap(1, 1, 1)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEdad)
-                                            .addComponent(txtCedula)
+                                            .addComponent(lblCedulaToFill)
                                             .addComponent(txtDireccion)
                                             .addComponent(txtTelefono))))
                                 .addGap(40, 40, 40))
@@ -483,7 +496,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtNombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCedula)
+                        .addComponent(lblCedulaToFill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtEdad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -510,9 +523,19 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 
         jLabel3.setText("Usuario");
 
-        jTextField1.setText("Cedula del Usuario");
+        txtCedula.setText("Cedula del Usuario");
 
-        jButton1.setText("Buscar");
+        btnBuscarUsuario.setText("Buscar");
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+					btnBuscarUsuarioActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -529,9 +552,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(btnBuscarUsuario)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -541,8 +564,8 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscarUsuario)
                         .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -593,9 +616,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
-        vgc.setVisible(true);
-        this.dispose();  
+        //VistaGestionClientes vgc = new VistaGestionClientes();
+        //vgc.setVisible(true);
+        //this.dispose();  
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
@@ -635,14 +658,67 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAñadirActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccionada = tblClientes.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idCliente + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            this.clienteApiClient.deleteCliente(idCliente);
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+            // Recargar la tabla
+            llenarTablaClientes();
+        }
+    } else {
+        // Mostrar mensaje si no hay fila seleccionada
         JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
+       clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText());
+       if(clienteBuscar != null){
+            llenarDatosCliente(clienteBuscar);
+	}else{
+            throw new Exception("No se encontro el cliente");
+	}
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
+  private void llenarDatosCliente(Cliente cliente) {
+		txtNombre.setText(cliente.getNombre());
+		lblCedulaToFill.setText(cliente.getCedula());
+		txtEdad.setText(String.valueOf(cliente.getEdad()));
+		txtDireccion.setText(cliente.getDireccion());
+		txtTelefono.setText(cliente.getTelefono());
+		txtCorreo.setText(cliente.getEmail());
+		txtFechaRegistro.setText(cliente.getFechaRegistro().toString());
+	}
+    private void llenarTablaClientes() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"id","Cedula","Nombre","Edad","Dirrecion","Telefono","correo","Registro"});
+        
+        List<Cliente> aux = clienteApiClient.listarCliente();
+        for (Cliente cliente : aux) {
+                model.addRow(new Object[]{
+                	cliente.getId(),
+                        cliente.getCedula(),
+                	cliente.getNombre(),
+                	cliente.getEdad(),
+                        cliente.getDireccion(),
+                        cliente.getTelefono(),
+                        cliente.getEmail(),
+                        cliente.getFechaRegistro().toString()
+                        
+                });
+        }
+        tblClientes.setModel(model);
+    }    
+    
     /**
      * @param args the command line arguments
      */
@@ -680,6 +756,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAñadir;
+    private javax.swing.JButton btnBuscarUsuario;
     private javax.swing.JButton btnConsolas;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -688,7 +765,6 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private javax.swing.JButton btnListaUsuarios;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnRentas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -703,10 +779,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCedula;
+    private javax.swing.JLabel lblCedulaToFill;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblEdad;
@@ -716,7 +791,8 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel pnlReservas;
-    private javax.swing.JLabel txtCedula;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JLabel txtCorreo;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtEdad;
