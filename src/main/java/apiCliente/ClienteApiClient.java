@@ -64,4 +64,20 @@ public class ClienteApiClient {
 			throw new Exception("Error al guardar el cliente");
 		}
 	}
+	public static Cliente updateCliente(String idCliente, Cliente cliente) throws Exception {
+		Response<Cliente> response = clienteApiService.updateUsuario(idCliente, cliente).execute();
+		if(response.isSuccessful()) {
+			return response.body();
+		}else{
+			throw new Exception("Error al actualizar el cliente");
+		}
+	}
+	public static Cliente buscarClientePorId(String id) throws Exception {
+		Response<Cliente> response = clienteApiService.getUsuarioById(id).execute();
+		if(response.isSuccessful()) {
+			return response.body();
+		}else{
+			throw new Exception("Error al buscar el cliente");
+		}
+	}
 }
