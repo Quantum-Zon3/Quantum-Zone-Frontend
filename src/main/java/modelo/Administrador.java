@@ -1,5 +1,5 @@
 
-package com.example.Quantum_Zone_Backend.modelo;
+package modelo;
 import java.util.UUID;
 /**
  *
