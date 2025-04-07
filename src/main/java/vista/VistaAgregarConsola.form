@@ -543,6 +543,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txtConsola">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConsolaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>

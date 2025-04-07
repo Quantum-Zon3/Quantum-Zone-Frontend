@@ -10,7 +10,7 @@ import java.util.UUID;
  * @author shadow111285
  */
 public class Consola {
-	private String id;
+    private String id;
     private String marca;
     private String consola;
     private LocalDate fechaDePublicacion;

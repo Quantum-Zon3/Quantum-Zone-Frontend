@@ -34,17 +34,21 @@ public class InicioSecion extends javax.swing.JFrame {
     }
     
     private void iniciarSecion(){
-        if (!(validarCampos())) {
+        if (!(validarCampos() || txtContraseña.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
         }
         else{
             try{
                String id = txtDocumento.getText();
                Administrador admin = adminClient.loggearAdmin(id);
+               if(admin.getContraseña()==txtContraseña.getText()) {
                VistaMenu vista = new VistaMenu();
                vista.setVisible(true);
                this.dispose();
-                
+               }
+               else{
+				   JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
+			   }
             }catch(Exception ex){
                 ex.printStackTrace();
             }

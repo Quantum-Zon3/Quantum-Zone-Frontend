@@ -39,7 +39,7 @@ public class AdministradorApiClient {
 		}
 		
 	}
-	public static Administrador loggearAdmin(String id) throws Exception {
+	public Administrador loggearAdmin(String id) throws Exception {
 			Response<Administrador> admin = administradorApiService.getAdministradorById(id).execute();
 			if(admin.isSuccessful()) {
 				return admin.body();

@@ -4,6 +4,7 @@
  */
 package vista;
 
+import apiCliente.ConsolaClient;
 import javax.swing.JOptionPane;
 import vista.VistaGestionInventario;
 
@@ -12,12 +13,13 @@ import vista.VistaGestionInventario;
  * @author shadow111285
  */
 public class VistaAgregarConsola extends javax.swing.JFrame {
-
+    private ConsolaClient consolaCliente;
     /**
      * Creates new form VistaAgregarConsola
      */
     public VistaAgregarConsola() {
         initComponents();
+        this.consolaCliente = new ConsolaClient();
         setLocationRelativeTo(this);
     }
 
@@ -251,6 +253,12 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(102, 0, 102));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtConsola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConsolaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -597,6 +605,10 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         JOptionPane.showMessageDialog(null, "Se elimino correctamente");        // TODO add your handling code here:
     }//GEN-LAST:event_EliminarActionPerformed
+
+    private void txtConsolaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsolaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConsolaActionPerformed
 
     /**
      * @param args the command line arguments
