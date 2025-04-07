@@ -16,8 +16,10 @@ import modelo.Cliente;
  * @author DARIO LOPEZ
  */
 public class VistaGestionClientes extends javax.swing.JFrame {
-	private final ClienteApiClient clienteApiClient;
-	private Cliente clienteBuscar;
+
+    private final ClienteApiClient clienteApiClient;
+    private Cliente clienteBuscar;
+
     /**
      * Creates new form VistaGestionClientes
      */
@@ -630,13 +632,13 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
         VistaGestionDeReservas vg = new VistaGestionDeReservas();
         vg.setVisible(true);
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         VistaInventario vgi = new VistaInventario();
         vgi.setVisible(true);
-        this.dispose();   
+        this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
@@ -647,13 +649,13 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas(); 
+        VistaGestionDeConsolas va  = new VistaGestionDeConsolas();
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        VistaAñadirCliente va = new VistaAñadirCliente();
+        VistaAñadirCliente va  = new VistaAñadirCliente();
         va.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAñadirActionPerformed
@@ -661,64 +663,78 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnEliminarActionPerformed
         int filaSeleccionada = tblClientes.getSelectedRow();
 
-    if (filaSeleccionada != -1) {
-        String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idCliente + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            this.clienteApiClient.deleteCliente(idCliente);
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
-            // Recargar la tabla
-            llenarTablaClientes();
+        if (filaSeleccionada != -1) {
+            String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idCliente + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                this.clienteApiClient.deleteCliente(idCliente);
+                // Mostrar mensaje de éxito
+                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+                // Recargar la tabla
+                llenarTablaClientes();
+            }
+        } else {
+            // Mostrar mensaje si no hay fila seleccionada
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
         }
-    } else {
-        // Mostrar mensaje si no hay fila seleccionada
-        JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
-    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo editar");
+        int filaSeleccionada = tblClientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idCliente + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                VistaEditarCliente vs = new VistaEditarCliente(idCliente);
+                vs.setVisible(true);
+                this.dispose();
+                llenarTablaClientes();
+            }
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
-       clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText());
-       if(clienteBuscar != null){
+        clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText());
+        if (clienteBuscar != null) {
             llenarDatosCliente(clienteBuscar);
-	}else{
+        } else {
             throw new Exception("No se encontro el cliente");
-	}
+        }
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
-  private void llenarDatosCliente(Cliente cliente) {
-		txtNombre.setText(cliente.getNombre());
-		lblCedulaToFill.setText(cliente.getCedula());
-		txtEdad.setText(String.valueOf(cliente.getEdad()));
-		txtDireccion.setText(cliente.getDireccion());
-		txtTelefono.setText(cliente.getTelefono());
-		txtCorreo.setText(cliente.getEmail());
-		txtFechaRegistro.setText(cliente.getFechaRegistro().toString());
-	}
+    private void llenarDatosCliente(Cliente cliente) {
+        txtNombre.setText(cliente.getNombre());
+        lblCedulaToFill.setText(cliente.getCedula());
+        txtEdad.setText(String.valueOf(cliente.getEdad()));
+        txtDireccion.setText(cliente.getDireccion());
+        txtTelefono.setText(cliente.getTelefono());
+        txtCorreo.setText(cliente.getEmail());
+        txtFechaRegistro.setText(cliente.getFechaRegistro().toString());
+    }
+
     private void llenarTablaClientes() {
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id","Cedula","Nombre","Edad","Dirrecion","Telefono","correo","Registro"});
-        
+        model.setColumnIdentifiers(new Object[]{"id", "Cedula", "Nombre", "Edad", "Dirrecion", "Telefono", "correo", "Registro"});
+
         List<Cliente> aux = clienteApiClient.listarCliente();
         for (Cliente cliente : aux) {
-                model.addRow(new Object[]{
-                	cliente.getId(),
-                        cliente.getCedula(),
-                	cliente.getNombre(),
-                	cliente.getEdad(),
-                        cliente.getDireccion(),
-                        cliente.getTelefono(),
-                        cliente.getEmail(),
-                        cliente.getFechaRegistro().toString()
-                        
-                });
+            model.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getCedula(),
+                cliente.getNombre(),
+                cliente.getEdad(),
+                cliente.getDireccion(),
+                cliente.getTelefono(),
+                cliente.getEmail(),
+                cliente.getFechaRegistro().toString()
+
+            });
         }
         tblClientes.setModel(model);
-    }    
-    
+    }
+
     /**
      * @param args the command line arguments
      */

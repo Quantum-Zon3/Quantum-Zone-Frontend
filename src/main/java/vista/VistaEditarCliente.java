@@ -5,27 +5,28 @@
 package vista;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import apiCliente.ClienteApiClient;
 import modelo.Cliente;
 
-/**default small
+/**
  *
  * @author DARIO LOPEZ
  */
+public class VistaEditarCliente extends javax.swing.JFrame {
 
-public class VistaAñadirCliente extends javax.swing.JFrame {
-	private final ClienteApiClient clienteApiClient;
     /**
-     * Creates new form VistaAñadirCliente
+     * Creates new form VistaEditarCliente
      */
-    public VistaAñadirCliente() {
+	private final ClienteApiClient clienteApiClient;
+	private String idCliente;
+    public VistaEditarCliente(String idCliente) {
         initComponents();
-        setLocationRelativeTo(this);
         this.clienteApiClient = new ClienteApiClient();
+        llenarDatos(idCliente);
+        this.idCliente = idCliente;
+        
     }
 
     /**
@@ -71,6 +72,7 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
         boxAño = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(746, 523));
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -485,28 +487,46 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsolasActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-    	try {
-    	    String cedula = txtCedula.getText();
-    	    String nombre = txtNombre.getText();
-    	    int edad = Integer.parseInt(txtEdad.getText());
-    	    String direccion = txtDireccion.getText();
-    	    String telefono = txtTelefono.getText();
-    	    String correo = txtCorreo.getText();
-    	    int año = Integer.parseInt(boxAño.getSelectedItem().toString());
-    	    int mes = boxMes.getSelectedIndex() + 1; 
-    	    int dia = Integer.parseInt(boxDia.getSelectedItem().toString());
-    	    LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
-    	    Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
-		    clienteApiClient.saveCliente(cliente);
-    	    JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
-    	} catch (NumberFormatException ex) {
-    	    JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
-    	} catch (Exception ex) {
-    	    JOptionPane.showMessageDialog(this, "Error al añadir el cliente", "Error", JOptionPane.ERROR_MESSAGE);
-    	    ex.printStackTrace(); 
-    	} 
+        try {
+            String cedula = txtCedula.getText();
+            String nombre = txtNombre.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String direccion = txtDireccion.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+            int año = Integer.parseInt(boxAño.getSelectedItem().toString());
+            int mes = boxMes.getSelectedIndex() + 1;
+            int dia = Integer.parseInt(boxDia.getSelectedItem().toString());
+            LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
+            Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
+            clienteApiClient.updateCliente(this.idCliente,cliente);
+            JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al añadir el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnAñadirActionPerformed
-
+    private void llenarDatos(String id){
+    	try {
+    		Cliente cliente = clienteApiClient.buscarClientePorId(id);
+    		txtCedula.setText(cliente.getCedula());
+    		txtNombre.setText(cliente.getNombre());
+    		txtEdad.setText(String.valueOf(cliente.getEdad()));
+    		txtDireccion.setText(cliente.getDireccion());
+    		txtTelefono.setText(cliente.getTelefono());
+    		txtCorreo.setText(cliente.getEmail());
+    		boxDia.setSelectedItem(cliente.getFechaRegistro().getDayOfMonth());
+    		boxMes.setSelectedItem(cliente.getFechaRegistro().getMonthValue());
+    		boxAño.setSelectedItem(cliente.getFechaRegistro().getYear());
+    	}
+    	catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al encontrar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}    
+    }
+    
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
@@ -528,20 +548,20 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaAñadirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaAñadirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaAñadirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaAñadirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAñadirCliente().setVisible(true);
+                new VistaEditarCliente(null).setVisible(true);
             }
         });
     }
