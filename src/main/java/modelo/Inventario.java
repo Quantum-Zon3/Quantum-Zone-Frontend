@@ -1,4 +1,4 @@
-package modelo;
+package com.example.Quantum_Zone_Backend.modelo;
 
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +21,9 @@ public class Inventario {
 
 	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Map<String, Consola> getConsolas() {

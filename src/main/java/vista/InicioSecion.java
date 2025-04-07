@@ -16,8 +16,7 @@ import retrofit2.Response;
 public class InicioSecion extends javax.swing.JFrame {
     
     private AdministradorApiClient adminClient;
-    
-
+   
     /**
      * Creates new form InicioSecion
      */
