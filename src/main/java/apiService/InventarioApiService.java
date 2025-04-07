@@ -13,5 +13,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface InventarioApiService {
-
+		@GET("/quantumZone/inventarios")
+	Call<List<Inventario>> getAllInventarios();
+		
+		@GET("/quantumZone/inventarios/{id}")
+	Call<Inventario> getInventarioById(@Path("id") String id);
 }
