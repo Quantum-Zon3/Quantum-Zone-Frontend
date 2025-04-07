@@ -1,4 +1,4 @@
-package com.example.Quantum_Zone_Backend.modelo;
+package modelo;
 
 import java.util.Map;
 import java.util.UUID;
