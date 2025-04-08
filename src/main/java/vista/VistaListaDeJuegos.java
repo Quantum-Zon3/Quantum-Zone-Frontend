@@ -4,8 +4,8 @@
  */
 package vista;
 
-import modelo.Videojuego;
-import controlador.ControladorGestionVideojuegos;
+import modelo.VideoJuego;
+import apiCliente.VideojuegoClient;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class VistaListaDeJuegos extends javax.swing.JFrame {
-    private ControladorGestionVideojuegos controladorVideojuegos;
+    private VideojuegoClient controladorVideojuegos;
 
     /**
      * Creates new form VistaListaDeJuegos
      */
     public VistaListaDeJuegos() {
         initComponents();
-        this.controladorVideojuegos = new ControladorGestionVideojuegos();
+        this.controladorVideojuegos = new VideojuegoClient();
         llenarTabla();
         setLocationRelativeTo(this);
     }
