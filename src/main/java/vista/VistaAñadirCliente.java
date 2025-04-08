@@ -52,7 +52,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        lblFechaRegistro = new javax.swing.JLabel();
         lblEdad = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
@@ -66,9 +65,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        boxDia = new javax.swing.JComboBox<>();
-        boxMes = new javax.swing.JComboBox<>();
-        boxAño = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -251,9 +247,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario"));
 
-        lblFechaRegistro.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblFechaRegistro.setText("Fecha Registro:");
-
         lblEdad.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         lblEdad.setText("Edad:");
 
@@ -288,12 +281,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
             }
         });
 
-        boxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        boxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Novienbre", "Diciembre" }));
-
-        boxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -322,18 +309,9 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
                         .addGap(70, 70, 70)
                         .addComponent(txtTelefono))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCorreo)
-                            .addComponent(lblFechaRegistro))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(boxDia, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCorreo))
+                        .addComponent(lblCorreo)
+                        .addGap(91, 91, 91)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -364,20 +342,10 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefono)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(lblFechaRegistro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCorreo)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCorreo)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(90, Short.MAX_VALUE))
@@ -492,10 +460,11 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
     	    String direccion = txtDireccion.getText();
     	    String telefono = txtTelefono.getText();
     	    String correo = txtCorreo.getText();
-    	    int año = Integer.parseInt(boxAño.getSelectedItem().toString());
-    	    int mes = boxMes.getSelectedIndex() + 1; 
-    	    int dia = Integer.parseInt(boxDia.getSelectedItem().toString());
-    	    LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
+    	    LocalDate fechaRegistro = LocalDate.now();
+    	    if (cedula.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
+		        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+		        return;
+		    }
     	    Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
 		    clienteApiClient.saveCliente(cliente);
     	    JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
@@ -547,9 +516,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxAño;
-    private javax.swing.JComboBox<String> boxDia;
-    private javax.swing.JComboBox<String> boxMes;
     private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnConsolas;
     private javax.swing.JButton btnInventario;
@@ -569,7 +535,6 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblEdad;
-    private javax.swing.JLabel lblFechaRegistro;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel logo;
