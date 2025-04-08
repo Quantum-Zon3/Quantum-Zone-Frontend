@@ -66,7 +66,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 0, 102));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Puestos"));
 
         tablaSillas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,7 +97,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Controles"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Objetos"));
 
         tablaControles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,11 +198,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Añadir productos ->");
+        jLabel1.setText("Añadir objetos ->");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("| Inventario |");
+        jLabel3.setText(" Inventario ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -219,7 +219,7 @@ public class VistaInventario extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(304, Short.MAX_VALUE)
+                .addContainerGap(360, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(156, 156, 156)
                 .addComponent(jLabel1)
@@ -426,7 +426,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
     private void btnAñadirInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirInventarioActionPerformed
         // TODO add your handling code here:
-        VistaGestionInventario vl = new VistaGestionInventario();
+        VistaGestionObjetos vl = new VistaGestionObjetos();
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAñadirInventarioActionPerformed
