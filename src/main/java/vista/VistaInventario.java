@@ -5,23 +5,23 @@
 package vista;
 
 
-import controlador.ControladorGestionVideojuegos;
+
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import modelo.Videojuego;
+
 
 /**
  *
  * @author USER
  */
 public class VistaInventario extends javax.swing.JFrame {
-    private ControladorGestionVideojuegos controladorVideojuegos;
+	
+ 
     /**
      * Creates new form VistaInventario
      */
     public VistaInventario() {
         initComponents();
-        controladorVideojuegos = new ControladorGestionVideojuegos();
         llenarTablaVideojuegos();
         setLocationRelativeTo(this);
     }
@@ -473,7 +473,7 @@ public class VistaInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsolas8ActionPerformed
 
     private void llenarTablaVideojuegos (){
-        DefaultTableModel model = new DefaultTableModel(){
+        /**DefaultTableModel model = new DefaultTableModel(){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
@@ -488,6 +488,7 @@ public class VistaInventario extends javax.swing.JFrame {
             });
         }
         tablaVideojuegos.setModel(model);
+ */
     }
 
     /**
