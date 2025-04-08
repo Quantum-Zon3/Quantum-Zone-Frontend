@@ -4,28 +4,25 @@
  */
 package vista;
 
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
-
-import apiCliente.ClienteApiClient;
-import modelo.Cliente;
+import apiCliente.ObjetoApiClient;
+import modelo.Objeto;
 
 /**
  *
  * @author DARIO LOPEZ
  */
-public class VistaEditarCliente extends javax.swing.JFrame {
-
+public class VistaEditarObjeto extends javax.swing.JFrame {
+	private final ObjetoApiClient objetoApiClient;
+	private final String idObjeto;
     /**
-     * Creates new form VistaEditarCliente
+     * Creates new form VistaEditarObjetos
      */
-	private final ClienteApiClient clienteApiClient;
-	private String idCliente;
-    public VistaEditarCliente(String idCliente) {
-        initComponents();
-        this.clienteApiClient = new ClienteApiClient();
-        llenarDatos(idCliente);
-        this.idCliente = idCliente;      
+    public VistaEditarObjeto(String idObjeto) {
+		initComponents();
+		this.objetoApiClient = new ObjetoApiClient();
+		llenarDatos(idObjeto);
+		this.idObjeto = idObjeto;
     }
 
     /**
@@ -52,26 +49,18 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        lblFechaRegistro = new javax.swing.JLabel();
-        lblEdad = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblTelefono = new javax.swing.JLabel();
-        lblCorreo = new javax.swing.JLabel();
-        lblCedula = new javax.swing.JLabel();
-        lblDireccion = new javax.swing.JLabel();
         btnAñadir = new javax.swing.JButton();
-        txtCedula = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        txtEdad = new javax.swing.JTextField();
-        txtDireccion = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
-        boxDia = new javax.swing.JComboBox<>();
-        boxMes = new javax.swing.JComboBox<>();
-        boxAño = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        lblCedula = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JComboBox<>();
+        txtCategoria = new javax.swing.JTextField();
+        lblTelefono1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(746, 523));
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -248,30 +237,9 @@ public class VistaEditarCliente extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Añadir Cliente");
+        jLabel1.setText("Editar Objetos");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario"));
-
-        lblFechaRegistro.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblFechaRegistro.setText("Fecha Registro:");
-
-        lblEdad.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblEdad.setText("Edad:");
-
-        lblNombre.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblNombre.setText("Nombre:");
-
-        lblTelefono.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblTelefono.setText("Telefono:");
-
-        lblCorreo.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblCorreo.setText("Correo:");
-
-        lblCedula.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblCedula.setText("Cedula:");
-
-        lblDireccion.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        lblDireccion.setText("Direccion:");
 
         btnAñadir.setBackground(new java.awt.Color(0, 0, 204));
         btnAñadir.setForeground(new java.awt.Color(255, 255, 255));
@@ -283,103 +251,87 @@ public class VistaEditarCliente extends javax.swing.JFrame {
             }
         });
 
+        lblNombre.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblNombre.setText("Nombre:");
+
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
 
-        boxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
 
-        boxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Novienbre", "Diciembre" }));
+        lblCedula.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblCedula.setText("Descripcion:");
 
-        boxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        lblTelefono.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblTelefono.setText("Estado");
+
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Operativo", "Mantenimiento", "" }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstadoActionPerformed(evt);
+            }
+        });
+
+        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriaActionPerformed(evt);
+            }
+        });
+
+        lblTelefono1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblTelefono1.setText("Categoria");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCedula)
-                            .addComponent(lblNombre))
-                        .addGap(77, 77, 77)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCedula)
-                            .addComponent(txtNombre)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblEdad)
-                        .addGap(101, 101, 101)
-                        .addComponent(txtEdad))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblDireccion)
-                        .addGap(63, 63, 63)
-                        .addComponent(txtDireccion))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblTelefono)
-                        .addGap(70, 70, 70)
-                        .addComponent(txtTelefono))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCorreo)
-                            .addComponent(lblFechaRegistro))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(boxDia, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCorreo))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCedula)
+                    .addComponent(lblNombre)
+                    .addComponent(lblTelefono)
+                    .addComponent(lblTelefono1))
+                .addGap(77, 77, 77)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(txtCategoria)
+                    .addComponent(cbEstado, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCedula)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEdad)
-                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDireccion)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelefono)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(lblFechaRegistro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCorreo)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)
+                        .addComponent(lblTelefono))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(57, 57, 57)
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTelefono1)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(119, 119, 119)
                 .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(90, Short.MAX_VALUE))
         );
@@ -487,48 +439,55 @@ public class VistaEditarCliente extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         try {
-            String cedula = txtCedula.getText();
             String nombre = txtNombre.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String direccion = txtDireccion.getText();
-            String telefono = txtTelefono.getText();
-            String correo = txtCorreo.getText();
-            int año = Integer.parseInt(boxAño.getSelectedItem().toString());
-            int mes = boxMes.getSelectedIndex() + 1;
-            int dia = Integer.parseInt(boxDia.getSelectedItem().toString());
-            LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
-            Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
-            clienteApiClient.updateCliente(this.idCliente,cliente);
-            JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
+     	   	String descripcion = txtDescripcion.getText();
+            String estado = cbEstado.getSelectedItem().toString();
+            String categoria = txtCategoria.getText();
+            if (nombre.isEmpty() || descripcion.isEmpty() || estado.equals("Seleccione") || categoria.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+            Objeto objetoExistente = objetoApiClient.obtenerObjetoPorId(this.idObjeto);
+            Objeto objeto = new Objeto(nombre, descripcion, objetoExistente.getFecha(), estado, categoria);
+            
+            JOptionPane.showMessageDialog(this, "objeto guardado correctamente");
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos ", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al añadir el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al añadir el objeto", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAñadirActionPerformed
     private void llenarDatos(String id){
     	try {
-    		Cliente cliente = clienteApiClient.buscarClientePorId(id);
-    		txtCedula.setText(cliente.getCedula());
-    		txtNombre.setText(cliente.getNombre());
-    		txtEdad.setText(String.valueOf(cliente.getEdad()));
-    		txtDireccion.setText(cliente.getDireccion());
-    		txtTelefono.setText(cliente.getTelefono());
-    		txtCorreo.setText(cliente.getEmail());
-    		boxDia.setSelectedItem(cliente.getFechaRegistro().getDayOfMonth());
-    		boxMes.setSelectedItem(cliente.getFechaRegistro().getMonthValue());
-    		boxAño.setSelectedItem(cliente.getFechaRegistro().getYear());
+    		Objeto objeto = objetoApiClient.obtenerObjetoPorId(id);
+    		if (objeto != null) {
+				txtNombre.setText(objeto.getNombre());
+				txtDescripcion.setText(objeto.getDescripcion());
+				cbEstado.setSelectedItem(objeto.getEstado());
+				txtCategoria.setText(objeto.getCategoria());
+			} else {
+				JOptionPane.showMessageDialog(this, "Objeto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+			}
     	}
     	catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error al encontrar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al encontrar al objeto", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
-		}    
+		}
+    	
     }
-    
+
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstadoActionPerformed
+
+    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -547,28 +506,26 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarObjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarObjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarObjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaEditarObjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaEditarCliente(null).setVisible(true);
+                new VistaEditarObjeto(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxAño;
-    private javax.swing.JComboBox<String> boxDia;
-    private javax.swing.JComboBox<String> boxMes;
     private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnConsolas;
     private javax.swing.JButton btnInventario;
@@ -576,6 +533,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnListaUsuarios;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnRentas;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -584,19 +542,14 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCedula;
-    private javax.swing.JLabel lblCorreo;
-    private javax.swing.JLabel lblDireccion;
-    private javax.swing.JLabel lblEdad;
-    private javax.swing.JLabel lblFechaRegistro;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTelefono1;
     private javax.swing.JLabel logo;
-    private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEdad;
+    private javax.swing.JTextField txtCategoria;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
