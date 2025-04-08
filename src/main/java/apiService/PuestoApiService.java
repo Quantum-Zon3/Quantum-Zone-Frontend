@@ -24,7 +24,7 @@ public interface PuestoApiService {
 	Call<Puesto> createPuesto(@Body Puesto puesto);
 
 	@PUT("/quantumZone/puestos/{id}")
-	Call<Puesto> updatePuesto(@Path("id") String id, @Body Puesto puesto, @Header("Authorization") String token);
+	Call<Puesto> updatePuesto(@Path("id") String id, @Body Puesto puesto);
 
 	@DELETE("/quantumZone/puestos/{id}")
 	Call<Void> deletePuesto(@Path("id") String id);
