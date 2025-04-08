@@ -484,9 +484,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     		txtDireccion.setText(cliente.getDireccion());
     		txtTelefono.setText(cliente.getTelefono());
     		txtCorreo.setText(cliente.getEmail());
-    		boxDia.setSelectedItem(cliente.getFechaRegistro().getDayOfMonth());
-    		boxMes.setSelectedItem(cliente.getFechaRegistro().getMonthValue());
-    		boxAño.setSelectedItem(cliente.getFechaRegistro().getYear());
+    		
     	}
     	catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al encontrar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
