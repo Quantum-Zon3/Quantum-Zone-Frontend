@@ -551,6 +551,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        feature/ApiClientVideojuegoYPuesto
         VistaInventario vgi = new VistaInventario();
         vgi.setVisible(true);
         this.dispose();        // TODO add your handling code here:

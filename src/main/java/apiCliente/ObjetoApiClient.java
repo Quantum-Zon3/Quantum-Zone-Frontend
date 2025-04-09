@@ -90,6 +90,19 @@ public class ObjetoApiClient {
 			ex.printStackTrace();
 		}
 	}
+	public static List<Objeto> buscarObjetos(String categoria) throws IOException {
+		try {
+			Response<List<Objeto>> response = objetoApiService.buscarObjetos(categoria).execute();
+			if (response.isSuccessful()) {
+				return response.body();
+			} else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 	
 
 }

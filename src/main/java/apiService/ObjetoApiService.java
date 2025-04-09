@@ -30,11 +30,11 @@ public interface ObjetoApiService {
 
 	@GET("/quantumZone/objetos/buscar")
 	Call<List<Objeto>> buscarObjetos(
-		@Query("id") String id,
-		@Query("nombre") String nombre,
-		@Query("marca") String marca,
-		@Query("modelo") String modelo,
-		@Query("precio") double precio,
-		@Query("fechaRegistro") String fechaRegistro
+		//@Query("id") String id,
+		//@Query("nombre") String nombre,
+		//@Query("marca") String marca,
+		//@Query("modelo") String modelo,
+		//@Query("precio") double precio,
+		@Query("categoria") String categoria
 	);
 }
