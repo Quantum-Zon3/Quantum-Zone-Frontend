@@ -31,11 +31,6 @@ public interface PuestoApiService {
 
 	@GET("/quantumZone/puestos/buscar")
 	Call<List<Puesto>> buscarPuestos(
-			@Query("id") String id,
-			@Query("nombre") String nombre,
-			@Query("marca") String marca,
-			@Query("modelo") String modelo,
-			@Query("precio") double precio,
-			@Query("fechaRegistro") String fechaRegistro
+			@Query("id") String numeroDePuesto
 	);
 }
