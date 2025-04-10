@@ -350,7 +350,12 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
         btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                try {
+					btnEditarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -370,7 +375,12 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
         btnBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                try {
+					btnBuscarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -551,7 +561,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        feature/ApiClientVideojuegoYPuesto
+        
         VistaInventario vgi = new VistaInventario();
         vgi.setVisible(true);
         this.dispose();        // TODO add your handling code here:
