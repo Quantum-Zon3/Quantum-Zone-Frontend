@@ -32,30 +32,33 @@ public class InicioSecion extends javax.swing.JFrame {
         return true;
     }
     
-    private void iniciarSecion(){
-        if (!(validarCampos() || txtContraseña.getText().isEmpty())) {
+    private void iniciarSecion() {
+        if (!validarCampos() || txtContraseña.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
+            return;
         }
-        else{
-            try{
-               String id = txtDocumento.getText();
-               Administrador admin = adminClient.loggearAdmin(id);
-               if(admin.getContraseña()==txtContraseña.getText()) {
-               VistaMenu vista = new VistaMenu();
-               vista.setVisible(true);
-               this.dispose();
-               }
-               else{
-				   JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
-			   }
-            }catch(Exception ex){
-                ex.printStackTrace();
+
+        try {
+            String cedula = txtDocumento.getText();
+            Administrador admin = adminClient.buscarAdministradorPorCedula(cedula);
+            if (admin == null) {
+				JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+				return;
+			}
+            if (admin.getContraseña().equals(txtContraseña.getText())) {
+                VistaMenu vista = new VistaMenu();
+                vista.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
             }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());
+            ex.printStackTrace();
         }
-    
-    
         
-    }    
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
