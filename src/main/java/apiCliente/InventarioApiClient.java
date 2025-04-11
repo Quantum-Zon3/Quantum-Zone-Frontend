@@ -1,10 +1,11 @@
 package apiCliente;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -15,21 +16,16 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import modelo.VideoJuego;
-
-import apiService.VideojuegoApiService;
-import java.time.LocalDate;
-
-import retrofit2.Call;
+import apiService.InventarioApiService;
+import modelo.*;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-public class VideojuegoClient {
-	private static final String BASE_URL = "http://localhost:8080";
-	private static VideojuegoApiService videojuegoApiService;
-
-	public VideojuegoClient() {
+public class InventarioApiClient {
+	private static final String BASE_URL = "http://localHost:8080";
+	private static InventarioApiService inventarioApiService;
+	
+	public InventarioApiClient() {
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
 					@Override
@@ -47,41 +43,14 @@ public class VideojuegoClient {
 
 			Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create(gson))
+				.addConverterFactory(GsonConverterFactory.create(gson)) 
 				.build();
-		videojuegoApiService = retrofit.create(VideojuegoApiService.class);
-
+		inventarioApiService = retrofit.create(InventarioApiService.class);
 	}
-
-	public static List<VideoJuego> listarVideojuego() {
+	// Obtener todos los inventarios
+	public List<Inventario> obtenerInventarios() throws IOException {
 		try {
-			Response<List<VideoJuego>> response = videojuegoApiService.getAllVideojuegos().execute();
-			if (response.isSuccessful()) {
-				return response.body();
-			} else {
-				System.out.println("Error" + response.code());
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return null;
-	}
-
-	public static VideoJuego buscarVideojuegoPorId(String id) throws Exception {
-		Response<VideoJuego> videojuego = videojuegoApiService.getVideojuegoById(id).execute();
-		if (videojuego.isSuccessful()) {
-			if (videojuego.body() == null) {
-				throw new Exception("Videojuego no encontrado");
-			}
-			return videojuego.body();
-		} else {
-			throw new Exception("Datos Incorrectos");
-		}
-	}
-
-	public static VideoJuego crearVideojuego(VideoJuego videojuego) throws Exception {
-		try {
-			Response<VideoJuego> response = videojuegoApiService.createVideojuego(videojuego).execute();
+			Response<List<Inventario>> response = inventarioApiService.getAllInventarios().execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -92,24 +61,9 @@ public class VideojuegoClient {
 		}
 		return null;
 	}
-
-	public static void eliminarVideojuego(String id) throws Exception {
-
+	public Inventario obtenerInventarioPorId(String id) throws IOException {
 		try {
-			Response<Void> response = videojuegoApiService.deleteVideojuego(id).execute();
-			if (response.isSuccessful()) {
-				System.out.println("Videojuego eliminado");
-			} else {
-				System.out.println("Error " + response.code());
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public static VideoJuego actualizarVideojuego(String id, VideoJuego videojuego) throws Exception {
-		try {
-			Response<VideoJuego> response = videojuegoApiService.updateVideojuego(id, videojuego).execute();
+			Response<Inventario> response = inventarioApiService.getInventarioById(id).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -119,5 +73,60 @@ public class VideojuegoClient {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+	public List<Consola> obtenerConsolas() throws IOException {
+		try {
+			Response<List<Consola>> response = inventarioApiService.getConsolas().execute();
+			if (response.isSuccessful()) {
+				return response.body();
+			} else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	public List<VideoJuego> obtenerVideoJuegos() throws IOException {
+		try {
+			Response<List<VideoJuego>> response = inventarioApiService.getVideoJuegos().execute();
+			if (response.isSuccessful()) {
+				return response.body();
+			} else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	public List<Objeto> obtenerObjetos() throws IOException {
+		try {
+			Response<List<Objeto>> response = inventarioApiService.getObjetos().execute();
+			if (response.isSuccessful()) {
+				return response.body();
+			} else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	public List<Puesto> obtenerPuestos() throws IOException {
+		try {
+			Response<List<Puesto>> response = inventarioApiService.getPuestos().execute();
+			if (response.isSuccessful()) {
+				return response.body();
+			} else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return new ArrayList<>();
 	}
 }

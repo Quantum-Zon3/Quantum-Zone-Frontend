@@ -6,7 +6,20 @@ package apiCliente;
 import apiService.ObjetoApiService;
 import modelo.*;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,9 +33,27 @@ public class ObjetoApiClient {
 	private static ObjetoApiService objetoApiService;
 
 	public ObjetoApiClient() {
-		Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+					@Override
+					public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+						return LocalDate.parse(json.getAsString());
+					}
+				})
+				.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+					@Override
+					public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+						return new JsonPrimitive(src.toString());
+					}
+				})
+				.create();
+
+			Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(BASE_URL)
+				.addConverterFactory(GsonConverterFactory.create(gson)) 
 				.build();
-		objetoApiService = retrofit.create(ObjetoApiService.class);
+
+			objetoApiService = retrofit.create(ObjetoApiService.class);
 	}
 
 	public List<Objeto> obtenerObjetos() throws IOException {
@@ -65,13 +96,17 @@ public class ObjetoApiClient {
 		}
 		return null;
 	}
-	public Objeto actualizarObjeto(String id, Objeto objeto) throws IOException {
+	public Objeto actualizarObjeto(String id, Objeto objeto) throws Exception {
 		try {
 			Response<Objeto> response = objetoApiService.updateObjeto(id, objeto).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
-				System.out.println("Error " + response.code());
+				 if (response.code() == 404) {
+			            throw new Exception("Objeto no encontrado");
+			        } else {	
+			            throw new Exception("Error al actualizar el objeto: " + response.code());
+			        }
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();

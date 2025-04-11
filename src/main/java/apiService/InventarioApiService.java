@@ -1,7 +1,9 @@
 package apiService;
 
 import java.util.List;
-import modelo.Inventario;
+import java.util.Map;
+
+import modelo.*;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -18,4 +20,16 @@ public interface InventarioApiService {
 		
 		@GET("/quantumZone/inventarios/{id}")
 	Call<Inventario> getInventarioById(@Path("id") String id);
+	
+		@GET("/quantumZone/consolas")
+		Call<List<Consola>> getConsolas();
+
+		@GET("/quantumZone/videojuegos")
+		Call<List<VideoJuego>> getVideoJuegos();
+
+		@GET("/quantumZone/objetos")
+		Call<List<Objeto>> getObjetos();
+
+		@GET("/quantumZone/puestos")
+		Call<List<Puesto>> getPuestos();
 }

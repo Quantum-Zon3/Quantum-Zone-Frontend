@@ -29,6 +29,7 @@ public class PuestoApiClient {
 	private static PuestoApiService puestoApiService;
 	
 	public PuestoApiClient() {
+
 		// Configurar Retrofit
 		Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
