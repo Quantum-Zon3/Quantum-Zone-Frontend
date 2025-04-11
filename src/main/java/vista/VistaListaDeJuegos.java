@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class VistaListaDeJuegos extends javax.swing.JFrame {
-    private VideojuegoClient controladorVideojuegos;
+   // private VideojuegoClient controladorVideojuegos;
 
     /**
      * Creates new form VistaListaDeJuegos
      */
     public VistaListaDeJuegos() {
         initComponents();
-        this.controladorVideojuegos = new VideojuegoClient();
+        //this.controladorVideojuegos = new VideojuegoClient();
         llenarTabla();
         setLocationRelativeTo(this);
     }
@@ -446,7 +446,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         String descripcion = txtDescripcion.getText();
         String clasificacion = txtClasificacion.getText();
         String tipo = txtTipo.getText();
-        Videojuego videojuego = new Videojuego(nombre,fecha,descripcion,clasificacion,tipo);
+        /**Videojuego videojuego = new Videojuego(nombre,fecha,descripcion,clasificacion,tipo);
         if(controladorVideojuegos.guardarVideojuego(videojuego)){
             JOptionPane.showMessageDialog(null, "Videojuego guardado con éxito");
             vaciarCampos();
@@ -458,12 +458,12 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para guardar el videojuego");
-        }
+        */}
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (!(txtNombre.getText().isEmpty())){
+        /**if (!(txtNombre.getText().isEmpty())){
             String nombre = txtNombre.getText();
             if (controladorVideojuegos.eliminarVideojuego(nombre)){
                 JOptionPane.showMessageDialog(null, "Videojuego eliminado correctamente");
@@ -475,7 +475,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Debe colocar el nombre del juego para eliminarlo");
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    */}//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
         // TODO add your handling code here:
@@ -491,7 +491,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        if (validarCampos()){
+        /*if (validarCampos()){
             String nombre = txtNombre.getText();
             String fecha = txtFecha.getText();
             String descripcion = txtDescripcion.getText();
@@ -507,11 +507,11 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo editar");
         }else
         JOptionPane.showMessageDialog(null, "Deben estar todos los campos llenos");    
-    }//GEN-LAST:event_btnEditarActionPerformed
+    */}//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(!(txtNombre.getText().isEmpty())){
+        /**if(!(txtNombre.getText().isEmpty())){
             String nombre = txtNombre.getText();
             Videojuego videojuego = controladorVideojuegos.buscarVideojuego(nombre);
             if (videojuego != null){
@@ -527,7 +527,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Debe colocar el nombre del juego");
         }                                       
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    */}//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnListaUsuarios8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios8ActionPerformed
         // TODO add your handling code here:
@@ -577,7 +577,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             }
         };
         model.setColumnIdentifiers(new Object[]{"Nombre", "Fecha", "Descripción", "Clasificación", "Tipo"});
-        ArrayList<Videojuego> juegosAux = controladorVideojuegos.getJuegos();
+        /**ArrayList<Videojuego> juegosAux = controladorVideojuegos.getJuegos();
         for (Videojuego juego : juegosAux){
             model.addRow(new Object[]{
                     juego.getNombre(),
@@ -586,7 +586,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                     juego.getPublico(),
                     juego.getTipo(),
             });
-        }
+        }*/
         tablaVideojuegos.setModel(model);
     }
 
