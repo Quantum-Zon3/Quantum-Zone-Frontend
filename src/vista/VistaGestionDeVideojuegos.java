@@ -4,19 +4,28 @@
  */
 package vista;
 
-import controlador.ControladorGestionVideojuegos;
-
+import apiCliente.PuestoApiClient;
+import apiCliente.VideojuegoClient;
+import modelo.VideoJuego;
+import javax.swing.JOptionPane;
+import modelo.Puesto;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import javax.swing.table.TableModel;
+import java.awt.event.ActionEvent;
 /**
  *
  * @author USER
  */
 public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
-    private ControladorGestionVideojuegos controladorVideojuegos;
+	
+    private  VideojuegoClient client = new VideojuegoClient();
+    private VideoJuego videojuegoAABuscar;
     /**
      * Creates new form VistaGestionDeVideojuegos
      */
     public VistaGestionDeVideojuegos() {
-        controladorVideojuegos = new ControladorGestionVideojuegos();
+        client = new VideojuegoClient();
         initComponents();
         setLocationRelativeTo(this);
     }

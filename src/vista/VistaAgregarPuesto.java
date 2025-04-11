@@ -5,6 +5,12 @@
 package vista;
 
 import javax.swing.JOptionPane;
+import modelo.Puesto;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import javax.swing.table.TableModel;
+import apiCliente.PuestoApiClient;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -12,12 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class VistaAgregarPuesto extends javax.swing.JFrame {
 
+    private PuestoApiClient puesto = new PuestoApiClient();
+    private Puesto puestoBuscar;
+
     /**
      * Creates new form VistaAgregarPuesto
      */
     public VistaAgregarPuesto() {
         initComponents();
         setLocationRelativeTo(this);
+        this.puesto = new PuestoApiClient();
+        llenarTabla();
     }
 
     /**
@@ -339,7 +350,12 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
         btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                try {
+					btnEditarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -359,7 +375,12 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
         btnBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                try {
+					btnBuscarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -540,7 +561,8 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaGestionInventario vgi = new VistaGestionInventario();
+
+        VistaInventario vgi = new VistaInventario();
         vgi.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnInventarioActionPerformed
@@ -553,7 +575,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaAgregarPuesto va = new VistaAgregarPuesto(); 
+        VistaAgregarPuesto va  = new VistaAgregarPuesto();
         va.setVisible(true);
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -562,17 +584,52 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Se añadio correctamente");       // TODO add your handling code here:
     }//GEN-LAST:event_btnAñadirActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        JOptionPane.showMessageDialog(null, "Se edito  correctamente");      // TODO add your handling code here:
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnEditarActionPerformed
+        int fliaSelected = jTable1.getSelectedRow();
+        if (fliaSelected != -1) {
+			String idPuesto = (String) jTable1.getValueAt(fliaSelected, 0);
+			int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idPuesto + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
+			if (confirmacion == JOptionPane.YES_OPTION) {
+				puesto.actualizarPuesto(idPuesto, puestoBuscar);
+			} else {
+				JOptionPane.showMessageDialog(null, "No se edito el puesto");
+			}
+			return;
+		}
+    	JOptionPane.showMessageDialog(null, "Se edito  correctamente");      // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarActionPerformed
+    	
+    	DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setColumnIdentifiers(new Object[]{"Numero de puesto", "Consola", "Cantidad de sillas", "Cantidad de controles"});
+        
+        List<Puesto> aux = puesto.buscarPuestos(puestoBuscar.getNumeroDePuesto());
+        for (Puesto p : aux) {
+        				modelo.addRow(new Object[]{
+				p.getNumeroDePuesto(),
+				p.getConsola(),
+				p.getCantidadDeSillas(),
+				p.getCanditadDeControles()});}
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }
+    public void llenarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setColumnIdentifiers(new Object[]{"Numero de puesto", "Consola", "Cantidad de sillas", "Cantidad de controles"});
+
+        List<Puesto> aux = puesto.listarPuestos();
+        for (Puesto p : aux) {
+            modelo.addRow(new Object[]{
+                p.getNumeroDePuesto(),
+                p.getConsola(),
+                p.getCantidadDeSillas(),
+                p.getCanditadDeControles()});
+        }
+    }
 
     /**
      * @param args the command line arguments
