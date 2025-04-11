@@ -576,7 +576,9 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 	}// GEN-LAST:event_btnConsolasActionPerformed
 
 	private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAñadirActionPerformed
-		JOptionPane.showMessageDialog(null, "Se añadio correctamente"); // TODO add your handling code here:
+		VistaAñadirPuesto  vap = new VistaAñadirPuesto();
+		vap.setVisible(true);
+		this.dispose();// TODO add your handling code here:
 	}// GEN-LAST:event_btnAñadirActionPerformed
 
 	private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
@@ -620,29 +622,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 	}// GEN-LAST:event_btnEliminarActionPerformed
 
 	private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {// GEN-FIRST:event_btnBuscarActionPerformed
-		if (!(txtNumeroPuesto.getText().isEmpty())) {
-			String numeroDePuesto = txtNumeroPuesto.getText();
-			Puesto puestoBuscado = puesto.buscarPuestoPorNumero(numeroDePuesto);
-			if (puestoBuscado != null) {
-				JOptionPane.showMessageDialog(null, "El puesto fue encontrado");
-				Puesto puesto = this.puesto.buscarPuestoPorNumero(numeroDePuesto);
-				if (puesto != null) {
-					DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-					modelo.setRowCount(0);
-					Object[] row = new Object[5];
-					row[0] = puesto.getId();
-					row[1] = puesto.getNumeroDePuesto();
-					row[2] = puesto.getConsola().getConsola();
-					row[3] = puesto.getCantidadDeSillas();
-					row[4] = puesto.getCanditadDeControles();
-
-					modelo.addRow(row);
-				}
-				;
-			} else {
-				JOptionPane.showMessageDialog(null, "El puesto no fue encontrado");
-			}
-		} else {
+		
 			if (!(txtId.getText().isEmpty())) {
 				String id = txtId.getText();
 				Puesto puestoBuscado = PuestoApiClient.buscarPuestoPorId(id);
@@ -670,7 +650,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 				}
 			}
 		} // TODO add your handling code here:
-	}// GEN-LAST:event_btnBuscarActionPerformed
+	// GEN-LAST:event_btnBuscarActionPerformed
 
 	private void txtNumeroPuestoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNumeroPuestoActionPerformed
 		// TODO add your handling code here:
