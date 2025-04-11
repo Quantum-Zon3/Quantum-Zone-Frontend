@@ -90,7 +90,7 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	private static void eliminarPuesto(String id) throws Exception {
+	public static void eliminarPuesto(String id) throws Exception {
 		try {
 			Response<Void> response = puestoApiService.deletePuesto(id).execute();
 			if (response.isSuccessful()) {
