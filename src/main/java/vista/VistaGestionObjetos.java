@@ -441,7 +441,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
         VistaAñadirObjeto vs = new VistaAñadirObjeto();
         vs.setVisible(true);
         this.dispose();
-        JOptionPane.showMessageDialog(null, "Agregado con éxito");
+        
     }// GEN-LAST:event_btnAñadirActionPerformed
 
     private void btnListaUsuarios9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnListaUsuarios9ActionPerformed
@@ -489,6 +489,10 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
         String categoria = txtCategorio.getText();
         try {
 			List<Objeto> objetos = objetoApiClient.buscarObjetos(categoria);
+			if (objetos == null || objetos.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "No se encontraron objetos con la categoria: " + categoria);
+				return;
+			}
 			DefaultTableModel model = new DefaultTableModel();
 			model.setColumnIdentifiers(
 					new Object[]{"ID", "Nombre", "Descripcion", "Estado", "Categoria", "Fecha"});
