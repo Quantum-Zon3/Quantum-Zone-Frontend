@@ -9,13 +9,20 @@ import apiCliente.VideojuegoClient;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 
+import vista.VistaAñadirVideojuego;
 /**
  *
  * @author USER
  */
 public class VistaListaDeJuegos extends javax.swing.JFrame {
-    private VideojuegoClient controladorVideojuegos;
+    private VideojuegoClient controladorVideojuegos = new VideojuegoClient();
+    private List<VideoJuego> videojuegos;
 
     /**
      * Creates new form VistaListaDeJuegos
@@ -28,17 +35,13 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     }
     
     private boolean validarCampos() {
-        if (txtNombre.getText().isEmpty() || txtFecha.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtClasificacion.getText().isEmpty() || txtTipo.getText().isEmpty()) {
+        if (txtId.getText().isEmpty()) {
             return false;
         }
         return true;
     }
     public void vaciarCampos (){
-        txtNombre.setText(null);
-        txtFecha.setText(null);
-        txtDescripcion.setText(null);
-        txtClasificacion.setText(null);
-        txtTipo.setText(null);
+        txtId.setText(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,18 +59,10 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
-        txtClasificacion = new javax.swing.JTextField();
-        txtTipo = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVideojuegos = new javax.swing.JTable();
+        txtId = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         btnListaUsuarios8 = new javax.swing.JButton();
@@ -105,7 +100,12 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                try {
+					btnBuscarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -114,7 +114,12 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                try {
+					btnEliminarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -126,40 +131,6 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-
-        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescripcionActionPerformed(evt);
-            }
-        });
-
-        txtTipo.setForeground(new java.awt.Color(51, 51, 51));
-        txtTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTipoActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Nombre");
-
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Fecha de publicación");
-
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Descripción");
-
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Clasificación");
-
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Tipo");
 
         tablaVideojuegos.setBackground(new java.awt.Color(51, 51, 51));
         tablaVideojuegos.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,6 +148,14 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         tablaVideojuegos.setSelectionBackground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(tablaVideojuegos);
 
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Id");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -186,39 +165,31 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel5)
-                                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8))
-                                    .addComponent(txtClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnEliminar)
-                                    .addComponent(btnEditar)
-                                    .addComponent(btnGuardar)
-                                    .addComponent(btnBuscar))
-                                .addGap(33, 33, 33))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(29, 29, 29)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 52, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(16, 16, 16))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnEliminar)
+                                    .addComponent(btnBuscar))
+                                .addGap(62, 62, 62)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEditar)
+                                    .addComponent(btnGuardar))))
+                        .addGap(65, 65, 65))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,38 +198,19 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel5)
+                .addGap(155, 155, 155)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel6)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBuscar)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 69, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnEditar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnGuardar))
+                .addGap(358, 358, 358))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -440,87 +392,62 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if(validarCampos()){
-        String nombre = txtNombre.getText();
-        String fecha = txtFecha.getText();
-        String descripcion = txtDescripcion.getText();
-        String clasificacion = txtClasificacion.getText();
-        String tipo = txtTipo.getText();
-        Videojuego videojuego = new Videojuego(nombre,fecha,descripcion,clasificacion,tipo);
-        if(controladorVideojuegos.guardarVideojuego(videojuego)){
-            JOptionPane.showMessageDialog(null, "Videojuego guardado con éxito");
-            vaciarCampos();
-            llenarTabla();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Videojuego no se ha guardado");
-        }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para guardar el videojuego");
-        }
+    	VistaAñadirVideojuego vj = new VistaAñadirVideojuego();
+		vj.setVisible(true);
+		this.setVisible(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if (!(txtNombre.getText().isEmpty())){
-            String nombre = txtNombre.getText();
-            if (controladorVideojuegos.eliminarVideojuego(nombre)){
-                JOptionPane.showMessageDialog(null, "Videojuego eliminado correctamente");
-                vaciarCampos();
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnEliminarActionPerformed
+    	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                this.controladorVideojuegos.eliminarVideojuego(idVideojuego);
+                // Mostrar mensaje de éxito
+                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+                // Recargar la tabla
                 llenarTabla();
-            }else{
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el videojuego");
             }
-        }else {
-            JOptionPane.showMessageDialog(null, "Debe colocar el nombre del juego para eliminarlo");
+        } else {
+            // Mostrar mensaje si no hay fila seleccionada
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTipoActionPerformed
-
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
-
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        if (validarCampos()){
-            String nombre = txtNombre.getText();
-            String fecha = txtFecha.getText();
-            String descripcion = txtDescripcion.getText();
-            String clasificacion = txtClasificacion.getText();
-            String tipo = txtTipo.getText();
-            Videojuego videojuego = new Videojuego(nombre,fecha,descripcion,clasificacion,tipo);
-            if (controladorVideojuegos.actualizarVideojuego(videojuego)){
-                JOptionPane.showMessageDialog(null, "Se pudo editar correctamente el Videojuego");
-                vaciarCampos();
+    	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idVideojuego + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                VistaEditarVideojuego vs = new VistaEditarVideojuego(idVideojuego);
+                vs.setVisible(true);
+                this.dispose();
                 llenarTabla();
             }
-            else
-            JOptionPane.showMessageDialog(null, "No se pudo editar");
-        }else
-        JOptionPane.showMessageDialog(null, "Deben estar todos los campos llenos");    
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(!(txtNombre.getText().isEmpty())){
-            String nombre = txtNombre.getText();
-            Videojuego videojuego = controladorVideojuegos.buscarVideojuego(nombre);
+        if(!(txtId.getText().isEmpty())){
+            String nombre = txtId.getText();
+            VideoJuego videojuego = controladorVideojuegos.buscarVideojuegoPorId(nombre);
             if (videojuego != null){
-                JOptionPane.showMessageDialog(null, "Videojuego encontrado");
-                txtFecha.setText(videojuego.getFechaDePubliacion());
-                txtDescripcion.setText(videojuego.getDescripcion());
-                txtClasificacion.setText(videojuego.getPublico());
-                txtTipo.setText(videojuego.getTipo());
-                llenarTabla();
+            	DefaultTableModel modelo = (DefaultTableModel) tablaVideojuegos.getModel();
+				modelo.setRowCount(0);
+				Object[] row = new Object[5];
+				row[0] = videojuego.getNombre();
+				row[1] = videojuego.getFechaDePubliacion();
+				row[2] = videojuego.getDescripcion();
+				row[3] = videojuego.getPublico();
+				row[4] = videojuego.getTipo();
+				modelo.addRow(row);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo encontrar el videojuego");
             }
@@ -567,6 +494,10 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnConsolas7ActionPerformed
 
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -577,8 +508,8 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             }
         };
         model.setColumnIdentifiers(new Object[]{"Nombre", "Fecha", "Descripción", "Clasificación", "Tipo"});
-        ArrayList<Videojuego> juegosAux = controladorVideojuegos.getJuegos();
-        for (Videojuego juego : juegosAux){
+        List<VideoJuego> juegosAux = controladorVideojuegos.listarVideojuego();
+        for (VideoJuego juego : juegosAux){
             model.addRow(new Object[]{
                     juego.getNombre(),
                     juego.getFechaDePubliacion(),
@@ -602,23 +533,15 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu8;
     private javax.swing.JButton btnRentas8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logo5;
     private javax.swing.JTable tablaVideojuegos;
-    private javax.swing.JTextField txtClasificacion;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTipo;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }
