@@ -57,5 +57,21 @@ public class AdministradorApiClient {
 			e.printStackTrace();
 		}*/
 	}
+	public static Administrador buscarAdministradorPorCedula(String cedula) {
+		try {
+			Response<List<Administrador>> response = administradorApiService.buscarAdministradores(cedula).execute();
+			if(response.isSuccessful()){
+				List <Administrador> admins = response.body();
+				return admins.get(0);
+			}else {
+				return null;
+			}
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
 	
 }
