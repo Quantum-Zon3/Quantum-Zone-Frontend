@@ -5,8 +5,15 @@
 package vista;
 
 
+import apiCliente.InventarioApiClient;
+import modelo.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -15,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class VistaInventario extends javax.swing.JFrame {
+	private final InventarioApiClient inventarioApiClient;
 	
  
     /**
@@ -22,7 +30,11 @@ public class VistaInventario extends javax.swing.JFrame {
      */
     public VistaInventario() {
         initComponents();
+        inventarioApiClient = new InventarioApiClient();
         llenarTablaVideojuegos();
+        llenarTablaConsolas();
+        llenarTablaObjetos();
+        llenarTablaPuestos();
         setLocationRelativeTo(this);
     }
 
@@ -38,16 +50,16 @@ public class VistaInventario extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaSillas = new javax.swing.JTable();
+        tblPuestos = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tablaControles = new javax.swing.JTable();
+        tblObjetos = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaVideojuegos = new javax.swing.JTable();
+        tblVideojuegos = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tablaConsolas = new javax.swing.JTable();
+        tblConsolas = new javax.swing.JTable();
         btnAñadirInventario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -68,7 +80,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Puestos"));
 
-        tablaSillas.setModel(new javax.swing.table.DefaultTableModel(
+        tblPuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,7 +91,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tablaSillas);
+        jScrollPane2.setViewportView(tblPuestos);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -99,7 +111,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Objetos"));
 
-        tablaControles.setModel(new javax.swing.table.DefaultTableModel(
+        tblObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -110,7 +122,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tablaControles);
+        jScrollPane3.setViewportView(tblObjetos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -130,7 +142,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Videojuegos"));
 
-        tablaVideojuegos.setModel(new javax.swing.table.DefaultTableModel(
+        tblVideojuegos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,7 +153,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaVideojuegos);
+        jScrollPane1.setViewportView(tblVideojuegos);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -161,7 +173,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Consolas"));
 
-        tablaConsolas.setModel(new javax.swing.table.DefaultTableModel(
+        tblConsolas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -172,7 +184,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(tablaConsolas);
+        jScrollPane4.setViewportView(tblConsolas);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -219,7 +231,7 @@ public class VistaInventario extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(360, Short.MAX_VALUE)
+                .addContainerGap(356, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(156, 156, 156)
                 .addComponent(jLabel1)
@@ -374,7 +386,7 @@ public class VistaInventario extends javax.swing.JFrame {
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnListaUsuarios9, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(btnListaUsuarios9, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addComponent(btnJuegos9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnRentas9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnInventario9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -472,25 +484,104 @@ public class VistaInventario extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnConsolas8ActionPerformed
 
-    private void llenarTablaVideojuegos (){
-        /**DefaultTableModel model = new DefaultTableModel(){
+    private void llenarTablaVideojuegos() {
+        DefaultTableModel model = new DefaultTableModel() {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
         };
-        model.setColumnIdentifiers(new Object[]{"Nombre" ,"Clasificación", "Descripcion"});
-        ArrayList<Videojuego> juegosAux = controladorVideojuegos.getJuegos();
-        for (Videojuego juego : juegosAux){
-            model.addRow(new Object[]{
+        model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Fecha de Publicación", "Descripción", "Público", "Tipo"});
+
+        try {
+            List<VideoJuego> juegosAux = inventarioApiClient.obtenerVideoJuegos();
+            for (VideoJuego juego : juegosAux) {
+                model.addRow(new Object[]{
+                    juego.getId(),
                     juego.getNombre(),
+                    juego.getFechaDePubliacion(),
                     juego.getDescripcion(),
-                    juego.getPublico(),  
-            });
+                    juego.getPublico(),
+                    juego.getTipo()
+                });
+            }
+            tblVideojuegos.setModel(model);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los videojuegos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        tablaVideojuegos.setModel(model);
- */
     }
 
+    private void llenarTablaConsolas() {
+        DefaultTableModel model = new DefaultTableModel() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        model.setColumnIdentifiers(new Object[]{"ID", "Marca", "Consola", "Fecha de Publicación"});
+
+        try {
+            List<Consola> consolasAux = inventarioApiClient.obtenerConsolas();
+            for (Consola consola : consolasAux) {
+                model.addRow(new Object[]{
+                    consola.getId(),
+                    consola.getMarca(),
+                    consola.getConsola(),
+                    consola.getFechaDePublicacion()
+                });
+            }
+            tblConsolas.setModel(model);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar las consolas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void llenarTablaObjetos() {
+        DefaultTableModel model = new DefaultTableModel() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Descripción", "Fecha", "Estado", "Categoría"});
+
+        try {
+            List<Objeto> objetosAux = inventarioApiClient.obtenerObjetos();
+            for (Objeto objeto : objetosAux) {
+                model.addRow(new Object[]{
+                    objeto.getId(),
+                    objeto.getNombre(),
+                    objeto.getDescripcion(),
+                    objeto.getFecha(),
+                    objeto.getEstado(),
+                    objeto.getCategoria()
+                });
+            }
+            tblObjetos.setModel(model);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los objetos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void llenarTablaPuestos() {
+        DefaultTableModel model = new DefaultTableModel() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        model.setColumnIdentifiers(new Object[]{"ID", "Número de Puesto", "Consola", "Cantidad de Sillas", "Cantidad de Controles"});
+
+        try {
+            List<Puesto> puestosAux = inventarioApiClient.obtenerPuestos();
+            for (Puesto puesto : puestosAux) {
+                model.addRow(new Object[]{
+                    puesto.getId(),
+                    puesto.getNumeroDePuesto(),
+                    puesto.getConsola() != null ? puesto.getConsola().getId() : "Sin consola",
+                    puesto.getCantidadDeSillas(),
+                    puesto.getCanditadDeControles()
+                });
+            }
+            tblPuestos.setModel(model);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los puestos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -549,9 +640,9 @@ public class VistaInventario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel logo6;
-    private javax.swing.JTable tablaConsolas;
-    private javax.swing.JTable tablaControles;
-    private javax.swing.JTable tablaSillas;
-    private javax.swing.JTable tablaVideojuegos;
+    private javax.swing.JTable tblConsolas;
+    private javax.swing.JTable tblObjetos;
+    private javax.swing.JTable tblPuestos;
+    private javax.swing.JTable tblVideojuegos;
     // End of variables declaration//GEN-END:variables
 }

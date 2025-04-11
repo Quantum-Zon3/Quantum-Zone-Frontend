@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -49,9 +47,8 @@ public class VideojuegoClient {
 
 			Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
+				.addConverterFactory(GsonConverterFactory.create(gson))
 				.build();
-
 		videojuegoApiService = retrofit.create(VideojuegoApiService.class);
 
 	}

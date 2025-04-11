@@ -32,7 +32,7 @@ public class ClienteApiClient {
 
 		Retrofit retrofit = new Retrofit.Builder()
 			.baseUrl(BASE_URL)
-			.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
+			.addConverterFactory(GsonConverterFactory.create(gson))
 			.build();
 
 		clienteApiService = retrofit.create(ClienteApiService.class);
