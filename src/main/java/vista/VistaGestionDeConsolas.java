@@ -4,6 +4,8 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author shadow111285
@@ -15,7 +17,20 @@ public class VistaGestionDeConsolas extends javax.swing.JFrame {
      */
     public VistaGestionDeConsolas() {
         initComponents();
+        settearDisponible();
         setLocationRelativeTo(this);
+    }
+    
+    public void settearDisponible() {
+    	JboxEstado1.setSelectedIndex(2);
+    	JboxEstado3.setSelectedIndex(2);
+    	JboxEstado4.setSelectedIndex(2);
+    	JboxEstado5.setSelectedIndex(2);
+    	JboxEstado6.setSelectedIndex(2);
+    	JboxEstado7.setSelectedIndex(2);
+    	JboxEstado8.setSelectedIndex(2);
+    	JboxEstado9.setSelectedIndex(2);
+    	
     }
 
     /**
@@ -843,6 +858,8 @@ public class VistaGestionDeConsolas extends javax.swing.JFrame {
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
         // TODO add your handling code here:
+        Exception ex = new Exception("Ya se encuentra en la vista de consolas");
+    	JOptionPane.showMessageDialog(this, ex.getMessage());
     }//GEN-LAST:event_btnConsolasActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed

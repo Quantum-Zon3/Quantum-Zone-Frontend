@@ -28,7 +28,7 @@ public class ConsolaClient {
     private static ConsolaApiService consolaService;
 
     public ConsolaClient() {
-        // Configurar Retrofit
+
     	Gson gson = new GsonBuilder()
     			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
     				@Override

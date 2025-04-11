@@ -21,9 +21,9 @@ public class InicioSecion extends javax.swing.JFrame {
      * Creates new form InicioSecion
      */
     public InicioSecion() {
+        initComponents();
         setLocationRelativeTo(this);
         this.adminClient = new AdministradorApiClient();
-        initComponents();
     }
     private boolean validarCampos() {
         if (txtDocumento.getText().isEmpty()) {
