@@ -30,7 +30,8 @@ public interface PuestoApiService {
 	Call<Void> deletePuesto(@Path("id") String id);
 
 	@GET("/quantumZone/puestos/buscar")
-	Call<List<Puesto>> buscarPuestos(
-			@Query("id") String numeroDePuesto
+	Call<Puesto> buscarPuestos(
+			@Query("numeroDePuesto") String numeroDePuesto
 	);
+
 }

@@ -37,4 +37,8 @@ public interface ConsolaApiService {
 		@Query("precio") double precio,
 		@Query("fechaRegistro") String fechaRegistro
 	);
+	@GET("/quantumZone/consolas/buscarPorNombre")
+	Call<List<Consola>> buscarConsolasPorNombre(
+			@Query("nombre") String nombre
+	);
 }

@@ -29,39 +29,30 @@ public class PuestoApiClient {
 	private static PuestoApiService puestoApiService;
 	
 	public PuestoApiClient() {
+
+		// Configurar Retrofit
 		Gson gson = new GsonBuilder()
-				.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
-					@Override
-					public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-						return LocalDate.parse(json.getAsString());
-					}
-				})
-				.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
-					@Override
-					public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-						return new JsonPrimitive(src.toString());
-					}
-				})
-				.create();
+                .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+                    @Override
+                    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                        return LocalDate.parse(json.getAsString());
+                    }
+                })
+                .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+                    @Override
+                    public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+                        return new JsonPrimitive(src.toString());
+                    }
+                })
+                .create();
 
-			Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl(BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create(gson)) 
-				.build();
+            Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
+                .build();
 
-		puestoApiService = retrofit.create(PuestoApiService.class);
+            puestoApiService = retrofit.create(PuestoApiService.class);
 
-	}
-	public static List<Puesto> buscarPuestos(String numeroDePuesto) throws Exception {
-		Response<List<Puesto>> puesto = puestoApiService.buscarPuestos(numeroDePuesto).execute();
-		if (puesto.isSuccessful()) {
-			if (puesto.body() == null) {
-				throw new Exception("Puesto no encontrado");
-			}
-			return puesto.body();
-		} else {
-			throw new Exception("Datos Incorrectos");
-		}
 	}
 	public static List<Puesto> listarPuestos() {
 		try {
@@ -124,5 +115,16 @@ public class PuestoApiClient {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+	public static Puesto buscarPuestoPorNumero(String numeroDePuesto) throws Exception {
+		Response<Puesto> puesto = puestoApiService.buscarPuestos(numeroDePuesto).execute();
+		if (puesto.isSuccessful()) {
+			if (puesto.body() == null) {
+				throw new Exception("Puesto no encontrado");
+			}
+			return puesto.body();
+		} else {
+			throw new Exception("Datos Incorrectos");
+		}
 	}
 }

@@ -111,4 +111,12 @@ public class ConsolaClient {
                     }
         
     }
+    public static List<Consola> buscarConsolasPorNombre(String nombre) throws Exception {
+		Response<List<Consola>> response = consolaService.buscarConsolasPorNombre(nombre).execute();
+		if (response.isSuccessful()) {
+			return response.body();
+		} else {
+			throw new Exception("Error al buscar consolas por nombre");
+		}
+	}
 }
