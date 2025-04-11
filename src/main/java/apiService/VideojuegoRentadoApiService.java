@@ -18,22 +18,22 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface VideojuegoRentadoApiService {
-	@GET("/quantumZone/videojuegosRentados")
+	@GET("/quantumZone/videojuegos/rentados")
 	Call<List<VideojuegoRentado>> getAllVideojuegosRentados();
 
-	@GET("/quantumZone/videojuegosRentados/{id}")
+	@GET("/quantumZone/videojuegos/rentados/{id}")
 	Call<VideojuegoRentado> getVideojuegoRentadoById(@Path("id") String id);
 
-	@POST("/quantumZone/videojuegosRentados")
+	@POST("/quantumZone/videojuegos/rentados")
 	Call<VideojuegoRentado> crearVideojuegoRentado(@Body VideojuegoRentado videojuegoRentado);
 
-	@PUT("/quantumZone/videojuegosRentados/{id}")
+	@PUT("/quantumZone/videojuegos/rentados/{id}")
 	Call<VideojuegoRentado> updateVideojuegoRentado(@Path("id") String id, @Body VideojuegoRentado videojuegoRentado);
 
-	@DELETE("/quantumZone/videojuegosRentados/{id}")
+	@DELETE("/quantumZone/videojuegos/rentados/{id}")
 	Call<Void> deleteVideojuegoRentado(@Path("id") String id);
 
-	@GET("/quantumZone/videojuegosRentados/buscar")
+	@GET("/quantumZone/videojuegos/rentados/buscar")
 	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
 			@Query("id") String id,
 			@Query("Cliente") Cliente cliente,
