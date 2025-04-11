@@ -400,18 +400,18 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
         if (filaSeleccionada != -1) {
             String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
-            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al videojuego con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.controladorVideojuegos.eliminarVideojuego(idVideojuego);
                 // Mostrar mensaje de éxito
-                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "videojuego eliminado exitosamente");
                 // Recargar la tabla
 
                 llenarTabla();
             }
         } else {
             // Mostrar mensaje si no hay fila seleccionada
-            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un videojuego de la tabla para poderlo eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -420,7 +420,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
         if (filaSeleccionada != -1) {
             String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
-            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idVideojuego + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al videojuego con ID " + idVideojuego + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 VistaEditarVideojuego vs = new VistaEditarVideojuego(idVideojuego);
                 vs.setVisible(true);
@@ -429,7 +429,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             }
         } else {
             
-            JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un videojuego de la tabla para poderlo eliminar");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
