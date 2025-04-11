@@ -467,6 +467,10 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
 		    }
     	    Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
 		    clienteApiClient.saveCliente(cliente);
+		    vaciarCampos();
+		    VistaGestionClientes vgc = new VistaGestionClientes();
+		    vgc.setVisible(true);
+		    this.dispose();
     	    JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
     	} catch (NumberFormatException ex) {
     	    JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
@@ -475,7 +479,14 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
     	    ex.printStackTrace(); 
     	} 
     }//GEN-LAST:event_btnAñadirActionPerformed
-
+    private void vaciarCampos() {
+		txtCedula.setText("");
+		txtNombre.setText("");
+		txtEdad.setText("");
+		txtDireccion.setText("");
+		txtTelefono.setText("");
+		txtCorreo.setText("");
+	}
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
