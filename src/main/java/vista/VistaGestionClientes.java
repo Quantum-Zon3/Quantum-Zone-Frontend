@@ -534,7 +534,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 					btnBuscarUsuarioActionPerformed(evt);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se encontro el usuario");
 				}
             }
         });
