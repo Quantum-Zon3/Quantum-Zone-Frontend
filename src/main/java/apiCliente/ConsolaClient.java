@@ -28,6 +28,7 @@ public class ConsolaClient {
     private static ConsolaApiService consolaService;
 
     public ConsolaClient() {
+
     	Gson gson = new GsonBuilder()
     			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
     				@Override
