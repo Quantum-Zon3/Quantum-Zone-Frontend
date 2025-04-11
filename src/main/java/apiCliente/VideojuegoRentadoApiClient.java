@@ -113,9 +113,22 @@ public class VideojuegoRentadoApiClient {
 		}
 	}
 	
-	public static List<VideojuegoRentado> buscarVideojuegosRentados(String id, Cliente cliente, VideoJuego videojuego, LocalDate fechaDeAlquiler, LocalDate fechaDeDevolucion) {
+	public static List<VideojuegoRentado> buscarVideojuegosRentados(String id, String cedula, VideoJuego videojuego, LocalDate fechaDeAlquiler, LocalDate fechaDeDevolucion) {
 		try {
-			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(id, cliente, videojuego, fechaDeAlquiler, fechaDeDevolucion).execute();
+			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(id, cedula, videojuego, fechaDeAlquiler, fechaDeDevolucion).execute();
+			if(response.isSuccessful()){
+				return response.body();
+			}else {
+				System.out.println("Error " + response.code());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula) {
+		try {
+			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(cedula).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {

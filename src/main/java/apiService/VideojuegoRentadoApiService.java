@@ -33,13 +33,18 @@ public interface VideojuegoRentadoApiService {
 	@DELETE("/quantumZone/videojuegos/rentados/{id}")
 	Call<Void> deleteVideojuegoRentado(@Path("id") String id);
 
-	@GET("/quantumZone/videojuegos/rentados/buscar")
+
+	@GET("/quantumZone/videojuegos/rentados/filtros")
 	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
 			@Query("id") String id,
-			@Query("Cliente") Cliente cliente,
+			@Query("cedula") String cedula,
 			@Query("Videojuego") VideoJuego videojuego,
 			@Query("FechaDeAlquiler") LocalDate modelo,
 			@Query("FechaDeDevolucion") LocalDate precio
+	);
+	@GET("/quantumZone/videojuegos/rentados/filtros")
+	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
+			@Query("cedula") String cedula
 	);
 			
 }
