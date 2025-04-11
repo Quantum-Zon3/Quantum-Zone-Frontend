@@ -5,6 +5,7 @@
 package vista;
 
 import modelo.VideoJuego;
+import modelo.VideojuegoRentado;
 import apiCliente.VideojuegoClient;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -34,6 +35,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         initComponents();
         //this.controladorVideojuegos = new VideojuegoClient();
         llenarTabla();
+        videojuegos = controladorVideojuegos.listarVideojuego();
         setLocationRelativeTo(this);
     }
     
@@ -66,6 +68,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         tablaVideojuegos = new javax.swing.JTable();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnRentados = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         btnListaUsuarios8 = new javax.swing.JButton();
@@ -159,6 +162,15 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
         jLabel2.setText("Id");
 
+        btnRentados.setBackground(new java.awt.Color(0, 0, 204));
+        btnRentados.setForeground(new java.awt.Color(255, 255, 255));
+        btnRentados.setText("Ir a Rentados");
+        btnRentados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentadosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -173,7 +185,8 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(29, 29, 29)))
+                                .addGap(29, 29, 29))
+                            .addComponent(btnRentados, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(0, 52, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -182,8 +195,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(16, 16, 16))
+                                    .addComponent(jLabel2)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnEliminar)
@@ -213,7 +225,9 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
                     .addComponent(btnGuardar))
-                .addGap(358, 358, 358))
+                .addGap(277, 277, 277)
+                .addComponent(btnRentados)
+                .addGap(54, 54, 54))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -508,27 +522,40 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    private void btnRentadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentadosActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = tablaVideojuegos.getSelectedRow();
+if (filaSeleccionada != -1) {
+    // Suponiendo que tienes un modelo de tabla con una lista de videojuegos
+    VideoJuego videojuegoSeleccionado = videojuegos.get(filaSeleccionada);
+
+    VistaVideojuegosRentados vistaRenta = new VistaVideojuegosRentados(videojuegoSeleccionado);
+    vistaRenta.setVisible(true);
+    this.dispose(); // Si quieres cerrar la ventana actual
+} else {
+    JOptionPane.showMessageDialog(this, "Debe seleccionar un videojuego.");
+}
+    }//GEN-LAST:event_btnRentadosActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    private void llenarTabla (){
-        DefaultTableModel model = new DefaultTableModel(){
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        model.setColumnIdentifiers(new Object[]{"Id","Nombre", "Fecha", "Descripción", "Clasificación", "Tipo"});
+    private void llenarTabla() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
 
-        List<VideoJuego> juegosAux = controladorVideojuegos.listarVideojuego();
-        for (VideoJuego juego : juegosAux){
-
+        List<VideoJuego> aux = controladorVideojuegos.listarVideojuego();
+        for (VideoJuego videoRentado : aux) {
             model.addRow(new Object[]{
-                    juego.getId(),
-                    juego.getNombre(),
-                    juego.getFechaDePubliacion(),
-                    juego.getDescripcion(),
-                    juego.getPublico(),
-                    juego.getTipo(),
+            		videoRentado.getId(),
+                        videoRentado.getNombre(),
+                        videoRentado.getFechaDePubliacion(),
+                        videoRentado.getDescripcion(),
+                        videoRentado.getPublico(),
+                        videoRentado.getTipo()
+                        
+                        
+
             });
         }
         tablaVideojuegos.setModel(model);
@@ -544,6 +571,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     private javax.swing.JButton btnJuegos8;
     private javax.swing.JButton btnListaUsuarios8;
     private javax.swing.JButton btnMenu8;
+    private javax.swing.JButton btnRentados;
     private javax.swing.JButton btnRentas8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

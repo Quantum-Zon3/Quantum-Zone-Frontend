@@ -4,9 +4,13 @@
  */
 package vista;
 
+import apiCliente.ClienteApiClient;
 import apiCliente.VideojuegoRentadoApiClient;
+import java.time.LocalDate;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Cliente;
 import modelo.VideoJuego;
 import modelo.VideojuegoRentado;
 
@@ -15,14 +19,28 @@ import modelo.VideojuegoRentado;
  * @author USER
  */
 public class VistaVideojuegosRentados extends javax.swing.JFrame {
-    private VideojuegoRentadoApiClient videojuegoRCliente = new VideojuegoRentadoApiClient();
+    private VideojuegoRentadoApiClient videojuegoRCliente; 
+    private ClienteApiClient clienteApi = new ClienteApiClient();
+    private List<Cliente> clientes;
+    private VideoJuego videojuego;
     /**
      * Creates new form VistaVideojuegosRentados
      */
     public VistaVideojuegosRentados(VideoJuego videojuego) {
         initComponents();
         setLocationRelativeTo(this);
+        videojuegoRCliente = new VideojuegoRentadoApiClient();
+        this.videojuego = videojuego;
+        this.clientes = clienteApi.listarCliente();
+        setters();
         llenarTablaVideojuegosR();
+    }
+    
+    public void setters(){
+        txtNombre.setText(clientes.get(0).getNombre());
+        txtCedula.setText(clientes.get(0).getCedula());
+        txtIdVideojuego.setText(videojuego.getId());
+        txtNombreVideojuego.setText(videojuego.getNombre());
     }
 
     /**
@@ -446,7 +464,18 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsolas2ActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-
+        try{
+        LocalDate fechaRegistro = LocalDate.of(2025, 04, 11);
+        LocalDate fechaDevolucion = LocalDate.of(2025, 04, 13);
+        VideojuegoRentado vidr = new VideojuegoRentado(clientes.get(0), videojuego, fechaRegistro, fechaDevolucion);
+        videojuegoRCliente.crearVideojuegoRentado(vidr);
+        JOptionPane.showMessageDialog(null, "Se ha creado una renta correctamente");
+        llenarTablaVideojuegosR();
+        }catch(Exception e){
+           e.getMessage();
+            
+        }
+                
     }//GEN-LAST:event_btnAñadirActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
