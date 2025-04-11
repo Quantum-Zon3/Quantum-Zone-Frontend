@@ -9,14 +9,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import apiCliente.ClienteApiClient;
+import apiCliente.VideojuegoRentadoApiClient;
 import modelo.Cliente;
+import modelo.VideojuegoRentado;
 
 /**
  *
  * @author DARIO LOPEZ
  */
 public class VistaGestionClientes extends javax.swing.JFrame {
-
+	private final VideojuegoRentadoApiClient videojuegoRentadoApiClient;
     private final ClienteApiClient clienteApiClient;
     private Cliente clienteBuscar;
 
@@ -27,6 +29,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         this.clienteApiClient = new ClienteApiClient();
+        this.videojuegoRentadoApiClient = new VideojuegoRentadoApiClient();
         llenarTablaClientes();
     }
 
@@ -74,12 +77,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JLabel();
         txtFechaRegistro = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
         pnlReservas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblJuegosAlquilados = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         btnBuscarUsuario = new javax.swing.JButton();
@@ -322,7 +322,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,41 +367,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 
         txtCorreo.setText("eduardo123@gmail.com");
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Marca", "Hora", "Cedula", "Registro"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
         pnlReservas.setBorder(javax.swing.BorderFactory.createTitledBorder("Juegos alquilados"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblJuegosAlquilados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -412,7 +380,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                 "id", "Juego", "Cedula", "Tipo", "Fecha Registro", "Fecha entrega"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblJuegosAlquilados);
 
         javax.swing.GroupLayout pnlReservasLayout = new javax.swing.GroupLayout(pnlReservas);
         pnlReservas.setLayout(pnlReservasLayout);
@@ -427,8 +395,8 @@ public class VistaGestionClientes extends javax.swing.JFrame {
             pnlReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlReservasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -473,11 +441,6 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                                         .addComponent(txtFechaRegistro)
                                         .addGap(0, 0, Short.MAX_VALUE))))))
                     .addComponent(pnlReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(17, 17, 17)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(17, 17, 17)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,14 +476,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCorreo)
                     .addComponent(txtCorreo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
-                .addComponent(pnlReservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(203, 203, 203)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(203, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         jLabel3.setText("Usuario");
@@ -534,7 +492,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 					btnBuscarUsuarioActionPerformed(evt);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "No se encontro el usuario");
+					e.printStackTrace();
 				}
             }
         });
@@ -700,6 +658,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText());
         if (clienteBuscar != null) {
             llenarDatosCliente(clienteBuscar);
+            llenarTablaJuegosAlquilados();
         } else {
             throw new Exception("No se encontro el cliente");
         }
@@ -734,6 +693,22 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         }
         tblClientes.setModel(model);
     }
+    public void llenarTablaJuegosAlquilados() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.setColumnIdentifiers(new Object[]{"id", "Cedula","Juego", "Fecha Alquiler", "Fecha Devolucion"});
+
+		List<VideojuegoRentado> aux = this.videojuegoRentadoApiClient.buscarVideojuegosRentadosDelCliente(clienteBuscar.getCedula());
+		for (VideojuegoRentado videojuego : aux) {
+			model.addRow(new Object[]{
+					videojuego.getId(),
+					videojuego.getCliente().getCedula(),
+					videojuego.getVideojuego().getNombre(),
+					videojuego.getFechaAlquiler(),
+					videojuego.getFechaDevolucion()
+			});
+		}
+		tblJuegosAlquilados.setModel(model);
+	}
 
     /**
      * @param args the command line arguments
@@ -790,12 +765,8 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblCedulaToFill;
     private javax.swing.JLabel lblCorreo;
@@ -808,6 +779,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     private javax.swing.JLabel logo;
     private javax.swing.JPanel pnlReservas;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tblJuegosAlquilados;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JLabel txtCorreo;
     private javax.swing.JLabel txtDireccion;
