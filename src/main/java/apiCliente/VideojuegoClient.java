@@ -26,7 +26,7 @@ public class VideojuegoClient {
 
 	}
 
-	private static List<VideoJuego> listarVideojuego() {
+	public static List<VideoJuego> listarVideojuego() {
 		try {
 			Response<List<VideoJuego>> response = videojuegoApiService.getAllVideojuegos().execute();
 			if (response.isSuccessful()) {
@@ -52,7 +52,7 @@ public class VideojuegoClient {
 		}
 	}
 
-	private static VideoJuego crearVideojuego(VideoJuego videojuego) throws Exception {
+	public static VideoJuego crearVideojuego(VideoJuego videojuego) throws Exception {
 		try {
 			Response<VideoJuego> response = videojuegoApiService.createVideojuego(videojuego).execute();
 			if (response.isSuccessful()) {
@@ -66,7 +66,7 @@ public class VideojuegoClient {
 		return null;
 	}
 
-	private static void eliminarVideojuego(String id) throws Exception {
+	public static void eliminarVideojuego(String id) throws Exception {
 
 		try {
 			Response<Void> response = videojuegoApiService.deleteVideojuego(id).execute();
@@ -80,7 +80,7 @@ public class VideojuegoClient {
 		}
 	}
 
-	private static VideoJuego actualizarVideojuego(String id, VideoJuego videojuego) throws Exception {
+	public static VideoJuego actualizarVideojuego(String id, VideoJuego videojuego) throws Exception {
 		try {
 			Response<VideoJuego> response = videojuegoApiService.updateVideojuego(id, videojuego).execute();
 			if (response.isSuccessful()) {

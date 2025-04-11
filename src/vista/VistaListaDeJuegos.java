@@ -21,17 +21,15 @@ import vista.VistaAñadirVideojuego;
  * @author USER
  */
 public class VistaListaDeJuegos extends javax.swing.JFrame {
-
     private VideojuegoClient controladorVideojuegos = new VideojuegoClient();
     private List<VideoJuego> videojuegos;
-
 
     /**
      * Creates new form VistaListaDeJuegos
      */
     public VistaListaDeJuegos() {
         initComponents();
-        //this.controladorVideojuegos = new VideojuegoClient();
+        this.controladorVideojuegos = new VideojuegoClient();
         llenarTabla();
         setLocationRelativeTo(this);
     }
@@ -394,7 +392,6 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
     	VistaAñadirVideojuego vj = new VistaAñadirVideojuego();
 		vj.setVisible(true);
 		this.setVisible(false);
@@ -411,17 +408,15 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                 // Mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
                 // Recargar la tabla
-
                 llenarTabla();
             }
         } else {
             // Mostrar mensaje si no hay fila seleccionada
             JOptionPane.showMessageDialog(null, "Se debe seleccionar un cliente de la tabla para poderlo eliminar");
         }
-    */}//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
     	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
         if (filaSeleccionada != -1) {
             String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
@@ -438,14 +433,11 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-
         if(!(txtId.getText().isEmpty())){
             String nombre = txtId.getText();
             VideoJuego videojuego = controladorVideojuegos.buscarVideojuegoPorId(nombre);
-
             if (videojuego != null){
             	DefaultTableModel modelo = (DefaultTableModel) tablaVideojuegos.getModel();
 				modelo.setRowCount(0);
@@ -462,7 +454,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Debe colocar el nombre del juego");
         }                                       
-    */}//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnListaUsuarios8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios8ActionPerformed
         // TODO add your handling code here:
@@ -516,10 +508,8 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             }
         };
         model.setColumnIdentifiers(new Object[]{"Nombre", "Fecha", "Descripción", "Clasificación", "Tipo"});
-
         List<VideoJuego> juegosAux = controladorVideojuegos.listarVideojuego();
         for (VideoJuego juego : juegosAux){
-
             model.addRow(new Object[]{
                     juego.getNombre(),
                     juego.getFechaDePubliacion(),
@@ -527,7 +517,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
                     juego.getPublico(),
                     juego.getTipo(),
             });
-        }*/
+        }
         tablaVideojuegos.setModel(model);
     }
 
