@@ -7,19 +7,37 @@ import java.util.Scanner;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.google.gson.*;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
 public class ClienteApiClient {
 	private static final String BASE_URL = "http://localHost:8080";
 	private static ClienteApiService clienteApiService;
 	
 	public ClienteApiClient() {
-		// Configurar Retrofit
+		Gson gson = new GsonBuilder()
+			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+				@Override
+				public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+					return LocalDate.parse(json.getAsString());
+				}
+			})
+			.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+				@Override
+				public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+					return new JsonPrimitive(src.toString());
+				}
+			})
+			.create();
+
 		Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl(BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create())
-				.build();
-		
+			.baseUrl(BASE_URL)
+			.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
+			.build();
+
 		clienteApiService = retrofit.create(ClienteApiService.class);
-		}	
+	}
+	
 	
 	public static List<Cliente> listarCliente() {
 		try {
