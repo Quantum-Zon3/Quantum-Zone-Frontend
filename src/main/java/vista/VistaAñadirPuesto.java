@@ -3,20 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
+import apiCliente.PuestoApiClient;
+import modelo.Consola;
+import modelo.Puesto;
 
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import apiCliente.ConsolaClient;
 /**
  *
  * @author CARLOS
  */
 public class VistaAñadirPuesto extends javax.swing.JFrame {
-
+	public PuestoApiClient puesto = new PuestoApiClient();
+	public ConsolaClient consolaApiClient = new ConsolaClient();
     /**
      * Creates new form VistaAñadirPuesto
      */
     public VistaAñadirPuesto() {
         initComponents();
+        setLocationRelativeTo(this);
+        llenarConsolas();
     }
-
+    public void llenarConsolas() {
+    	List<Consola> consolas = this.consolaApiClient.listarConsola();
+    			boxConsola.addItem("Consolas");
+    	for (Consola c : consolas) {
+			boxConsola.addItem(c.getConsola());
+		}
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +43,410 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnListaUsuarios = new javax.swing.JButton();
+        btnJuegos = new javax.swing.JButton();
+        btnRentas = new javax.swing.JButton();
+        btnInventario = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
+        btnConsolas = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        lblEdad = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        lblDireccion = new javax.swing.JLabel();
+        btnAñadir = new javax.swing.JButton();
+        txtNumeroPuesto = new javax.swing.JTextField();
+        txtSillas = new javax.swing.JTextField();
+        txtControles = new javax.swing.JTextField();
+        btnVolver = new javax.swing.JButton();
+        boxConsola = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
+
+        jPanel2.setBackground(new java.awt.Color(51, 0, 51));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contenido");
+
+        btnListaUsuarios.setBackground(new java.awt.Color(0, 0, 204));
+        btnListaUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnListaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono User.png"))); // NOI18N
+        btnListaUsuarios.setText("Lista de usuarios");
+        btnListaUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnListaUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnListaUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnListaUsuarios.setIconTextGap(20);
+        btnListaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaUsuariosActionPerformed(evt);
+            }
+        });
+
+        btnJuegos.setBackground(new java.awt.Color(0, 0, 204));
+        btnJuegos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnJuegos.setForeground(new java.awt.Color(255, 255, 255));
+        btnJuegos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Control (1).png"))); // NOI18N
+        btnJuegos.setText("Juegos");
+        btnJuegos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnJuegos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnJuegos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnJuegos.setIconTextGap(20);
+        btnJuegos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJuegosActionPerformed(evt);
+            }
+        });
+
+        btnRentas.setBackground(new java.awt.Color(0, 0, 204));
+        btnRentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRentas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Reloj.png"))); // NOI18N
+        btnRentas.setText("Reservas");
+        btnRentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnRentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRentas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRentas.setIconTextGap(20);
+        btnRentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentasActionPerformed(evt);
+            }
+        });
+
+        btnInventario.setBackground(new java.awt.Color(0, 0, 204));
+        btnInventario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInventario.setForeground(new java.awt.Color(255, 255, 255));
+        btnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Inventario.png"))); // NOI18N
+        btnInventario.setText("Inventario");
+        btnInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnInventario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInventario.setIconTextGap(20);
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel4.setName(""); // NOI18N
+
+        btnMenu.setBackground(new java.awt.Color(0, 0, 204));
+        btnMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMenu.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono home (1).png"))); // NOI18N
+        btnMenu.setText("Menu");
+        btnMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnMenu.setIconTextGap(20);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+
+        btnConsolas.setBackground(new java.awt.Color(0, 0, 204));
+        btnConsolas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnConsolas.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsolas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IconoConsola.png"))); // NOI18N
+        btnConsolas.setText("Consolas");
+        btnConsolas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnConsolas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnConsolas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnConsolas.setIconTextGap(20);
+        btnConsolas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsolasActionPerformed(evt);
+            }
+        });
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo.png"))); // NOI18N
+        logo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        logo.setName(""); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnListaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(btnJuegos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnConsolas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logo)
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addGap(15, 15, 15)
+                .addComponent(logo)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConsolas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnJuegos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRentas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(156, Short.MAX_VALUE))
+        );
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Añadir Puesto");
+
+        jPanel5.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblEdad.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblEdad.setText("Numero de sillas:");
+
+        lblNombre.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblNombre.setText("Numero de puesto:");
+
+        lblTelefono.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblTelefono.setText("Consolas:");
+
+        lblDireccion.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblDireccion.setText("Numero de controles:");
+
+        btnAñadir.setBackground(new java.awt.Color(0, 0, 204));
+        btnAñadir.setForeground(new java.awt.Color(255, 255, 255));
+        btnAñadir.setText("Añadir");
+        btnAñadir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirActionPerformed(evt);
+            }
+        });
+
+        txtNumeroPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroPuestoActionPerformed(evt);
+            }
+        });
+
+        btnVolver.setBackground(new java.awt.Color(0, 0, 204));
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("Volver");
+        btnVolver.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        boxConsola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxConsolaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblNombre)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNumeroPuesto))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblEdad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSillas))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblTelefono)
+                        .addGap(120, 120, 120)
+                        .addComponent(boxConsola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblDireccion)
+                        .addGap(63, 63, 63)
+                        .addComponent(txtControles, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNumeroPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEdad)
+                    .addComponent(txtSillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDireccion)
+                    .addComponent(txtControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTelefono)
+                    .addComponent(boxConsola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(140, 140, 140))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
+        VistaGestionClientes vgc = new VistaGestionClientes();
+        vgc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnListaUsuariosActionPerformed
+
+    private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        vj.setVisible(true);
+        this.setVisible(false);// TODO add your handling code here:
+    }//GEN-LAST:event_btnJuegosActionPerformed
+
+    private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
+        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        vg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRentasActionPerformed
+
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        VistaInventario vgi = new VistaInventario();
+        vgi.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInventarioActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsolasActionPerformed
+
+    private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
+        try {
+            String sillas = txtSillas.getText();
+            String numeroPuestos = txtNumeroPuesto.getText();
+            String controles = txtControles.getText();
+			String consola = (String) boxConsola.getSelectedItem();
+			List<Consola> consolas = consolaApiClient.buscarConsolasPorNombre(boxConsola.getSelectedItem().toString());
+			Consola consolaSeleccionada = consolas.get(0);
+            if (txtSillas.getText().isEmpty() || txtNumeroPuesto.getText().isEmpty() || txtControles.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            Puesto puesto = new Puesto(numeroPuestos, consolaSeleccionada, Integer.parseInt(sillas), Integer.parseInt(controles));
+            this.puesto.crearPuesto(puesto);
+
+            JOptionPane.showMessageDialog(this, "puesto guardado correctamente");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos ", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al añadir el puesto", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnAñadirActionPerformed
+
+    private void txtNumeroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroPuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroPuestoActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    	 VistaAgregarPuesto vl = new VistaAgregarPuesto();
+        vl.setVisible(true);
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void boxConsolaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxConsolaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxConsolaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +484,28 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxConsola;
+    private javax.swing.JButton btnAñadir;
+    private javax.swing.JButton btnConsolas;
+    private javax.swing.JButton btnInventario;
+    private javax.swing.JButton btnJuegos;
+    private javax.swing.JButton btnListaUsuarios;
+    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnRentas;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblEdad;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel logo;
+    private javax.swing.JTextField txtControles;
+    private javax.swing.JTextField txtNumeroPuesto;
+    private javax.swing.JTextField txtSillas;
     // End of variables declaration//GEN-END:variables
 }

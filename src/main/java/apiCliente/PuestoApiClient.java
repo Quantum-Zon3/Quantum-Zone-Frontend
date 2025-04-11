@@ -78,7 +78,7 @@ public class PuestoApiClient {
 			throw new Exception("Datos Incorrectos");
 		}
 	}
-	private static Puesto crearPuesto(Puesto puesto) throws Exception {
+	public static Puesto crearPuesto(Puesto puesto) throws Exception {
 		try {
 			Response<Puesto> response = puestoApiService.createPuesto(puesto).execute();
 			if (response.isSuccessful()) {

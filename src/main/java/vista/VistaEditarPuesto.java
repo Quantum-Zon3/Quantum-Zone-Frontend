@@ -464,7 +464,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_boxControlesActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaListaDeJuegos vl = new VistaListaDeJuegos();
+        VistaAgregarPuesto vl = new VistaAgregarPuesto();
         vl.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
