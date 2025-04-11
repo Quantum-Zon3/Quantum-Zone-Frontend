@@ -1,8 +1,22 @@
 package apiCliente;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
 import modelo.VideoJuego;
 
 import apiService.VideojuegoApiService;
@@ -18,8 +32,24 @@ public class VideojuegoClient {
 	private static VideojuegoApiService videojuegoApiService;
 
 	public VideojuegoClient() {
-		// Configurar Retrofit
-		Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+					@Override
+					public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+						return LocalDate.parse(json.getAsString());
+					}
+				})
+				.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+					@Override
+					public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+						return new JsonPrimitive(src.toString());
+					}
+				})
+				.create();
+
+			Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(BASE_URL)
+				.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
 				.build();
 
 		videojuegoApiService = retrofit.create(VideojuegoApiService.class);

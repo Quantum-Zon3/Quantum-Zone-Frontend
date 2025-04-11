@@ -21,6 +21,7 @@ public class VistaAñadirVideojuego extends javax.swing.JFrame {
      */
     public VistaAñadirVideojuego() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
