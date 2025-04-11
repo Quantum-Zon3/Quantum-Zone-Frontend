@@ -33,6 +33,7 @@ public interface VideojuegoRentadoApiService {
 	@DELETE("/quantumZone/videojuegos/rentados/{id}")
 	Call<Void> deleteVideojuegoRentado(@Path("id") String id);
 
+
 	@GET("/quantumZone/videojuegos/rentados/filtros")
 	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
 			@Query("id") String id,
