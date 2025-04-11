@@ -4,28 +4,16 @@
  */
 package vista;
 
-import apiCliente.PuestoApiClient;
-import apiCliente.VideojuegoClient;
-import modelo.VideoJuego;
-import javax.swing.JOptionPane;
-import modelo.Puesto;
-import javax.swing.table.DefaultTableModel;
-import java.util.List;
-import javax.swing.table.TableModel;
-import java.awt.event.ActionEvent;
 /**
  *
- * @author USER
+ * @author shadow111285
  */
-public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
-	
-    private  VideojuegoClient client = new VideojuegoClient();
-    private VideoJuego videojuegoAABuscar;
+public class VistaGestionDeConsolas extends javax.swing.JFrame {
+
     /**
-     * Creates new form VistaGestionDeVideojuegos
+     * Creates new form VistaGestionDeConsolas
      */
-    public VistaGestionDeVideojuegos() {
-        client = new VideojuegoClient();
+    public VistaGestionDeConsolas() {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -39,10 +27,20 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnListaUsuarios = new javax.swing.JButton();
+        btnJuegos = new javax.swing.JButton();
+        btnRentas = new javax.swing.JButton();
+        btnInventario = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
+        btnConsolas = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         JboxEstado1 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
@@ -75,43 +73,185 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         JboxEstado9 = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        btnVerJuegos = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        btnListaUsuarios8 = new javax.swing.JButton();
-        btnJuegos8 = new javax.swing.JButton();
-        btnRentas8 = new javax.swing.JButton();
-        btnInventario8 = new javax.swing.JButton();
-        jLabel36 = new javax.swing.JLabel();
-        btnMenu8 = new javax.swing.JButton();
-        btnConsolas7 = new javax.swing.JButton();
-        logo5 = new javax.swing.JLabel();
+        btnAñadir = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(102, 0, 102));
 
-        jPanel2.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 0, 51));
+
+        jPanel2.setBackground(new java.awt.Color(51, 0, 51));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contenido");
+
+        btnListaUsuarios.setBackground(new java.awt.Color(0, 0, 204));
+        btnListaUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnListaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono User.png"))); // NOI18N
+        btnListaUsuarios.setText("Lista de usuarios");
+        btnListaUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnListaUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnListaUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnListaUsuarios.setIconTextGap(20);
+        btnListaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaUsuariosActionPerformed(evt);
+            }
+        });
+
+        btnJuegos.setBackground(new java.awt.Color(0, 0, 204));
+        btnJuegos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnJuegos.setForeground(new java.awt.Color(255, 255, 255));
+        btnJuegos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Control (1).png"))); // NOI18N
+        btnJuegos.setText("Juegos");
+        btnJuegos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnJuegos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnJuegos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnJuegos.setIconTextGap(20);
+        btnJuegos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJuegosActionPerformed(evt);
+            }
+        });
+
+        btnRentas.setBackground(new java.awt.Color(0, 0, 204));
+        btnRentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRentas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Reloj.png"))); // NOI18N
+        btnRentas.setText("Reservas");
+        btnRentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnRentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRentas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRentas.setIconTextGap(20);
+        btnRentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentasActionPerformed(evt);
+            }
+        });
+
+        btnInventario.setBackground(new java.awt.Color(0, 0, 204));
+        btnInventario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInventario.setForeground(new java.awt.Color(255, 255, 255));
+        btnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Inventario.png"))); // NOI18N
+        btnInventario.setText("Inventario");
+        btnInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnInventario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInventario.setIconTextGap(20);
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel4.setName(""); // NOI18N
+
+        btnMenu.setBackground(new java.awt.Color(0, 0, 204));
+        btnMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMenu.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono home (1).png"))); // NOI18N
+        btnMenu.setText("Menu");
+        btnMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnMenu.setIconTextGap(20);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+
+        btnConsolas.setBackground(new java.awt.Color(0, 0, 204));
+        btnConsolas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnConsolas.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsolas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IconoConsola.png"))); // NOI18N
+        btnConsolas.setText("Consolas");
+        btnConsolas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnConsolas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnConsolas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnConsolas.setIconTextGap(20);
+        btnConsolas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsolasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnListaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(btnJuegos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnConsolas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConsolas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnJuegos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRentas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnListaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(102, 0, 102));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Videojuegos");
-
-        jPanel3.setBackground(new java.awt.Color(102, 0, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel1.setText("Consolas");
 
         jPanel4.setBackground(new java.awt.Color(102, 0, 102));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/The_Last_of_Us_Part_I_cover.jpg"))); // NOI18N
+        jPanel5.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ps4.jpeg"))); // NOI18N
         jLabel3.setToolTipText("");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado1.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado1.setEditable(true);
-        JboxEstado1.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso" }));
+        JboxEstado1.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,26 +260,26 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText(" The last of us ");
+        jLabel14.setText("PlayStation 4");
         jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(JboxEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -152,15 +292,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(102, 0, 102));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Imagen_Spider_Man_2.jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NintendoSwitch..jpeg"))); // NOI18N
         jLabel6.setToolTipText("");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado3.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado3.setEditable(true);
-        JboxEstado3.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado3.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +309,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Spider-man 2");
+        jLabel13.setText("Nintendo Switch");
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -201,15 +341,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(102, 0, 102));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/halo_5_2099.jpg"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PlayStation3.jpeg"))); // NOI18N
         jLabel7.setToolTipText("");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado4.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado4.setEditable(true);
-        JboxEstado4.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado4.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +358,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Halo 5");
+        jLabel15.setText("PlayStation 3");
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -250,15 +390,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(102, 0, 102));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Zelda.jpg"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/XboxOneS.jpeg"))); // NOI18N
         jLabel8.setToolTipText("");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado5.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado5.setEditable(true);
-        JboxEstado5.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado5.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +407,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Zelda Breath of The Wild");
+        jLabel16.setText("Xbox One S");
         jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -296,13 +436,13 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -311,15 +451,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -329,15 +469,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel10.setBackground(new java.awt.Color(102, 0, 102));
         jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Gears3.jpg"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/XboxSeiresS.jpeg"))); // NOI18N
         jLabel9.setToolTipText("");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado6.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado6.setEditable(true);
-        JboxEstado6.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso" }));
+        JboxEstado6.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,7 +486,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Gears of War 3");
+        jLabel19.setText("Xbox Series S");
         jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -378,15 +518,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(102, 0, 102));
         jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images.jpg"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ps5 (1).jpeg"))); // NOI18N
         jLabel10.setToolTipText("");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado7.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado7.setEditable(true);
-        JboxEstado7.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado7.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,7 +535,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Grand Theft Auto V");
+        jLabel20.setText("PlayStation 5");
         jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -428,15 +568,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(102, 0, 102));
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fc24 (1).jpg"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WiiU.jpeg"))); // NOI18N
         jLabel11.setToolTipText("");
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado8.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado8.setEditable(true);
-        JboxEstado8.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado8.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,7 +585,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Fifa 24");
+        jLabel18.setText("Wii U");
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -477,15 +617,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         jPanel13.setBackground(new java.awt.Color(102, 0, 102));
         jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/RE4.jpg"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ps4.jpeg"))); // NOI18N
         jLabel12.setToolTipText("");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JboxEstado9.setBackground(new java.awt.Color(102, 0, 102));
         JboxEstado9.setEditable(true);
-        JboxEstado9.setForeground(new java.awt.Color(0, 0, 0));
-        JboxEstado9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Rentado", "Disponible", "En uso", " " }));
+        JboxEstado9.setForeground(new java.awt.Color(242, 242, 242));
+        JboxEstado9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Mantenimiento", "Disponible", "En uso" }));
         JboxEstado9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JboxEstado9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -494,7 +634,7 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         });
 
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Resident Evil 4");
+        jLabel17.setText("PlayStation 4");
         jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -550,233 +690,124 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel21.setText("¡¡¡TOP 8!!!");
-
-        btnVerJuegos.setBackground(new java.awt.Color(0, 0, 204));
-        btnVerJuegos.setForeground(new java.awt.Color(255, 255, 255));
-        btnVerJuegos.setText("Ver todos los juegos");
-        btnVerJuegos.addActionListener(new java.awt.event.ActionListener() {
+        btnAñadir.setBackground(new java.awt.Color(0, 0, 204));
+        btnAñadir.setForeground(new java.awt.Color(255, 255, 255));
+        btnAñadir.setText("Añadir");
+        btnAñadir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerJuegosActionPerformed(evt);
+                btnAñadirActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(37, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnVerJuegos)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(413, 413, 413)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(322, 322, 322))
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(207, 207, 207)
+                                .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(18, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
-                .addGap(24, 24, 24)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnVerJuegos)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
-        jPanel17.setBackground(new java.awt.Color(51, 0, 51));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo.png"))); // NOI18N
+        logo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        logo.setName(""); // NOI18N
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setText("Contenido");
-
-        btnListaUsuarios8.setBackground(new java.awt.Color(0, 0, 204));
-        btnListaUsuarios8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnListaUsuarios8.setForeground(new java.awt.Color(255, 255, 255));
-        btnListaUsuarios8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono User.png"))); // NOI18N
-        btnListaUsuarios8.setText("Lista de usuarios");
-        btnListaUsuarios8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnListaUsuarios8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnListaUsuarios8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnListaUsuarios8.setIconTextGap(20);
-        btnListaUsuarios8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListaUsuarios8ActionPerformed(evt);
-            }
-        });
-
-        btnJuegos8.setBackground(new java.awt.Color(0, 0, 204));
-        btnJuegos8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnJuegos8.setForeground(new java.awt.Color(255, 255, 255));
-        btnJuegos8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Control (1).png"))); // NOI18N
-        btnJuegos8.setText("Juegos");
-        btnJuegos8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnJuegos8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnJuegos8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnJuegos8.setIconTextGap(20);
-        btnJuegos8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnJuegos8ActionPerformed(evt);
-            }
-        });
-
-        btnRentas8.setBackground(new java.awt.Color(0, 0, 204));
-        btnRentas8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRentas8.setForeground(new java.awt.Color(255, 255, 255));
-        btnRentas8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Reloj.png"))); // NOI18N
-        btnRentas8.setText("Reservas");
-        btnRentas8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnRentas8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnRentas8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnRentas8.setIconTextGap(20);
-        btnRentas8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRentas8ActionPerformed(evt);
-            }
-        });
-
-        btnInventario8.setBackground(new java.awt.Color(0, 0, 204));
-        btnInventario8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInventario8.setForeground(new java.awt.Color(255, 255, 255));
-        btnInventario8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono Inventario.png"))); // NOI18N
-        btnInventario8.setText("Inventario");
-        btnInventario8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnInventario8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnInventario8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnInventario8.setIconTextGap(20);
-        btnInventario8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInventario8ActionPerformed(evt);
-            }
-        });
-
-        jLabel36.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel36.setName(""); // NOI18N
-
-        btnMenu8.setBackground(new java.awt.Color(0, 0, 204));
-        btnMenu8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMenu8.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Icono home (1).png"))); // NOI18N
-        btnMenu8.setText("Menu");
-        btnMenu8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnMenu8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnMenu8.setIconTextGap(20);
-        btnMenu8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenu8ActionPerformed(evt);
-            }
-        });
-
-        btnConsolas7.setBackground(new java.awt.Color(0, 0, 204));
-        btnConsolas7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnConsolas7.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsolas7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IconoConsola.png"))); // NOI18N
-        btnConsolas7.setText("Consolas");
-        btnConsolas7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnConsolas7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnConsolas7.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnConsolas7.setIconTextGap(20);
-        btnConsolas7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsolas7ActionPerformed(evt);
-            }
-        });
-
-        logo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono qz.png"))); // NOI18N
-        logo5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        logo5.setName(""); // NOI18N
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(logo5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel36))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel35)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnListaUsuarios8, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(btnJuegos8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRentas8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnInventario8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMenu8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnConsolas7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(logo5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel36)
-                .addGap(57, 57, 57)
-                .addComponent(jLabel35)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMenu8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnConsolas7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnJuegos8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRentas8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListaUsuarios8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInventario8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(logo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(527, 527, 527))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
-            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
+        VistaGestionClientes vgc = new VistaGestionClientes();
+        vgc.setVisible(true);
+        this.dispose();          // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaUsuariosActionPerformed
+
+    private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        vj.setVisible(true);
+        this.setVisible(false);// TODO add your handling code here:
+    }//GEN-LAST:event_btnJuegosActionPerformed
+
+    private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
+        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        vg.setVisible(true);
+        this.dispose();          // TODO add your handling code here:
+    }//GEN-LAST:event_btnRentasActionPerformed
+
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        VistaGestionInventario vgi = new VistaGestionInventario();
+        vgi.setVisible(true);
+        this.dispose();          // TODO add your handling code here:
+    }//GEN-LAST:event_btnInventarioActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        // TODO add your handling code here:
+        VistaMenu vl = new VistaMenu();
+        vl.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuActionPerformed
 
     private void JboxEstado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JboxEstado1ActionPerformed
         // TODO add your handling code here:
@@ -810,54 +841,15 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JboxEstado9ActionPerformed
 
-    private void btnVerJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerJuegosActionPerformed
+    private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
         // TODO add your handling code here:
-        VistaListaDeJuegos vl = new VistaListaDeJuegos();
-        vl.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_btnVerJuegosActionPerformed
+    }//GEN-LAST:event_btnConsolasActionPerformed
 
-    private void btnConsolas7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolas7ActionPerformed
-        // TODO add your handling code here:
-        VistaGestionDeConsolas vl = new VistaGestionDeConsolas();
-        vl.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnConsolas7ActionPerformed
-
-    private void btnMenu8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu8ActionPerformed
-        // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
-        vl.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnMenu8ActionPerformed
-
-    private void btnInventario8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario8ActionPerformed
-        // TODO add your handling code here:
-        VistaInventario vl = new VistaInventario();
-        vl.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnInventario8ActionPerformed
-
-    private void btnRentas8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentas8ActionPerformed
-        // TODO add your handling code here:
-        VistaGestionDeReservas vl = new VistaGestionDeReservas();
-        vl.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnRentas8ActionPerformed
-
-    private void btnJuegos8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos8ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
-        vj.setVisible(true);
-        this.setVisible(false);// TODO add your handling code here:
-    }//GEN-LAST:event_btnJuegos8ActionPerformed
-
-    private void btnListaUsuarios8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios8ActionPerformed
-        // TODO add your handling code here:
-        VistaGestionClientes vj = new VistaGestionClientes();
-        vj.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnListaUsuarios8ActionPerformed
+    private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
+        VistaAgregarConsola va = new VistaAgregarConsola();
+        va.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAñadirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -876,20 +868,20 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaGestionDeVideojuegos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaGestionDeConsolas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaGestionDeVideojuegos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaGestionDeConsolas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaGestionDeVideojuegos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaGestionDeConsolas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaGestionDeVideojuegos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaGestionDeConsolas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaGestionDeVideojuegos().setVisible(true);
+                new VistaGestionDeConsolas().setVisible(true);
             }
         });
     }
@@ -903,55 +895,13 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JboxEstado7;
     private javax.swing.JComboBox<String> JboxEstado8;
     private javax.swing.JComboBox<String> JboxEstado9;
+    private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnConsolas;
-    private javax.swing.JButton btnConsolas1;
-    private javax.swing.JButton btnConsolas2;
-    private javax.swing.JButton btnConsolas3;
-    private javax.swing.JButton btnConsolas4;
-    private javax.swing.JButton btnConsolas5;
-    private javax.swing.JButton btnConsolas6;
-    private javax.swing.JButton btnConsolas7;
     private javax.swing.JButton btnInventario;
-    private javax.swing.JButton btnInventario1;
-    private javax.swing.JButton btnInventario2;
-    private javax.swing.JButton btnInventario3;
-    private javax.swing.JButton btnInventario4;
-    private javax.swing.JButton btnInventario5;
-    private javax.swing.JButton btnInventario6;
-    private javax.swing.JButton btnInventario8;
     private javax.swing.JButton btnJuegos;
-    private javax.swing.JButton btnJuegos1;
-    private javax.swing.JButton btnJuegos2;
-    private javax.swing.JButton btnJuegos3;
-    private javax.swing.JButton btnJuegos4;
-    private javax.swing.JButton btnJuegos5;
-    private javax.swing.JButton btnJuegos6;
-    private javax.swing.JButton btnJuegos8;
     private javax.swing.JButton btnListaUsuarios;
-    private javax.swing.JButton btnListaUsuarios1;
-    private javax.swing.JButton btnListaUsuarios2;
-    private javax.swing.JButton btnListaUsuarios3;
-    private javax.swing.JButton btnListaUsuarios4;
-    private javax.swing.JButton btnListaUsuarios5;
-    private javax.swing.JButton btnListaUsuarios6;
-    private javax.swing.JButton btnListaUsuarios8;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JButton btnMenu1;
-    private javax.swing.JButton btnMenu2;
-    private javax.swing.JButton btnMenu3;
-    private javax.swing.JButton btnMenu4;
-    private javax.swing.JButton btnMenu5;
-    private javax.swing.JButton btnMenu6;
-    private javax.swing.JButton btnMenu8;
     private javax.swing.JButton btnRentas;
-    private javax.swing.JButton btnRentas1;
-    private javax.swing.JButton btnRentas2;
-    private javax.swing.JButton btnRentas3;
-    private javax.swing.JButton btnRentas4;
-    private javax.swing.JButton btnRentas5;
-    private javax.swing.JButton btnRentas6;
-    private javax.swing.JButton btnRentas8;
-    private javax.swing.JButton btnVerJuegos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -965,39 +915,18 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1006,10 +935,5 @@ public class VistaGestionDeVideojuegos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel logo;
-    private javax.swing.JLabel logo1;
-    private javax.swing.JLabel logo2;
-    private javax.swing.JLabel logo3;
-    private javax.swing.JLabel logo4;
-    private javax.swing.JLabel logo5;
     // End of variables declaration//GEN-END:variables
 }
