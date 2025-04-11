@@ -22,8 +22,7 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
      */
     public VistaAñadirObjeto() {
     	this.objetoApiClient = new ObjetoApiClient();
-		
-    	this.setLocationRelativeTo(this);
+		setLocationRelativeTo(this);
         initComponents();
     }
 
@@ -451,6 +450,9 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
             Objeto objeto = new Objeto(nombre, descripcion, fechaRegistro, estado, categoria);
             objetoApiClient.crearObjeto(objeto);
             JOptionPane.showMessageDialog(this, "Objeto guardado correctamente");
+            VistaGestionObjetos vgo = new VistaGestionObjetos();
+            vgo.setVisible(true);
+            this.dispose();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, verifique los datos ingresados", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {

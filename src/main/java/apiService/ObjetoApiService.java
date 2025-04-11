@@ -28,7 +28,7 @@ public interface ObjetoApiService {
 	@DELETE("/quantumZone/objetos/{id}")
 	Call<Void> deleteObjeto(@Path("id") String id);
 
-	@GET("/quantumZone/objetos/buscar")
+	@GET("/quantumZone/objetos/filtros")
 	Call<List<Objeto>> buscarObjetos(
 		//@Query("id") String id,
 		//@Query("nombre") String nombre,

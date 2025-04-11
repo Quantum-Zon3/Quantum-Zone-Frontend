@@ -447,10 +447,14 @@ public class VistaEditarObjeto extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-            Objeto objetoExistente = objetoApiClient.obtenerObjetoPorId(this.idObjeto);
+            Objeto objetoExistente = objetoApiClient.obtenerObjetoPorId(this.idObjeto);            
             Objeto objeto = new Objeto(nombre, descripcion, objetoExistente.getFecha(), estado, categoria);
-            
-            JOptionPane.showMessageDialog(this, "objeto guardado correctamente");
+            Objeto nuevoObjeto = objetoApiClient.actualizarObjeto(this.idObjeto, objeto);
+            if (nuevoObjeto == null) {
+				JOptionPane.showMessageDialog(this, "Error al editar el objeto", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+            JOptionPane.showMessageDialog(this, "objeto editado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos ", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
