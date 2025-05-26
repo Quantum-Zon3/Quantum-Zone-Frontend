@@ -73,5 +73,22 @@ public class AdministradorApiClient {
 		return null;
 		
 	}
+	public static LoginResponse login(String cedula, String contraseña) {
+		LoginRequest loginRequest = new LoginRequest(cedula, contraseña);
+		try {
+			Response<LoginResponse> response = administradorApiService.loginAdministrador(loginRequest).execute();
+			if(response.isSuccessful()){
+				LoginResponse loginResponse = response.body();
+				return loginResponse;
+			}else {
+				return null;
+			}
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
 	
 }

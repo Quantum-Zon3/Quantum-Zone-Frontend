@@ -8,6 +8,7 @@ import exceptions.UsuarioNoEncontradoONoRegistradoException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
+import modelo.LoginResponse;
 import retrofit2.Response;
 /**
  *
@@ -40,17 +41,14 @@ public class InicioSecion extends javax.swing.JFrame {
 
         try {
             String cedula = txtDocumento.getText();
-            Administrador admin = adminClient.buscarAdministradorPorCedula(cedula);
-            if (admin == null) {
-				JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-				return;
-			}
-            if (admin.getContraseña().equals(txtContraseña.getText())) {
-                VistaMenu vista = new VistaMenu();
+            String contraseña = txtContraseña.getText();
+            LoginResponse login = adminClient.login(cedula, contraseña);
+            if (login != null) {
+				VistaMenu vista = new VistaMenu();
                 vista.setVisible(true);
                 this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
+			}else {
+                JOptionPane.showMessageDialog(null, "No se ha podido iniciar sesión revisar los datos ingresados");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());
