@@ -15,28 +15,31 @@ public class ClienteApiClient {
 	private static ClienteApiService clienteApiService;
 	
 	public ClienteApiClient() {
-		Gson gson = new GsonBuilder()
-			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
-				@Override
-				public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-					return LocalDate.parse(json.getAsString());
-				}
-			})
-			.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
-				@Override
-				public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-					return new JsonPrimitive(src.toString());
-				}
-			})
-			.create();
-
-		Retrofit retrofit = new Retrofit.Builder()
-			.baseUrl(BASE_URL)
-			.addConverterFactory(GsonConverterFactory.create(gson))
-			.build();
-
-		clienteApiService = retrofit.create(ClienteApiService.class);
 	}
+	
+		static {
+			Gson gson = new GsonBuilder()
+				.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+					@Override
+					public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+						return LocalDate.parse(json.getAsString());
+					}
+				})
+				.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+					@Override
+					public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+						return new JsonPrimitive(src.toString());
+					}
+				})
+				.create();
+
+			Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(BASE_URL)
+				.addConverterFactory(GsonConverterFactory.create(gson))
+				.build();
+
+			clienteApiService = retrofit.create(ClienteApiService.class);
+		}
 	
 	
 	public static List<Cliente> listarCliente(String token) {
@@ -44,7 +47,7 @@ public class ClienteApiClient {
 			Response<List<Cliente>> response = clienteApiService.getAllUsuarios("Bearer "+token).execute();
 			if(response.isSuccessful()){
 				return response.body();
-				//admins.forEach(admin -> System.out.println(admin));
+				
 			}else {
 				System.out.println("Error " + response.code());
 			}
@@ -56,12 +59,12 @@ public class ClienteApiClient {
 		return null;
 	}
 	public static Cliente buscarClientePorCedula(String cedula,String token) throws Exception {
-		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios(cedula,"Bearer "+token).execute();
+		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios("Bearer "+token, cedula).execute();
 		if(cliente.isSuccessful()) {
 			if(cliente.body().isEmpty()){
 				throw new Exception("Cliente no encontrado");
 			}
-			return cliente.body().get(0);
+			return (Cliente) cliente.body().get(0);
 		}else{
 			throw new Exception("Datos Incorrectos");
 		}

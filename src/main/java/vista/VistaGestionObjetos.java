@@ -514,7 +514,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
         try {
             int filaSeleccionada = tblObjetos.getSelectedRow();
             if (filaSeleccionada != -1) {
-                String idObjeto = (String) tblObjetos.getValueAt(filaSeleccionada, 0);
+                String idObjeto = (String) tblObjetos.getValueAt(filaSeleccionada, 0).toString();
                 int confirmacion = JOptionPane.showConfirmDialog(null,
                         "¿Estás seguro que deseas eliminar al objeto con ID " + idObjeto + "?", "Confirmar eliminación",
                         JOptionPane.YES_NO_OPTION);
@@ -556,7 +556,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
         int filaSeleccionada = tblObjetos.getSelectedRow();
         if (filaSeleccionada != -1) {
-            String idObjeto = (String) tblObjetos.getValueAt(filaSeleccionada, 0);
+            String idObjeto = (String) tblObjetos.getValueAt(filaSeleccionada, 0).toString();
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al objeto con ID " + idObjeto + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 VistaEditarObjeto vs = new VistaEditarObjeto(idObjeto,token);
