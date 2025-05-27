@@ -21,6 +21,7 @@ import modelo.VideojuegoRentado;
  */
 public class VistaVideojuegosRentados extends javax.swing.JFrame {
     private VideojuegoRentadoApiClient videojuegoRCliente; 
+    private ClienteApiClient clienteApiClient;
     private String token;
     /**
      * Creates new form VistaVideojuegosRentados
@@ -30,6 +31,7 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         this.token = token;
         videojuegoRCliente = new VideojuegoRentadoApiClient();
+        clienteApiClient = new ClienteApiClient();
         llenarTablaVideojuegosR();
     }
    
@@ -469,11 +471,14 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 		}
         VideoJuego videojuego = VideojuegoClient.buscarVideojuegoPorId(txtIdVideojuego.getText(), token);
         VideojuegoRentado vidr = new VideojuegoRentado(cliente.getId(), videojuego.getId(), fechaRegistro, fechaDevolucion);
-        videojuegoRCliente.crearVideojuegoRentado(vidr,token);
+        VideojuegoRentado vidr2 = videojuegoRCliente.crearVideojuegoRentado(vidr,token);
+        if (vidr2 == null) {
+        	JOptionPane.showMessageDialog(null, "Error al crear la renta");
+        }
         JOptionPane.showMessageDialog(null, "Se ha creado una renta correctamente");
         llenarTablaVideojuegosR();
         }catch(Exception e){
-           e.getMessage();
+        	JOptionPane.showMessageDialog(null, "pasa algomalito,"+ e.getMessage());
             
         }
                 

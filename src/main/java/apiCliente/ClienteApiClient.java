@@ -55,16 +55,34 @@ public class ClienteApiClient {
 		}
 		return null;
 	}
-	public static Cliente buscarClientePorCedula(String cedula,String token) throws Exception {
-		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios(cedula,"Bearer "+token).execute();
-		if(cliente.isSuccessful()) {
-			if(cliente.body().isEmpty()){
-				throw new Exception("Cliente no encontrado");
-			}
-			return cliente.body().get(0);
-		}else{
-			throw new Exception("Datos Incorrectos");
-		}
+	public static Cliente buscarClientePorCedula(String cedula, String token) throws Exception {
+	    String authHeader = "Bearer " + token;
+	    Response<List<Cliente>> response = clienteApiService.buscarUsuarios(cedula, authHeader).execute();
+
+	    if (response.isSuccessful()) {
+	        List<Cliente> clientes = response.body();
+
+	        if (clientes == null || clientes.isEmpty()) {
+	            throw new Exception("Cliente no encontrado con cédula: " + cedula);
+	        }
+
+	        return clientes.get(0);
+	    } else {
+	        String errorMessage;
+	        try {
+	            errorMessage = response.errorBody() != null
+	                ? response.errorBody().string()
+	                : "Respuesta con código HTTP: " + response.code();
+	        } catch (Exception e) {
+	            errorMessage = "No se pudo leer el cuerpo del error. Código HTTP: " + response.code();
+	        }
+
+	        // Agrega logs para depurar
+	        System.out.println("Código HTTP: " + response.code());
+	        System.out.println("Mensaje error: " + errorMessage);
+
+	        throw new Exception("Error al buscar cliente: " + errorMessage);
+	    }
 	}
 	public static void deleteCliente(Integer id,String token) throws Exception {
 		Response<Void> response = clienteApiService.deleteUsuario(id,"Bearer "+token).execute();

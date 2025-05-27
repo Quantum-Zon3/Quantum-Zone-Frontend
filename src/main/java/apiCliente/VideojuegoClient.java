@@ -75,7 +75,7 @@ public class VideojuegoClient {
 			}
 			return videojuego.body();
 		} else {
-			throw new Exception("Datos Incorrectos");
+			throw new Exception("Datos Incorrectos videojuegos");
 		}
 	}
 
