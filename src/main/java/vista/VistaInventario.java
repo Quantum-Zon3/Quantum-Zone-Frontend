@@ -5,7 +5,7 @@
 package vista;
 
 
-import apiCliente.InventarioApiClient;
+import apiCliente.*;
 import modelo.*;
 
 import java.io.IOException;
@@ -22,15 +22,19 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class VistaInventario extends javax.swing.JFrame {
-	private final InventarioApiClient inventarioApiClient;
-	
+	private ConsolaClient consolaApiClient = new ConsolaClient();
+	private VideojuegoClient videojuegoApiClient = new VideojuegoClient();
+	private ObjetoApiClient objetoApiClient = new ObjetoApiClient();
+	private PuestoApiClient puestoApiClient = new PuestoApiClient();
+
+	private String token;
  
     /**
      * Creates new form VistaInventario
      */
-    public VistaInventario() {
+    public VistaInventario(String token) {
         initComponents();
-        inventarioApiClient = new InventarioApiClient();
+        this.token = token;
         llenarTablaVideojuegos();
         llenarTablaConsolas();
         llenarTablaObjetos();
@@ -438,48 +442,48 @@ public class VistaInventario extends javax.swing.JFrame {
 
     private void btnAñadirInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirInventarioActionPerformed
         // TODO add your handling code here:
-        VistaGestionObjetos vl = new VistaGestionObjetos();
+        VistaGestionObjetos vl = new VistaGestionObjetos(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAñadirInventarioActionPerformed
 
     private void btnListaUsuarios9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios9ActionPerformed
         // TODO add your handling code here:
-        VistaGestionClientes vj = new VistaGestionClientes();
+        VistaGestionClientes vj = new VistaGestionClientes(token);
         vj.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnListaUsuarios9ActionPerformed
 
     private void btnJuegos9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos9ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegos9ActionPerformed
 
     private void btnRentas9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentas9ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeReservas vl = new VistaGestionDeReservas();
+        VistaGestionDeReservas vl = new VistaGestionDeReservas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRentas9ActionPerformed
 
     private void btnInventario9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario9ActionPerformed
         // TODO add your handling code here:
-        VistaInventario vl = new VistaInventario();
+        VistaInventario vl = new VistaInventario(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnInventario9ActionPerformed
 
     private void btnMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu9ActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenu9ActionPerformed
 
     private void btnConsolas8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolas8ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeConsolas vl = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas vl = new VistaGestionDeConsolas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnConsolas8ActionPerformed
@@ -492,8 +496,7 @@ public class VistaInventario extends javax.swing.JFrame {
         };
         model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Fecha de Publicación", "Descripción", "Público", "Tipo"});
 
-        try {
-            List<VideoJuego> juegosAux = inventarioApiClient.obtenerVideoJuegos();
+            List<VideoJuego> juegosAux = videojuegoApiClient.listarVideojuego(token);
             for (VideoJuego juego : juegosAux) {
                 model.addRow(new Object[]{
                     juego.getId(),
@@ -504,10 +507,7 @@ public class VistaInventario extends javax.swing.JFrame {
                     juego.getTipo()
                 });
             }
-            tblVideojuegos.setModel(model);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los videojuegos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+            tblVideojuegos.setModel(model);    
     }
 
     private void llenarTablaConsolas() {
@@ -518,8 +518,7 @@ public class VistaInventario extends javax.swing.JFrame {
         };
         model.setColumnIdentifiers(new Object[]{"ID", "Marca", "Consola", "Fecha de Publicación"});
 
-        try {
-            List<Consola> consolasAux = inventarioApiClient.obtenerConsolas();
+            List<Consola> consolasAux = consolaApiClient.listarConsola(token);
             for (Consola consola : consolasAux) {
                 model.addRow(new Object[]{
                     consola.getId(),
@@ -529,9 +528,6 @@ public class VistaInventario extends javax.swing.JFrame {
                 });
             }
             tblConsolas.setModel(model);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar las consolas", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
     private void llenarTablaObjetos() {
         DefaultTableModel model = new DefaultTableModel() {
@@ -542,7 +538,7 @@ public class VistaInventario extends javax.swing.JFrame {
         model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Descripción", "Fecha", "Estado", "Categoría"});
 
         try {
-            List<Objeto> objetosAux = inventarioApiClient.obtenerObjetos();
+            List<Objeto> objetosAux = objetoApiClient.obtenerObjetos(token);
             for (Objeto objeto : objetosAux) {
                 model.addRow(new Object[]{
                     objeto.getId(),
@@ -565,9 +561,7 @@ public class VistaInventario extends javax.swing.JFrame {
             }
         };
         model.setColumnIdentifiers(new Object[]{"ID", "Número de Puesto", "Consola", "Cantidad de Sillas", "Cantidad de Controles"});
-
-        try {
-            List<Puesto> puestosAux = inventarioApiClient.obtenerPuestos();
+            List<Puesto> puestosAux = puestoApiClient.listarPuestos(token);
             for (Puesto puesto : puestosAux) {
                 model.addRow(new Object[]{
                     puesto.getId(),
@@ -578,9 +572,6 @@ public class VistaInventario extends javax.swing.JFrame {
                 });
             }
             tblPuestos.setModel(model);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los puestos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
     /**
      * @param args the command line arguments
@@ -612,7 +603,7 @@ public class VistaInventario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaInventario().setVisible(true);
+                new VistaInventario(null).setVisible(true);
             }
         });
     }

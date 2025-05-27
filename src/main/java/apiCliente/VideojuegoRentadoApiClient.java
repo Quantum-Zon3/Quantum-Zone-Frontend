@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -52,9 +54,9 @@ public class VideojuegoRentadoApiClient {
         videoRService = retrofit.create(VideojuegoRentadoApiService.class);
     }
 	
-	public static List<VideojuegoRentado> listarVideojuegosRentados() {
+	public static List<VideojuegoRentado> listarVideojuegosRentados(String token) {
 		try {
-			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados().execute();
+			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados(token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -66,9 +68,9 @@ public class VideojuegoRentadoApiClient {
 		return null;
 	}
 	
-	public static VideojuegoRentado buscarVideojuegoRentadoPorId(String id) {
+	public static VideojuegoRentado buscarVideojuegoRentadoPorId(String id,String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id).execute();
+			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id,token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -80,9 +82,9 @@ public class VideojuegoRentadoApiClient {
 		return null;
 	}
 	
-	public static VideojuegoRentado crearVideojuegoRentado(VideojuegoRentado videojuegoRentado) {
+	public static VideojuegoRentado crearVideojuegoRentado(VideojuegoRentado videojuegoRentado,String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.crearVideojuegoRentado(videojuegoRentado).execute();
+			Response<VideojuegoRentado> response = videoRService.crearVideojuegoRentado(videojuegoRentado, token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -94,8 +96,8 @@ public class VideojuegoRentadoApiClient {
 		return null;
 	}
 	
-	public static void updateVideojuegoRentado(String id, VideojuegoRentado videojuegoRentado) throws Exception {
-			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado).execute();
+	public static void updateVideojuegoRentado(String id, VideojuegoRentado videojuegoRentado, String token) throws Exception {
+			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado, token).execute();
         if(response.isSuccessful()){
             System.out.println("Consola actualizada");
         }
@@ -104,40 +106,40 @@ public class VideojuegoRentadoApiClient {
         }    
 	}
 	
-	public static void eliminarVideojuegoRentado(String id) throws Exception {
-		Response<Void> response = videoRService.deleteVideojuegoRentado(id).execute();
+	public static void eliminarVideojuegoRentado(String id, String token) throws Exception {
+		Response<Void> response = videoRService.deleteVideojuegoRentado(id, token).execute();
 		if(response.isSuccessful()) {
 			System.out.println("Consola eliminada con exito");
 		}else{
 			throw new Exception("Error al eliminar la consola");
 		}
 	}
+	public static Integer buscarClientePorCedula(String Cedula, String token) throws Exception {
+		Cliente cliente = ClienteApiClient.buscarClientePorCedula(Cedula, token);
+			return cliente != null ? cliente.getId() : null;
+	}
 	
-	public static List<VideojuegoRentado> buscarVideojuegosRentados(String id, String cedula, VideoJuego videojuego, LocalDate fechaDeAlquiler, LocalDate fechaDeDevolucion) {
+	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
 		try {
-			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(id, cedula, videojuego, fechaDeAlquiler, fechaDeDevolucion).execute();
+			Integer idCliente = buscarClientePorCedula(cedula, token);
+			if (idCliente == null) {
+				JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+				return null;
+			}
+			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente, token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
-				System.out.println("Error " + response.code());
+				JOptionPane.showMessageDialog(null,"Error " + response.code());
 			}
 		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al buscar el videojuego", "Error", JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al buscar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula) {
-		try {
-			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(cedula).execute();
-			if(response.isSuccessful()){
-				return response.body();
-			}else {
-				System.out.println("Error " + response.code());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 	
 }

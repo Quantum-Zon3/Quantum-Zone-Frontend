@@ -15,14 +15,16 @@ import modelo.Objeto;
 public class VistaEditarObjeto extends javax.swing.JFrame {
 	private final ObjetoApiClient objetoApiClient;
 	private final String idObjeto;
+	private String token;
     /**
      * Creates new form VistaEditarObjetos
      */
-    public VistaEditarObjeto(String idObjeto) {
+    public VistaEditarObjeto(String idObjeto, String token) {
 		initComponents();
 		this.objetoApiClient = new ObjetoApiClient();
 		llenarDatos(idObjeto);
 		this.idObjeto = idObjeto;
+		this.token = token;
     }
 
     /**
@@ -401,38 +403,38 @@ public class VistaEditarObjeto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -447,9 +449,9 @@ public class VistaEditarObjeto extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-            Objeto objetoExistente = objetoApiClient.obtenerObjetoPorId(this.idObjeto);            
+            Objeto objetoExistente = objetoApiClient.obtenerObjetoPorId(this.idObjeto, token);            
             Objeto objeto = new Objeto(nombre, descripcion, objetoExistente.getFecha(), estado, categoria);
-            Objeto nuevoObjeto = objetoApiClient.actualizarObjeto(this.idObjeto, objeto);
+            Objeto nuevoObjeto = objetoApiClient.actualizarObjeto(this.idObjeto, objeto, token);
             if (nuevoObjeto == null) {
 				JOptionPane.showMessageDialog(this, "Error al editar el objeto", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
@@ -464,7 +466,7 @@ public class VistaEditarObjeto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
     private void llenarDatos(String id){
     	try {
-    		Objeto objeto = objetoApiClient.obtenerObjetoPorId(id);
+    		Objeto objeto = objetoApiClient.obtenerObjetoPorId(id, token);
     		if (objeto != null) {
 				txtNombre.setText(objeto.getNombre());
 				txtDescripcion.setText(objeto.getDescripcion());
@@ -524,7 +526,7 @@ public class VistaEditarObjeto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaEditarObjeto(null).setVisible(true);
+                new VistaEditarObjeto(null,null).setVisible(true);
             }
         });
     }

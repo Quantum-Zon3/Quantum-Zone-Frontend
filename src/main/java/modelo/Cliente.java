@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * @author shadow111285
  */
 public class Cliente {
-	private String id;
+	private Integer id;
     private String nombre;
     private int edad;
     private String direccion;
@@ -21,7 +21,6 @@ public class Cliente {
     private String email;
 
     public Cliente(String nombre, int edad, String direccion, String imagen,String cedula, String telefono, LocalDate fechaRegistro, String email) {
-    	this.id = UUID.randomUUID().toString();
     	this.nombre = nombre;
         this.edad = edad;
         this.direccion = direccion;
@@ -32,7 +31,6 @@ public class Cliente {
         this.email = email;
     }
     public Cliente() {
-		this.id = UUID.randomUUID().toString();
 	}
 
     public String getNombre() {
@@ -98,10 +96,10 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getId() {
+    public Integer getId() {
     	return id;
     }
-    public void setId(String id) {
+    public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -19,32 +19,24 @@ import retrofit2.http.Query;
 
 public interface VideojuegoRentadoApiService {
 	@GET("/quantumZone/videojuegos/rentados")
-	Call<List<VideojuegoRentado>> getAllVideojuegosRentados();
+	Call<List<VideojuegoRentado>> getAllVideojuegosRentados(@Header("Authorization") String token);
 
 	@GET("/quantumZone/videojuegos/rentados/{id}")
-	Call<VideojuegoRentado> getVideojuegoRentadoById(@Path("id") String id);
+	Call<VideojuegoRentado> getVideojuegoRentadoById(@Path("id") String id,@Header("Authorization") String token);
 
 	@POST("/quantumZone/videojuegos/rentados")
-	Call<VideojuegoRentado> crearVideojuegoRentado(@Body VideojuegoRentado videojuegoRentado);
+	Call<VideojuegoRentado> crearVideojuegoRentado(@Body VideojuegoRentado videojuegoRentado,@Header("Authorization") String token);
 
 	@PUT("/quantumZone/videojuegos/rentados/{id}")
-	Call<VideojuegoRentado> updateVideojuegoRentado(@Path("id") String id, @Body VideojuegoRentado videojuegoRentado);
+	Call<VideojuegoRentado> updateVideojuegoRentado(@Path("id") String id, @Body VideojuegoRentado videojuegoRentado,@Header("Authorization") String token);
 
 	@DELETE("/quantumZone/videojuegos/rentados/{id}")
-	Call<Void> deleteVideojuegoRentado(@Path("id") String id);
-
+	Call<Void> deleteVideojuegoRentado(@Path("id") String id,@Header("Authorization") String token);
 
 	@GET("/quantumZone/videojuegos/rentados/filtros")
 	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
-			@Query("id") String id,
-			@Query("cedula") String cedula,
-			@Query("Videojuego") VideoJuego videojuego,
-			@Query("FechaDeAlquiler") LocalDate modelo,
-			@Query("FechaDeDevolucion") LocalDate precio
-	);
-	@GET("/quantumZone/videojuegos/rentados/filtros")
-	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
-			@Query("cedula") String cedula
+			@Query("idCliente") Integer idCliente,
+			@Header("Authorization") String token
 	);
 			
 }

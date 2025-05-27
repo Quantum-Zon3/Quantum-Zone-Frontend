@@ -54,9 +54,9 @@ public class PuestoApiClient {
             puestoApiService = retrofit.create(PuestoApiService.class);
 
 	}
-	public static List<Puesto> listarPuestos() {
+	public static List<Puesto> listarPuestos(String token) {
 		try {
-			Response<List<Puesto>> response = puestoApiService.getAllPuestos().execute();
+			Response<List<Puesto>> response = puestoApiService.getAllPuestos(token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -67,8 +67,8 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	public static Puesto buscarPuestoPorId(String id) throws Exception {
-		Response<Puesto> puesto = puestoApiService.getPuestoById(id).execute();
+	public static Puesto buscarPuestoPorId(String id,String token) throws Exception {
+		Response<Puesto> puesto = puestoApiService.getPuestoById(id,token).execute();
 		if (puesto.isSuccessful()) {
 			if (puesto.body() == null) {
 				throw new Exception("Puesto no encontrado");
@@ -78,9 +78,9 @@ public class PuestoApiClient {
 			throw new Exception("Datos Incorrectos");
 		}
 	}
-	public static Puesto crearPuesto(Puesto puesto) throws Exception {
+	public static Puesto crearPuesto(Puesto puesto,String token) throws Exception {
 		try {
-			Response<Puesto> response = puestoApiService.createPuesto(puesto).execute();
+			Response<Puesto> response = puestoApiService.createPuesto(puesto,token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -91,9 +91,9 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	public static void eliminarPuesto(String id) throws Exception {
+	public static void eliminarPuesto(String id,String token) throws Exception {
 		try {
-			Response<Void> response = puestoApiService.deletePuesto(id).execute();
+			Response<Void> response = puestoApiService.deletePuesto(id,token).execute();
 			if (response.isSuccessful()) {
 				System.out.println("Puesto eliminado con éxito");
 			} else {
@@ -103,9 +103,9 @@ public class PuestoApiClient {
 			ex.printStackTrace();
 		}
 	}
-	public static Puesto actualizarPuesto(String id, Puesto puesto) throws Exception {
+	public static Puesto actualizarPuesto(String id, Puesto puesto,String token) throws Exception {
 		try {
-			Response<Puesto> response = puestoApiService.updatePuesto(id, puesto).execute();
+			Response<Puesto> response = puestoApiService.updatePuesto(id, puesto, token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -116,8 +116,8 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	public static Puesto buscarPuestoPorNumero(String numeroDePuesto) throws Exception {
-		Response<Puesto> puesto = puestoApiService.buscarPuestos(numeroDePuesto).execute();
+	public static Puesto buscarPuestoPorNumero(String numeroDePuesto,String token) throws Exception {
+		Response<Puesto> puesto = puestoApiService.buscarPuestos(numeroDePuesto,token).execute();
 		if (puesto.isSuccessful()) {
 			if (puesto.body() == null) {
 				throw new Exception("Puesto no encontrado");

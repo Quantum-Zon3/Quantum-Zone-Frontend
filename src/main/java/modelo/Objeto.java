@@ -11,7 +11,7 @@ import java.util.UUID;
  * @author shadow111285
  */
 public class Objeto {
-	private String id;
+	private Integer id;
     private String nombre;
     private String descripcion;
     private LocalDate fecha;
@@ -19,7 +19,6 @@ public class Objeto {
     private String categoria;
 
     public Objeto(String nombre, String descripcion, LocalDate fecha, String estado, String categoria) {
-		this.id = UUID.randomUUID().toString();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
@@ -27,11 +26,11 @@ public class Objeto {
 		this.categoria = categoria;
     }
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

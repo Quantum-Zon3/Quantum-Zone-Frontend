@@ -19,15 +19,16 @@ import modelo.Objeto;
  * @author USER
  */
 public class VistaGestionObjetos extends javax.swing.JFrame {
-
+	private String token;
     /**
      * Creates new form VistaGestionInventario
      */
     private final ObjetoApiClient objetoApiClient;
 
-    public VistaGestionObjetos() {
+    public VistaGestionObjetos(String token) {
         initComponents();
         setLocationRelativeTo(this);
+        this.token = token;
         this.objetoApiClient = new ObjetoApiClient();
         try {
             llenarTablaObjetos();
@@ -438,7 +439,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCategorioActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAñadirActionPerformed
-        VistaAñadirObjeto vs = new VistaAñadirObjeto();
+        VistaAñadirObjeto vs = new VistaAñadirObjeto(token);
         vs.setVisible(true);
         this.dispose();
         
@@ -446,41 +447,41 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
 
     private void btnListaUsuarios9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnListaUsuarios9ActionPerformed
         // TODO add your handling code here:
-        VistaGestionClientes vj = new VistaGestionClientes();
+        VistaGestionClientes vj = new VistaGestionClientes(token);
         vj.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnListaUsuarios9ActionPerformed
 
     private void btnJuegos9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnJuegos9ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }// GEN-LAST:event_btnJuegos9ActionPerformed
 
     private void btnRentas9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRentas9ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeReservas vl = new VistaGestionDeReservas();
+        VistaGestionDeReservas vl = new VistaGestionDeReservas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnRentas9ActionPerformed
 
     private void btnInventario9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInventario9ActionPerformed
         // TODO add your handling code here:
-        VistaInventario vl = new VistaInventario();
+        VistaInventario vl = new VistaInventario(token);
         vl.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnInventario9ActionPerformed
 
     private void btnMenu9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMenu9ActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnMenu9ActionPerformed
 
     private void btnConsolas8ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolas8ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeConsolas vl = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas vl = new VistaGestionDeConsolas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnConsolas8ActionPerformed
@@ -488,7 +489,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnBuscarActionPerformed
         String categoria = txtCategorio.getText();
         try {
-			List<Objeto> objetos = objetoApiClient.buscarObjetos(categoria);
+			List<Objeto> objetos = objetoApiClient.buscarObjetos(categoria,token);
 			if (objetos == null || objetos.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "No se encontraron objetos con la categoria: " + categoria);
 				return;
@@ -519,7 +520,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
                         JOptionPane.YES_NO_OPTION);
                 if (confirmacion == JOptionPane.YES_OPTION) {
 
-                    this.objetoApiClient.eliminarObjeto(idObjeto);
+                    this.objetoApiClient.eliminarObjeto(idObjeto,token);
 
                     // Mostrar mensaje de éxito
                     JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
@@ -542,7 +543,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
         model.setColumnIdentifiers(
                 new Object[]{"ID", "Nombre", "Descripcion", "Estado", "Categoria", "Fecha"});
 
-        List<Objeto> aux = objetoApiClient.obtenerObjetos();
+        List<Objeto> aux = objetoApiClient.obtenerObjetos(token);
         for (Objeto objeto : aux) {
             model.addRow(new Object[]{objeto.getId(), objeto.getNombre(), objeto.getDescripcion(), objeto.getEstado(),
                 objeto.getCategoria(), objeto.getFecha()
@@ -558,7 +559,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
             String idObjeto = (String) tblObjetos.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al objeto con ID " + idObjeto + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                VistaEditarObjeto vs = new VistaEditarObjeto(idObjeto);
+                VistaEditarObjeto vs = new VistaEditarObjeto(idObjeto,token);
                 vs.setVisible(true);
                 this.dispose();
                 
@@ -607,7 +608,7 @@ public class VistaGestionObjetos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaGestionObjetos().setVisible(true);
+                new VistaGestionObjetos(null).setVisible(true);
             }
         });
     }

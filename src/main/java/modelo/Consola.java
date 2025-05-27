@@ -10,19 +10,17 @@ import java.util.UUID;
  * @author shadow111285
  */
 public class Consola {
-    private String id;
+    private Integer id;
     private String marca;
     private String consola;
     private LocalDate fechaDePublicacion;
 
     public Consola(String marca, String consola, LocalDate fechaDePublicacion) {
-    	this.id = UUID.randomUUID().toString();
         this.marca = marca;
         this.consola = consola;
         this.fechaDePublicacion = fechaDePublicacion;
     }
     public Consola() {
-		this.id = UUID.randomUUID().toString();
 	}
 
     public String getMarca() {
@@ -48,10 +46,10 @@ public class Consola {
     public void setFechaDePublicacion(LocalDate fechaDePublicacion) {
         this.fechaDePublicacion = fechaDePublicacion;
     }
-    public String getId() {
+    public Integer getId() {
 		return id;
 	}
-    	public void setId(String id) {
+    	public void setId(Integer id) {
 		this.id = id;
 	}
 	@Override

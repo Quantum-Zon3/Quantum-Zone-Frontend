@@ -5,21 +5,19 @@ import java.util.UUID;
  *
  */
 public class Administrador {
-	private String id;
+	private Integer id;
     private String nombre;
     private String contraseña;
     private int edad;
     private String cedula;
 
     public Administrador(String nombre, String contraseña, int edad, String cedula) {
-    	this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.edad = edad;
         this.cedula = cedula;
     }
     public Administrador() {
-    	this.id = UUID.randomUUID().toString();;
 		
 	}
 
@@ -55,10 +53,10 @@ public class Administrador {
         this.cedula = cedula;
     }
     
-    public String getId() {
+    public Integer getId() {
 		return id;
 	}
-    public void setId(String id) {
+    public void setId(Integer id) {
     	this.id = id;
     }
     

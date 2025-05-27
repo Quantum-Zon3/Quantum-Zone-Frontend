@@ -23,15 +23,17 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
     private ClienteApiClient clienteApi = new ClienteApiClient();
     private List<Cliente> clientes;
     private VideoJuego videojuego;
+    private String token;
     /**
      * Creates new form VistaVideojuegosRentados
      */
-    public VistaVideojuegosRentados(VideoJuego videojuego) {
+    public VistaVideojuegosRentados(VideoJuego videojuego, String token) {
         initComponents();
         setLocationRelativeTo(this);
         videojuegoRCliente = new VideojuegoRentadoApiClient();
         this.videojuego = videojuego;
-        this.clientes = clienteApi.listarCliente();
+        this.clientes = clienteApi.listarCliente(token);
+        this.token = token;
         setters();
         llenarTablaVideojuegosR();
     }
@@ -427,38 +429,38 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuarios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios2ActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuarios2ActionPerformed
 
     private void btnJuegos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos2ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegos2ActionPerformed
 
     private void btnRentas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentas2ActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentas2ActionPerformed
 
     private void btnInventario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario2ActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventario2ActionPerformed
 
     private void btnMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu2ActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenu2ActionPerformed
 
     private void btnConsolas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolas2ActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolas2ActionPerformed
@@ -467,8 +469,13 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
         try{
         LocalDate fechaRegistro = LocalDate.of(2025, 04, 11);
         LocalDate fechaDevolucion = LocalDate.of(2025, 04, 13);
+        if (txtCedula.getText().isEmpty() || txtIdVideojuego.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos");
+			return;
+		}
+        
         VideojuegoRentado vidr = new VideojuegoRentado(clientes.get(0), videojuego, fechaRegistro, fechaDevolucion);
-        videojuegoRCliente.crearVideojuegoRentado(vidr);
+        videojuegoRCliente.crearVideojuegoRentado(vidr,token);
         JOptionPane.showMessageDialog(null, "Se ha creado una renta correctamente");
         llenarTablaVideojuegosR();
         }catch(Exception e){
@@ -484,7 +491,7 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        VistaListaDeJuegos vldj = new VistaListaDeJuegos();
+        VistaListaDeJuegos vldj = new VistaListaDeJuegos(token);
         vldj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -493,7 +500,7 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
 
-        List<VideojuegoRentado> aux = videojuegoRCliente.listarVideojuegosRentados();
+        List<VideojuegoRentado> aux = videojuegoRCliente.listarVideojuegosRentados(token);
         for (VideojuegoRentado videoRentado : aux) {
             model.addRow(new Object[]{
             		videoRentado.getCliente().getCedula(),

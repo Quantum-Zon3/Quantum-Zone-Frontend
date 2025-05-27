@@ -21,11 +21,13 @@ public class VistaEditarCliente extends javax.swing.JFrame {
      */
 	private final ClienteApiClient clienteApiClient;
 	private String idCliente;
-    public VistaEditarCliente(String idCliente) {
+	private String token;
+    public VistaEditarCliente(String idCliente, String token) {
         initComponents();
         this.clienteApiClient = new ClienteApiClient();
         llenarDatos(idCliente);
-        this.idCliente = idCliente;      
+        this.idCliente = idCliente;
+        this.token = token;
     }
 
     /**
@@ -416,38 +418,38 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -466,7 +468,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
 				return;
 			}
             Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
-            clienteApiClient.updateCliente(this.idCliente,cliente);
+            clienteApiClient.updateCliente(this.idCliente,cliente, token);
             JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
@@ -477,7 +479,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
     private void llenarDatos(String id){
     	try {
-    		Cliente cliente = clienteApiClient.buscarClientePorId(id);
+    		Cliente cliente = clienteApiClient.buscarClientePorId(id, token);
     		txtCedula.setText(cliente.getCedula());
     		txtNombre.setText(cliente.getNombre());
     		txtEdad.setText(String.valueOf(cliente.getEdad()));
@@ -526,7 +528,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaEditarCliente(null).setVisible(true);
+                new VistaEditarCliente(null,null).setVisible(true);
             }
         });
     }

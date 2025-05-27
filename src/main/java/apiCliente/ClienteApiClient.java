@@ -39,9 +39,9 @@ public class ClienteApiClient {
 	}
 	
 	
-	public static List<Cliente> listarCliente() {
+	public static List<Cliente> listarCliente(String token) {
 		try {
-			Response<List<Cliente>> response = clienteApiService.getAllUsuarios().execute();
+			Response<List<Cliente>> response = clienteApiService.getAllUsuarios(token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 				//admins.forEach(admin -> System.out.println(admin));
@@ -55,8 +55,8 @@ public class ClienteApiClient {
 		}
 		return null;
 	}
-	public static Cliente buscarClientePorCedula(String cedula) throws Exception {
-		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios(cedula).execute();
+	public static Cliente buscarClientePorCedula(String cedula,String token) throws Exception {
+		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios(cedula,token).execute();
 		if(cliente.isSuccessful()) {
 			if(cliente.body().isEmpty()){
 				throw new Exception("Cliente no encontrado");
@@ -66,32 +66,32 @@ public class ClienteApiClient {
 			throw new Exception("Datos Incorrectos");
 		}
 	}
-	public static void deleteCliente(String id) throws Exception {
-		Response<Void> response = clienteApiService.deleteUsuario(id).execute();
+	public static void deleteCliente(String id,String token) throws Exception {
+		Response<Void> response = clienteApiService.deleteUsuario(id,token).execute();
 		if(response.isSuccessful()) {
 			System.out.println("Cliente eliminado con exito");
 		}else{
 			throw new Exception("Error al eliminar el cliente");
 		}
 	}
-	public static Cliente saveCliente(Cliente cliente) throws Exception {
-		Response<Cliente> response = clienteApiService.createUsuario(cliente).execute();
+	public static Cliente saveCliente(Cliente cliente,String token) throws Exception {
+		Response<Cliente> response = clienteApiService.createUsuario(cliente,token).execute();
 		if(response.isSuccessful()) {
 			return response.body();
 		}else{
 			throw new Exception("Error al guardar el cliente");
 		}
 	}
-	public static Cliente updateCliente(String idCliente, Cliente cliente) throws Exception {
-		Response<Cliente> response = clienteApiService.updateUsuario(idCliente, cliente).execute();
+	public static Cliente updateCliente(String idCliente, Cliente cliente, String token) throws Exception {
+		Response<Cliente> response = clienteApiService.updateUsuario(idCliente, cliente, token).execute();
 		if(response.isSuccessful()) {
 			return response.body();
 		}else{
 			throw new Exception("Error al actualizar el cliente");
 		}
 	}
-	public static Cliente buscarClientePorId(String id) throws Exception {
-		Response<Cliente> response = clienteApiService.getUsuarioById(id).execute();
+	public static Cliente buscarClientePorId(String id,String token) throws Exception {
+		Response<Cliente> response = clienteApiService.getUsuarioById(id,token).execute();
 		if(response.isSuccessful()) {
 			return response.body();
 		}else{

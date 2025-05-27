@@ -21,14 +21,14 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
 	private String idPuesto;
 	private final PuestoApiClient puestoApiClient;
 	private final ConsolaClient consolas;
-	
+	private String token;
     /**
      * Creates new form VistaEditarPuesto
      */
-    public VistaEditarPuesto(String idPuesto) {
+    public VistaEditarPuesto(String idPuesto, String token) {
         setLocationRelativeTo(this);
         initComponents();
-        
+        this.token = token;
         this.idPuesto = idPuesto;
         this.puestoApiClient = new PuestoApiClient();
         this.consolas = new ConsolaClient();
@@ -379,38 +379,38 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -420,14 +420,14 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
             String numeroPuesto = txtNumeroPuesto.getText();
             int controles = Integer.parseInt(boxControles.getSelectedItem().toString());
             int sillas = Integer.parseInt(boxSillas.getSelectedItem().toString()); 
-            List<Consola> consolas = this.consolas.buscarConsolasPorNombre(boxConsolas.getSelectedItem().toString());
+            List<Consola> consolas = this.consolas.buscarConsolasPorNombre(boxConsolas.getSelectedItem().toString(), token);
             Consola consola = consolas.get(0);
             if (numeroPuesto.isEmpty() || boxControles.getSelectedIndex() == 0 || boxSillas.getSelectedIndex() == 0 || boxConsolas.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             Puesto puesto = new Puesto(numeroPuesto, consola, sillas, controles);
-            puestoApiClient.actualizarPuesto(idPuesto, puesto);
+            puestoApiClient.actualizarPuesto(idPuesto, puesto, token);
             JOptionPane.showMessageDialog(this, "puesto guardado correctamente");
             llenarDatos(idPuesto);
         } catch (NumberFormatException ex) {
@@ -439,7 +439,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
     public void llenarDatos(String id) {
     	try {
-    		Puesto puesto = puestoApiClient.buscarPuestoPorId(id);
+    		Puesto puesto = puestoApiClient.buscarPuestoPorId(id, token);
 			txtNumeroPuesto.setText(puesto.getNumeroDePuesto());
 			boxSillas.setSelectedItem(String.valueOf(puesto.getCantidadDeSillas()));
 			boxControles.setSelectedItem(String.valueOf(puesto.getCanditadDeControles()+1));
@@ -449,7 +449,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     	}
     }
     public void llenarConsolas() {
-    	List<Consola> consolas = this.consolas.listarConsola();
+    	List<Consola> consolas = this.consolas.listarConsola(token);
     			boxConsolas.addItem("Consolas");
     	for (Consola c : consolas) {
 			boxConsolas.addItem(c.getConsola());
@@ -464,7 +464,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_boxControlesActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaAgregarPuesto vl = new VistaAgregarPuesto();
+        VistaAgregarPuesto vl = new VistaAgregarPuesto(token);
         vl.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -499,7 +499,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaEditarPuesto(null).setVisible(true);
+                new VistaEditarPuesto(null,null).setVisible(true);
             }
         });
     }

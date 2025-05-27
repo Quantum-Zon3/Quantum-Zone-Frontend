@@ -21,15 +21,16 @@ import vista.VistaGestionObjetos;
 public class VistaAgregarConsola extends javax.swing.JFrame {
 
     private final ConsolaClient consolaCliente;
-
+    private String token;
     /**
      * Creates new form VistaAgregarConsola
      */
-    public VistaAgregarConsola() {
+    public VistaAgregarConsola(String token) {
         initComponents();
         setLocationRelativeTo(this);
         this.consolaCliente = new ConsolaClient();
         llenarTablaConsolas();
+        this.token = token;
     }
     
     public boolean validarCampos() {
@@ -581,25 +582,25 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose(); // TODO add your handling code here:
     }// GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }// GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose(); // TODO add your handling code here:
     }// GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInventarioActionPerformed
-        VistaGestionObjetos vgi = new VistaGestionObjetos();
+        VistaGestionObjetos vgi = new VistaGestionObjetos(token);
         vgi.setVisible(true);
         this.dispose(); // TODO add your handling code here:
         // TODO add your handling code here:
@@ -607,13 +608,13 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va  = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va  = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose(); // TODO add your handling code here:
     }// GEN-LAST:event_btnConsolasActionPerformed
@@ -627,7 +628,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
             int dia = Integer.parseInt(boxDia.getSelectedItem().toString());
             LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
             Consola consola = new Consola(txtMarca.getText(), txtConsola.getText(), fechaRegistro);
-            consolaCliente.createConsola(consola);
+            consolaCliente.createConsola(consola,token);
             JOptionPane.showMessageDialog(null, "Se añadio correctamente");
             llenarTablaConsolas();
             vaciarCampos();
@@ -651,7 +652,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
                         "Confirmar", JOptionPane.YES_NO_OPTION);
                 if (confirmacion == JOptionPane.YES_OPTION) {
                 	
-                    Consola consola = ConsolaClient.buscarConsola(idConsola);
+                    Consola consola = ConsolaClient.buscarConsola(idConsola,token);
                     if(consola != null) {
 						JOptionPane.showMessageDialog(null, "Consola encontrada");
 						txtConsola.setText(consola.getConsola());
@@ -680,7 +681,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
             int filaSeleccionada = tablaConsolas.getSelectedRow();
             if(filaSeleccionada != -1){
                 String idConsola = (String) tablaConsolas.getValueAt(filaSeleccionada, 0);
-                Consola con = consolaCliente.buscarConsola(idConsola);
+                Consola con = consolaCliente.buscarConsola(idConsola,token);
                 con.setConsola(txtConsola.getText());
                 con.setMarca(txtMarca.getText());
                 con.setFechaDePublicacion(LocalDate.of(Integer.parseInt(boxAño.getSelectedItem().toString()), boxMes.getSelectedIndex() + 1, Integer.parseInt(boxDia.getSelectedItem().toString())));
@@ -697,7 +698,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
             
                 int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar la consola con ID " + idConsola + "?", "Confirmar edición", JOptionPane.YES_NO_OPTION);
                 if (confirmacion == JOptionPane.YES_OPTION) {
-					consolaCliente.actualizarConsola(idConsola, conAct);
+					consolaCliente.actualizarConsola(idConsola, conAct, token);
 					llenarTablaConsolas();
 					// Mostrar mensaje de éxito
 					JOptionPane.showMessageDialog(null, "Consola editada exitosamente");
@@ -729,7 +730,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
             String idConsola = (String) tablaConsolas.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idConsola + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                consolaCliente.eliminarConsola(idConsola);
+                consolaCliente.eliminarConsola(idConsola, token);
                 // Mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
                 // Recargar la tabla
@@ -785,7 +786,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAgregarConsola().setVisible(true);
+                new VistaAgregarConsola(null).setVisible(true);
             }
         });
     }
@@ -794,7 +795,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
 
-        List<Consola> aux = consolaCliente.listarConsola();
+        List<Consola> aux = consolaCliente.listarConsola(token);
         for (Consola consola : aux) {
             model.addRow(new Object[]{
             		consola.getId(),

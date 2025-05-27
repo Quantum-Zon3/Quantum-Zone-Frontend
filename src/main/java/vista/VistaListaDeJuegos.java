@@ -25,18 +25,18 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private VideojuegoClient controladorVideojuegos = new VideojuegoClient();
     private List<VideoJuego> videojuegos;
-
+    private String token;
 
     /**
      * Creates new form VistaListaDeJuegos
      */
-    public VistaListaDeJuegos() {
-    	
+    public VistaListaDeJuegos(String token) {
         initComponents();
         //this.controladorVideojuegos = new VideojuegoClient();
         llenarTabla();
-        videojuegos = controladorVideojuegos.listarVideojuego();
+        videojuegos = controladorVideojuegos.listarVideojuego(token);
         setLocationRelativeTo(this);
+        this.token = token;
     }
     
     private boolean validarCampos() {
@@ -404,7 +404,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    	VistaAñadirVideojuego vj = new VistaAñadirVideojuego();
+    	VistaAñadirVideojuego vj = new VistaAñadirVideojuego(token);
 		vj.setVisible(true);
 		this.setVisible(false);
     }
@@ -416,7 +416,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al videojuego con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                this.controladorVideojuegos.eliminarVideojuego(idVideojuego);
+                this.controladorVideojuegos.eliminarVideojuego(idVideojuego,token);
                 // Mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null, "videojuego eliminado exitosamente");
                 // Recargar la tabla
@@ -436,7 +436,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
             String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al videojuego con ID " + idVideojuego + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                VistaEditarVideojuego vs = new VistaEditarVideojuego(idVideojuego);
+                VistaEditarVideojuego vs = new VistaEditarVideojuego(idVideojuego,token);
                 vs.setVisible(true);
                 this.dispose();
                 llenarTabla();
@@ -453,7 +453,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
         if(!(txtId.getText().isEmpty())){
             String nombre = txtId.getText();
-            VideoJuego videojuego = controladorVideojuegos.buscarVideojuegoPorId(nombre);
+            VideoJuego videojuego = controladorVideojuegos.buscarVideojuegoPorId(nombre,token);
 
             if (videojuego != null){
             	DefaultTableModel modelo = (DefaultTableModel) tablaVideojuegos.getModel();
@@ -479,35 +479,35 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaUsuarios8ActionPerformed
 
     private void btnJuegos8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos8ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegos8ActionPerformed
 
     private void btnRentas8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentas8ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeReservas vl = new VistaGestionDeReservas();
+        VistaGestionDeReservas vl = new VistaGestionDeReservas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRentas8ActionPerformed
 
     private void btnInventario8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario8ActionPerformed
         // TODO add your handling code here:
-        VistaInventario vl = new VistaInventario();
+        VistaInventario vl = new VistaInventario(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnInventario8ActionPerformed
 
     private void btnMenu8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu8ActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenu8ActionPerformed
 
     private void btnConsolas7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolas7ActionPerformed
         // TODO add your handling code here:
-        VistaGestionDeConsolas vl = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas vl = new VistaGestionDeConsolas(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnConsolas7ActionPerformed
@@ -523,7 +523,7 @@ if (filaSeleccionada != -1) {
     // Suponiendo que tienes un modelo de tabla con una lista de videojuegos
     VideoJuego videojuegoSeleccionado = videojuegos.get(filaSeleccionada);
 
-    VistaVideojuegosRentados vistaRenta = new VistaVideojuegosRentados(videojuegoSeleccionado);
+    VistaVideojuegosRentados vistaRenta = new VistaVideojuegosRentados(videojuegoSeleccionado,token);
     vistaRenta.setVisible(true);
     this.dispose(); // Si quieres cerrar la ventana actual
 } else {
@@ -538,7 +538,7 @@ if (filaSeleccionada != -1) {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
 
-        List<VideoJuego> aux = controladorVideojuegos.listarVideojuego();
+        List<VideoJuego> aux = controladorVideojuegos.listarVideojuego(token);
         for (VideoJuego videoRentado : aux) {
             model.addRow(new Object[]{
             		videoRentado.getId(),
