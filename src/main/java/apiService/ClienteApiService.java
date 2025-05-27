@@ -19,16 +19,16 @@ public interface ClienteApiService {
     Call<List<Cliente>> getAllUsuarios(@Header("Authorization") String token);
 
     @GET("/quantumZone/clientes/{id}")
-    Call<Cliente> getUsuarioById(@Path("id") String id, @Header("Authorization") String token);
+    Call<Cliente> getUsuarioById(@Path("id") Integer id, @Header("Authorization") String token);
 
     @POST("/quantumZone/clientes")
     Call<Cliente> createUsuario(@Body Cliente usuario,@Header("Authorization") String token);
 
     @PUT("/quantumZone/clientes/{id}")
-    Call<Cliente> updateUsuario(@Path("id") String id, @Body Cliente usuario, @Header("Authorization") String token);
+    Call<Cliente> updateUsuario(@Path("id") Integer id, @Body Cliente usuario, @Header("Authorization") String token);
 
     @DELETE("/quantumZone/clientes/{id}")
-    Call<Void> deleteUsuario(@Path("id") String id, @Header("Authorization") String token);
+    Call<Void> deleteUsuario(@Path("id") Integer id, @Header("Authorization") String token);
 
     @GET("/quantumZone/clientes/buscar")
     Call<List<Cliente>> buscarUsuarios(

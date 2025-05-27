@@ -456,6 +456,7 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
     	try {
+    		String imagen = "imagen";
     	    String cedula = txtCedula.getText();
     	    String nombre = txtNombre.getText();
     	    int edad = Integer.parseInt(txtEdad.getText());
@@ -467,8 +468,8 @@ public class VistaAñadirCliente extends javax.swing.JFrame {
 		        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 		        return;
 		    }
-    	    Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
-		    clienteApiClient.saveCliente(cliente,token);
+    	    Cliente cliente = new Cliente(nombre, edad, direccion,imagen, cedula, telefono, fechaRegistro, correo);
+		    ClienteApiClient.saveCliente(cliente,token);
 		    vaciarCampos();
 		    VistaGestionClientes vgc = new VistaGestionClientes(token);
 		    vgc.setVisible(true);

@@ -41,7 +41,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 		modelo.setRowCount(0);
 		List<Puesto> aux = puesto.listarPuestos(token);
 		for (Puesto p : aux) {
-			modelo.addRow(new Object[] { p.getId(), p.getNumeroDePuesto(), p.getConsola().getConsola(),
+			modelo.addRow(new Object[] { p.getId(), p.getNumeroDePuesto(), p.getConsola(),
 					p.getCantidadDeSillas(), p.getCanditadDeControles() });
 		}
 	}
@@ -586,7 +586,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 	private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
 		int fliaSelected = jTable1.getSelectedRow();
 		if (fliaSelected != -1) {
-			String idPuesto = (String) jTable1.getValueAt(fliaSelected, 0);
+			String idPuesto = (String) jTable1.getValueAt(fliaSelected, 0).toString();
 			int confirmacion = JOptionPane.showConfirmDialog(null,
 					"¿Estás seguro que deseas editar al cliente con ID " + idPuesto + "?", "Confirmar editar",
 					JOptionPane.YES_NO_OPTION);
@@ -600,7 +600,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 			}
 			return;
 		}
-		JOptionPane.showMessageDialog(null, "Se edito  correctamente"); // TODO add your handling code here:
+		JOptionPane.showMessageDialog(null, "Seleccione un opcion valida"); // TODO add your handling code here:
 	}// GEN-LAST:event_btnEditarActionPerformed
 
 	private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {// GEN-FIRST:event_btnEliminarActionPerformed
@@ -638,7 +638,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 						Object[] row = new Object[5];
 						row[0] = puesto.getId();
 						row[1] = puesto.getNumeroDePuesto();
-						row[2] = puesto.getConsola().getConsola();
+						row[2] = puesto.getConsola();
 						row[3] = puesto.getCantidadDeSillas();
 						row[4] = puesto.getCanditadDeControles();
 

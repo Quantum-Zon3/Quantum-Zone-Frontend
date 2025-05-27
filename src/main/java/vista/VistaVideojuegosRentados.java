@@ -5,6 +5,7 @@
 package vista;
 
 import apiCliente.ClienteApiClient;
+import apiCliente.VideojuegoClient;
 import apiCliente.VideojuegoRentadoApiClient;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,30 +21,18 @@ import modelo.VideojuegoRentado;
  */
 public class VistaVideojuegosRentados extends javax.swing.JFrame {
     private VideojuegoRentadoApiClient videojuegoRCliente; 
-    private ClienteApiClient clienteApi = new ClienteApiClient();
-    private List<Cliente> clientes;
-    private VideoJuego videojuego;
     private String token;
     /**
      * Creates new form VistaVideojuegosRentados
      */
-    public VistaVideojuegosRentados(VideoJuego videojuego, String token) {
+    public VistaVideojuegosRentados(String token) {
         initComponents();
         setLocationRelativeTo(this);
-        videojuegoRCliente = new VideojuegoRentadoApiClient();
-        this.videojuego = videojuego;
-        this.clientes = clienteApi.listarCliente(token);
         this.token = token;
-        setters();
+        videojuegoRCliente = new VideojuegoRentadoApiClient();
         llenarTablaVideojuegosR();
     }
-    
-    public void setters(){
-        txtNombre.setText(clientes.get(0).getNombre());
-        txtCedula.setText(clientes.get(0).getCedula());
-        txtIdVideojuego.setText(videojuego.getId());
-        txtNombreVideojuego.setText(videojuego.getNombre());
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -467,14 +456,19 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         try{
-        LocalDate fechaRegistro = LocalDate.of(2025, 04, 11);
-        LocalDate fechaDevolucion = LocalDate.of(2025, 04, 13);
+        LocalDate fechaRegistro = LocalDate.now();
+        LocalDate fechaDevolucion = LocalDate.now().plusDays(7);
         if (txtCedula.getText().isEmpty() || txtIdVideojuego.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos");
 			return;
 		}
-        
-        VideojuegoRentado vidr = new VideojuegoRentado(clientes.get(0), videojuego, fechaRegistro, fechaDevolucion);
+        Cliente cliente = ClienteApiClient.buscarClientePorCedula(txtCedula.getText(), token);
+        if (cliente == null) {
+			JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+			return;
+		}
+        VideoJuego videojuego = VideojuegoClient.buscarVideojuegoPorId(txtIdVideojuego.getText(), token);
+        VideojuegoRentado vidr = new VideojuegoRentado(cliente.getId(), videojuego.getId(), fechaRegistro, fechaDevolucion);
         videojuegoRCliente.crearVideojuegoRentado(vidr,token);
         JOptionPane.showMessageDialog(null, "Se ha creado una renta correctamente");
         llenarTablaVideojuegosR();
@@ -500,13 +494,13 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
 
-        List<VideojuegoRentado> aux = videojuegoRCliente.listarVideojuegosRentados(token);
+        List<VideojuegoRentado> aux = VideojuegoRentadoApiClient.listarVideojuegosRentados(token);
+        if (aux == null || aux.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No hay videojuegos rentados registrados", "Información", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
         for (VideojuegoRentado videoRentado : aux) {
             model.addRow(new Object[]{
-            		videoRentado.getCliente().getCedula(),
-                        videoRentado.getCliente().getNombre(),
-                        videoRentado.getVideojuego().getId(),
-                        videoRentado.getVideojuego().getNombre(),
                         videoRentado.getFechaAlquiler(),
                         videoRentado.getFechaDevolucion(),
                         videoRentado.getId()

@@ -56,7 +56,7 @@ public class PuestoApiClient {
 	}
 	public static List<Puesto> listarPuestos(String token) {
 		try {
-			Response<List<Puesto>> response = puestoApiService.getAllPuestos(token).execute();
+			Response<List<Puesto>> response = puestoApiService.getAllPuestos("Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -68,7 +68,7 @@ public class PuestoApiClient {
 		return null;
 	}
 	public static Puesto buscarPuestoPorId(String id,String token) throws Exception {
-		Response<Puesto> puesto = puestoApiService.getPuestoById(id,token).execute();
+		Response<Puesto> puesto = puestoApiService.getPuestoById(id,"Bearer "+token).execute();
 		if (puesto.isSuccessful()) {
 			if (puesto.body() == null) {
 				throw new Exception("Puesto no encontrado");
@@ -80,7 +80,7 @@ public class PuestoApiClient {
 	}
 	public static Puesto crearPuesto(Puesto puesto,String token) throws Exception {
 		try {
-			Response<Puesto> response = puestoApiService.createPuesto(puesto,token).execute();
+			Response<Puesto> response = puestoApiService.createPuesto(puesto,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -93,7 +93,7 @@ public class PuestoApiClient {
 	}
 	public static void eliminarPuesto(String id,String token) throws Exception {
 		try {
-			Response<Void> response = puestoApiService.deletePuesto(id,token).execute();
+			Response<Void> response = puestoApiService.deletePuesto(id,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				System.out.println("Puesto eliminado con éxito");
 			} else {
@@ -105,7 +105,7 @@ public class PuestoApiClient {
 	}
 	public static Puesto actualizarPuesto(String id, Puesto puesto,String token) throws Exception {
 		try {
-			Response<Puesto> response = puestoApiService.updatePuesto(id, puesto, token).execute();
+			Response<Puesto> response = puestoApiService.updatePuesto(id, puesto,"Bearer "+ token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -117,7 +117,7 @@ public class PuestoApiClient {
 		return null;
 	}
 	public static Puesto buscarPuestoPorNumero(String numeroDePuesto,String token) throws Exception {
-		Response<Puesto> puesto = puestoApiService.buscarPuestos(numeroDePuesto,token).execute();
+		Response<Puesto> puesto = puestoApiService.buscarPuestos(numeroDePuesto,"Bearer "+token).execute();
 		if (puesto.isSuccessful()) {
 			if (puesto.body() == null) {
 				throw new Exception("Puesto no encontrado");

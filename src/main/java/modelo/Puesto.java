@@ -9,14 +9,14 @@ import java.util.UUID;
 public class Puesto {
 	private Integer id;
     private String numeroDePuesto;
-    private Consola consola;
+    private int idConsola;
     private int cantidadDeSillas;
     private int canditadDeControles;
     
 
-    public Puesto(String numeroDePuesto, Consola consola, int cantidadDeSillas, int cantidadDeControles) {
+    public Puesto(String numeroDePuesto, int idConsola, int cantidadDeSillas, int cantidadDeControles) {
         this.numeroDePuesto = numeroDePuesto;
-        this.consola = consola;
+        this.idConsola = idConsola;
         this.cantidadDeSillas = cantidadDeSillas;
         this.canditadDeControles = cantidadDeControles;
     }
@@ -29,12 +29,12 @@ public class Puesto {
         this.numeroDePuesto = numeroDePuesto;
     }
 
-    public Consola getConsola() {
-        return consola;
+    public int getConsola() {
+        return idConsola;
     }
 
-    public void setConsola(Consola consola) {
-        this.consola = consola;
+    public void setConsola(int consola) {
+        this.idConsola = consola;
     }
 
     public int getCantidadDeSillas() {
@@ -61,7 +61,7 @@ public class Puesto {
 
 	@Override
 	public String toString() {
-		return "Puesto [id=" + id + ", numeroDePuesto=" + numeroDePuesto + ", consola=" + consola
+		return "Puesto [id=" + id + ", numeroDePuesto=" + numeroDePuesto + ", consola=" + idConsola
 				+ ", cantidadDeSillas=" + cantidadDeSillas + ", canditadDeControles=" + canditadDeControles + "]";
 	}
     

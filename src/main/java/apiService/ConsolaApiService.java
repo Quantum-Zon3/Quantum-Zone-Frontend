@@ -30,7 +30,6 @@ public interface ConsolaApiService {
 
 	@GET("/quantumZone/consolas/buscar")
 	Call<List<Consola>> buscarConsolasPorNombre(
-			@Header("Authorization") String token,
 			@Query("nombre") String nombre
 	);
 }

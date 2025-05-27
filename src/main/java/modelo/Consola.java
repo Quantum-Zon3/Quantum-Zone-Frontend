@@ -54,9 +54,10 @@ public class Consola {
 	}
 	@Override
 	public String toString() {
-		return "Consola [id=" + id + ", marca=" + marca + ", consola=" + consola + ", fechaDePublicacion="
-				+ fechaDePublicacion + "]";
+		    return this.getConsola(); // o el atributo que uses como nombre visible
+		}
 	}
+	
     
     
-}
+
