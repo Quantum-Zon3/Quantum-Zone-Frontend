@@ -607,7 +607,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 		int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            String idVideojuego = (String) jTable1.getValueAt(filaSeleccionada, 0);
+            String idVideojuego = (String) jTable1.getValueAt(filaSeleccionada, 0).toString();
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al puesto con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.puesto.eliminarPuesto(idVideojuego,token);

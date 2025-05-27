@@ -68,7 +68,7 @@ public class VideojuegoRentadoApiClient {
 		return null;
 	}
 	
-	public static VideojuegoRentado buscarVideojuegoRentadoPorId(String id,String token) {
+	public static VideojuegoRentado buscarVideojuegoRentadoPorId(Integer id,String token) {
 		try {
 			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id,"Bearer "+token).execute();
 			if(response.isSuccessful()){
@@ -96,7 +96,7 @@ public class VideojuegoRentadoApiClient {
 		return null;
 	}
 	
-	public static void updateVideojuegoRentado(String id, VideojuegoRentado videojuegoRentado, String token) throws Exception {
+	public static void updateVideojuegoRentado(Integer id, VideojuegoRentado videojuegoRentado, String token) throws Exception {
 			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado,"Bearer "+ token).execute();
         if(response.isSuccessful()){
             System.out.println("Consola actualizada");
@@ -106,7 +106,7 @@ public class VideojuegoRentadoApiClient {
         }    
 	}
 	
-	public static void eliminarVideojuegoRentado(String id, String token) throws Exception {
+	public static void eliminarVideojuegoRentado(Integer id, String token) throws Exception {
 		Response<Void> response = videoRService.deleteVideojuegoRentado(id,"Bearer "+ token).execute();
 		if(response.isSuccessful()) {
 			System.out.println("Consola eliminada con exito");
@@ -114,8 +114,8 @@ public class VideojuegoRentadoApiClient {
 			throw new Exception("Error al eliminar la consola");
 		}
 	}
-	public static Integer buscarClientePorCedula(String Cedula, String token) throws Exception {
-		Cliente cliente = ClienteApiClient.buscarClientePorCedula(Cedula,"Bearer "+ token);
+	public static Integer buscarClientePorCedula(String cedula, String token) throws Exception {
+		Cliente cliente = ClienteApiClient.buscarClientePorCedula("Bearer "+ token, cedula);
 			return cliente != null ? cliente.getId() : null;
 	}
 	

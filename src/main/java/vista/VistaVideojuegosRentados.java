@@ -20,7 +20,7 @@ import modelo.VideojuegoRentado;
  * @author USER
  */
 public class VistaVideojuegosRentados extends javax.swing.JFrame {
-    private VideojuegoRentadoApiClient videojuegoRCliente; 
+    private VideojuegoRentadoApiClient videojuegoRCliente;
     private String token;
     /**
      * Creates new form VistaVideojuegosRentados
@@ -456,24 +456,27 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         try{
+        	System.out.println("Añadiendo videojuego rentado..."); // Debugging line
+        String cedula = txtCedula.getText();
         LocalDate fechaRegistro = LocalDate.now();
         LocalDate fechaDevolucion = LocalDate.now().plusDays(7);
         if (txtCedula.getText().isEmpty() || txtIdVideojuego.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos");
 			return;
 		}
-        Cliente cliente = ClienteApiClient.buscarClientePorCedula(txtCedula.getText(), token);
+        Cliente cliente = ClienteApiClient.buscarClientePorCedula(cedula, token);
         if (cliente == null) {
 			JOptionPane.showMessageDialog(null, "Cliente no encontrado");
 			return;
 		}
         VideoJuego videojuego = VideojuegoClient.buscarVideojuegoPorId(txtIdVideojuego.getText(), token);
         VideojuegoRentado vidr = new VideojuegoRentado(cliente.getId(), videojuego.getId(), fechaRegistro, fechaDevolucion);
-        videojuegoRCliente.crearVideojuegoRentado(vidr,token);
         JOptionPane.showMessageDialog(null, "Se ha creado una renta correctamente");
+        VideojuegoRentadoApiClient.crearVideojuegoRentado(vidr,token);
+        
         llenarTablaVideojuegosR();
         }catch(Exception e){
-           e.getMessage();
+          JOptionPane.showMessageDialog(null, "Error al añadir el videojuego rentado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             
         }
                 
@@ -492,7 +495,7 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 
     private void llenarTablaVideojuegosR() {
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
+        model.setColumnIdentifiers(new Object[]{"id", "id Usuario", "id Videojuego", "FechaDeAlquiler", "FechaDevolucion"});
 
         List<VideojuegoRentado> aux = VideojuegoRentadoApiClient.listarVideojuegosRentados(token);
         if (aux == null || aux.isEmpty()) {
@@ -501,9 +504,12 @@ public class VistaVideojuegosRentados extends javax.swing.JFrame {
 		}
         for (VideojuegoRentado videoRentado : aux) {
             model.addRow(new Object[]{
+            			videoRentado.getId(),
+            			videoRentado.getIdCliente(),
+            			videoRentado.getIdVideojuego(),
                         videoRentado.getFechaAlquiler(),
                         videoRentado.getFechaDevolucion(),
-                        videoRentado.getId()
+                        
 
             });
         }

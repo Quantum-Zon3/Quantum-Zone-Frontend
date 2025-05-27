@@ -22,16 +22,16 @@ public interface VideojuegoRentadoApiService {
 	Call<List<VideojuegoRentado>> getAllVideojuegosRentados(@Header("Authorization") String token);
 
 	@GET("/quantumZone/videojuegos/rentados/{id}")
-	Call<VideojuegoRentado> getVideojuegoRentadoById(@Path("id") String id,@Header("Authorization") String token);
+	Call<VideojuegoRentado> getVideojuegoRentadoById(@Path("id") Integer id,@Header("Authorization") String token);
 
 	@POST("/quantumZone/videojuegos/rentados")
 	Call<VideojuegoRentado> crearVideojuegoRentado(@Body VideojuegoRentado videojuegoRentado,@Header("Authorization") String token);
 
 	@PUT("/quantumZone/videojuegos/rentados/{id}")
-	Call<VideojuegoRentado> updateVideojuegoRentado(@Path("id") String id, @Body VideojuegoRentado videojuegoRentado,@Header("Authorization") String token);
+	Call<VideojuegoRentado> updateVideojuegoRentado(@Path("id") Integer id, @Body VideojuegoRentado videojuegoRentado,@Header("Authorization") String token);
 
 	@DELETE("/quantumZone/videojuegos/rentados/{id}")
-	Call<Void> deleteVideojuegoRentado(@Path("id") String id,@Header("Authorization") String token);
+	Call<Void> deleteVideojuegoRentado(@Path("id") Integer id,@Header("Authorization") String token);
 
 	@GET("/quantumZone/videojuegos/rentados/filtros")
 	Call<List<VideojuegoRentado>> buscarVideojuegosRentados(
