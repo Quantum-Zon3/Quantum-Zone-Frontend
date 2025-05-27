@@ -17,10 +17,12 @@ import modelo.Objeto;
  */
 public class VistaAñadirObjeto extends javax.swing.JFrame {
     private final ObjetoApiClient objetoApiClient;
+    private String token;
     /**
      * Creates new form VistaAñadirObjeto
      */
-    public VistaAñadirObjeto() {
+    public VistaAñadirObjeto(String token) {
+		this.token = token;
     	this.objetoApiClient = new ObjetoApiClient();
 		setLocationRelativeTo(this);
         initComponents();
@@ -404,38 +406,38 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -448,9 +450,9 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
             String estado = (String) cbEstado.getSelectedItem();
             String categoria = txtCategoria.getText();
             Objeto objeto = new Objeto(nombre, descripcion, fechaRegistro, estado, categoria);
-            objetoApiClient.crearObjeto(objeto);
+            objetoApiClient.crearObjeto(objeto, token);
             JOptionPane.showMessageDialog(this, "Objeto guardado correctamente");
-            VistaGestionObjetos vgo = new VistaGestionObjetos();
+            VistaGestionObjetos vgo = new VistaGestionObjetos(token);
             vgo.setVisible(true);
             this.dispose();
         } catch (NumberFormatException ex) {
@@ -503,7 +505,7 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAñadirObjeto().setVisible(true);
+                new VistaAñadirObjeto(null).setVisible(true);
             }
         });
     }

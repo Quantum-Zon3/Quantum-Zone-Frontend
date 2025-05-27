@@ -52,9 +52,9 @@ public class ConsolaClient {
         consolaService = retrofit.create(ConsolaApiService.class);
     }
     
-    public static List<Consola> listarConsola() {
+    public static List<Consola> listarConsola(String token) {
 		try {
-			Response<List<Consola>> response = consolaService.getAllConsolas().execute();
+			Response<List<Consola>> response = consolaService.getAllConsolas(token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -68,9 +68,9 @@ public class ConsolaClient {
 		return null;
 	}
 
-    public void createConsola(Consola consola) {
+    public void createConsola(Consola consola,String token) {
         try {
-            Response<Consola> response = consolaService.createConsola(consola).execute();
+            Response<Consola> response = consolaService.createConsola(consola,token).execute();
             if (response.isSuccessful()) {
                 System.out.println("Consola creada exitosamente: " + response.body());
             } else {
@@ -81,8 +81,8 @@ public class ConsolaClient {
         }
     }
 
-    public static Consola buscarConsola(String id) throws Exception {
-        Response<Consola> response = consolaService.getConsolaById(id).execute();
+    public static Consola buscarConsola(String id,String token) throws Exception {
+        Response<Consola> response = consolaService.getConsolaById(id,token).execute();
         if (response.isSuccessful()) {
             System.out.println(response.body());
             return response.body();
@@ -92,8 +92,8 @@ public class ConsolaClient {
         }
     }
     
-    public static void eliminarConsola(String id) throws Exception {
-		Response<Void> response = consolaService.deleteConsola(id).execute();
+    public static void eliminarConsola(String id,String token) throws Exception {
+		Response<Void> response = consolaService.deleteConsola(id,token).execute();
 		if(response.isSuccessful()) {
 			System.out.println("Consola eliminada con exito");
 		}else{
@@ -101,8 +101,8 @@ public class ConsolaClient {
 		}
 	}
     
-    public static void actualizarConsola(String id, Consola consola) throws Exception {
-        Response<Consola> response = consolaService.updateConsola(id, consola).execute();
+    public static void actualizarConsola(String id, Consola consola,String token) throws Exception {
+        Response<Consola> response = consolaService.updateConsola(id, consola, token).execute();
         if(response.isSuccessful()){
             System.out.println("Consola actualizada");
         }
@@ -111,8 +111,8 @@ public class ConsolaClient {
                     }
         
     }
-    public static List<Consola> buscarConsolasPorNombre(String nombre) throws Exception {
-		Response<List<Consola>> response = consolaService.buscarConsolasPorNombre(nombre).execute();
+    public static List<Consola> buscarConsolasPorNombre(String nombre, String token) throws Exception {
+		Response<List<Consola>> response = consolaService.buscarConsolasPorNombre(nombre, token).execute();
 		if (response.isSuccessful()) {
 			return response.body();
 		} else {

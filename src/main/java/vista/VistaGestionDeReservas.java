@@ -13,9 +13,11 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
     /**
      * Creates new form VistaGestionDeReservas
      */
-    public VistaGestionDeReservas() {
+	private String token;
+    public VistaGestionDeReservas(String token) {
         initComponents();
         setLocationRelativeTo(this);
+        this.token = token;
     }
 
     /**
@@ -755,13 +757,13 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();         // TODO add your handling code here:
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
@@ -771,20 +773,20 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaGestionObjetos vgi = new VistaGestionObjetos();
+        VistaGestionObjetos vgi = new VistaGestionObjetos(token);
         vgi.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaAgregarPuesto va = new VistaAgregarPuesto(); 
+        VistaAgregarPuesto va = new VistaAgregarPuesto(token); 
         va.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnConsolasActionPerformed
@@ -822,7 +824,7 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_JboxEstado9ActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        VistaAgregarPuesto va = new VistaAgregarPuesto();
+        VistaAgregarPuesto va = new VistaAgregarPuesto(token);
         va.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAñadirActionPerformed
@@ -857,7 +859,7 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaGestionDeReservas().setVisible(true);
+                new VistaGestionDeReservas(null).setVisible(true);
             }
         });
     }

@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author shadow111285
  */
 public class VideoJuego {
-	private String id;
+	private Integer id;
 	private String nombre;
 	private LocalDate fechaDePubliacion;
 	private String descripcion;
@@ -20,7 +20,6 @@ public class VideoJuego {
 	private String tipo;
 
 	public VideoJuego(String nombre, LocalDate fechaDePubliacion, String descripcion, String publico, String tipo) {
-		this.id = UUID.randomUUID().toString();
 		this.nombre = nombre;
 		this.fechaDePubliacion = fechaDePubliacion;
 		this.descripcion = descripcion;
@@ -68,10 +67,10 @@ public class VideoJuego {
 		this.tipo = tipo;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

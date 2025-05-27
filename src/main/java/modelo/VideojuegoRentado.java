@@ -4,33 +4,33 @@ import java.time.LocalDate;
 import modelo.*;
 
 public class VideojuegoRentado {
-        private String id;
-	private Cliente cliente;
-	private VideoJuego videojuego;
+        private Integer id;
+	private Integer idCliente;
+	private Integer idVideojuego;
 	private LocalDate fechaAlquiler;
 	private LocalDate fechaDevolucion;
 	
-	public VideojuegoRentado(Cliente cliente, VideoJuego videojuego, LocalDate fechaAlquiler, LocalDate fechaDevolucion) {
-		this.cliente = cliente;
-		this.videojuego = videojuego;
+	public VideojuegoRentado(Integer idCliente, Integer idVideojuego, LocalDate fechaAlquiler, LocalDate fechaDevolucion) {
+		this.idCliente = idCliente;
+		this.idVideojuego = idVideojuego;
 		this.fechaAlquiler = fechaAlquiler;
 		this.fechaDevolucion = fechaDevolucion;
 	}
 
-    public Cliente getCliente() {
-        return cliente;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public VideoJuego getVideojuego() {
-        return videojuego;
+    public Integer getIdVideojuego() {
+        return idVideojuego;
     }
 
-    public void setVideojuego(VideoJuego videojuego) {
-        this.videojuego = videojuego;
+    public void setIdVideojuego(Integer idVideojuego) {
+        this.idVideojuego = idVideojuego;
     }
 
     public LocalDate getFechaAlquiler() {
@@ -49,17 +49,17 @@ public class VideojuegoRentado {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return "VideojuegoRentado{" + "id=" + id + ", cliente=" + cliente + ", videojuego=" + videojuego + ", fechaAlquiler=" + fechaAlquiler + ", fechaDevolucion=" + fechaDevolucion + '}';
+        return "VideojuegoRentado{" + "id=" + id + ", cliente=" + idCliente + ", videojuego=" + idVideojuego + ", fechaAlquiler=" + fechaAlquiler + ", fechaDevolucion=" + fechaDevolucion + '}';
     }
 
     

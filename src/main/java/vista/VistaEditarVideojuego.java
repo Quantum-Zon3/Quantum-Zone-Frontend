@@ -14,12 +14,14 @@ import apiCliente.VideojuegoClient;
 public class VistaEditarVideojuego extends javax.swing.JFrame {
 	private final VideojuegoClient videojuegoClient;
 	private String idVideojuego;
-    public VistaEditarVideojuego(String idVideojuego) {
+	private String token;
+    public VistaEditarVideojuego(String idVideojuego, String token) {
         initComponents();
         this.videojuegoClient = new VideojuegoClient();
         this.idVideojuego = idVideojuego;
         llenarDatos(idVideojuego);
         setLocationRelativeTo(this);
+        this.token = token;
     }
 
 
@@ -549,75 +551,75 @@ public class VistaEditarVideojuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
 
     private void btnListaUsuarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios1ActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuarios1ActionPerformed
 
     private void btnJuegos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos1ActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegos1ActionPerformed
 
     private void btnRentas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentas1ActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentas1ActionPerformed
 
     private void btnInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario1ActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventario1ActionPerformed
 
     private void btnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu1ActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenu1ActionPerformed
 
     private void btnConsolas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolas1ActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolas1ActionPerformed
@@ -637,7 +639,7 @@ public class VistaEditarVideojuego extends javax.swing.JFrame {
                 return;
             }
             VideoJuego videojuego = new VideoJuego(nombre,fechaPublicacion, descripcion,clasificacion,tipo );
-            videojuegoClient.actualizarVideojuego(this.idVideojuego, videojuego);
+            videojuegoClient.actualizarVideojuego(this.idVideojuego, videojuego, token);
             JOptionPane.showMessageDialog(this, "Videojuego editado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
@@ -649,7 +651,7 @@ public class VistaEditarVideojuego extends javax.swing.JFrame {
 //GEN-LAST:event_btnAñadirActionPerformed
     private void llenarDatos(String id){
 		try {
-			VideoJuego videojuego = videojuegoClient.buscarVideojuegoPorId(id);
+			VideoJuego videojuego = videojuegoClient.buscarVideojuegoPorId(id, token);
 			txtNombre.setText(videojuego.getNombre());
 			txtDescripcion.setText(videojuego.getDescripcion());
 			txtClasificacion.setText(videojuego.getPublico());
@@ -666,7 +668,7 @@ public class VistaEditarVideojuego extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaListaDeJuegos vl = new VistaListaDeJuegos();
+        VistaListaDeJuegos vl = new VistaListaDeJuegos(token);
         vl.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -701,7 +703,7 @@ public class VistaEditarVideojuego extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaEditarVideojuego(null).setVisible(true);
+                new VistaEditarVideojuego(null,null).setVisible(true);
             }
         });
     }

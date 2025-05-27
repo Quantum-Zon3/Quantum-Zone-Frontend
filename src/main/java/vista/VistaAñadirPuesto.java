@@ -19,16 +19,18 @@ import apiCliente.ConsolaClient;
 public class VistaAñadirPuesto extends javax.swing.JFrame {
 	public PuestoApiClient puesto = new PuestoApiClient();
 	public ConsolaClient consolaApiClient = new ConsolaClient();
+	private String token;
     /**
      * Creates new form VistaAñadirPuesto
      */
-    public VistaAñadirPuesto() {
+    public VistaAñadirPuesto(String token) {
+    	this.token = token;
         initComponents();
         setLocationRelativeTo(this);
         llenarConsolas();
     }
     public void llenarConsolas() {
-    	List<Consola> consolas = this.consolaApiClient.listarConsola();
+    	List<Consola> consolas = this.consolaApiClient.listarConsola(token);
     			boxConsola.addItem("Consolas");
     	for (Consola c : consolas) {
 			boxConsola.addItem(c.getConsola());
@@ -379,25 +381,25 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
@@ -416,14 +418,14 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
             String numeroPuestos = txtNumeroPuesto.getText();
             String controles = txtControles.getText();
 			String consola = (String) boxConsola.getSelectedItem();
-			List<Consola> consolas = consolaApiClient.buscarConsolasPorNombre(boxConsola.getSelectedItem().toString());
+			List<Consola> consolas = consolaApiClient.buscarConsolasPorNombre(boxConsola.getSelectedItem().toString(),token);
 			Consola consolaSeleccionada = consolas.get(0);
             if (txtSillas.getText().isEmpty() || txtNumeroPuesto.getText().isEmpty() || txtControles.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             Puesto puesto = new Puesto(numeroPuestos, consolaSeleccionada, Integer.parseInt(sillas), Integer.parseInt(controles));
-            this.puesto.crearPuesto(puesto);
+            this.puesto.crearPuesto(puesto,token);
 
             JOptionPane.showMessageDialog(this, "puesto guardado correctamente");
         } catch (NumberFormatException ex) {
@@ -439,7 +441,7 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroPuestoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    	 VistaAgregarPuesto vl = new VistaAgregarPuesto();
+    	 VistaAgregarPuesto vl = new VistaAgregarPuesto(token);
         vl.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -478,7 +480,7 @@ public class VistaAñadirPuesto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAñadirPuesto().setVisible(true);
+                new VistaAñadirPuesto(null).setVisible(true);
             }
         });
     }

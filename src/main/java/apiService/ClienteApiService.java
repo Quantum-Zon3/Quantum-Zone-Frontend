@@ -16,22 +16,23 @@ import retrofit2.http.Query;
 public interface ClienteApiService {
 	
 	@GET("/quantumZone/clientes")
-    Call<List<Cliente>> getAllUsuarios();
+    Call<List<Cliente>> getAllUsuarios(@Header("Authorization") String token);
 
     @GET("/quantumZone/clientes/{id}")
-    Call<Cliente> getUsuarioById(@Path("id") String id);
+    Call<Cliente> getUsuarioById(@Path("id") String id, @Header("Authorization") String token);
 
     @POST("/quantumZone/clientes")
-    Call<Cliente> createUsuario(@Body Cliente usuario);
+    Call<Cliente> createUsuario(@Body Cliente usuario,@Header("Authorization") String token);
 
     @PUT("/quantumZone/clientes/{id}")
-    Call<Cliente> updateUsuario(@Path("id") String id, @Body Cliente usuario);
+    Call<Cliente> updateUsuario(@Path("id") String id, @Body Cliente usuario, @Header("Authorization") String token);
 
     @DELETE("/quantumZone/clientes/{id}")
-    Call<Void> deleteUsuario(@Path("id") String id);
+    Call<Void> deleteUsuario(@Path("id") String id, @Header("Authorization") String token);
 
     @GET("/quantumZone/clientes/buscar")
     Call<List<Cliente>> buscarUsuarios(
+    	@Header("Authorization") String token,
         //@Query("id") String id,
         //@Query("nombre") String nombre,
         //@Query("edad") int edad,
@@ -42,8 +43,5 @@ public interface ClienteApiService {
         //@Query("email") String email
         
     );
-
-    @GET("/quantumZone/clientes/auth")
-    Call<Cliente> getUserByToken(@Header("Authorization") String authToken);
 }
 

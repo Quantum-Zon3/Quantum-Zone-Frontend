@@ -15,11 +15,12 @@ import modelo.VideoJuego;
 public class VistaAñadirVideojuego extends javax.swing.JFrame {
 	
 	public VideojuegoClient videojuegoApiClient = new VideojuegoClient();
-
+	private String token;
     /**
      * Creates new form VistaAñadirVideojuego
      */
-    public VistaAñadirVideojuego() {
+    public VistaAñadirVideojuego(String token) {
+    	this.token = token;
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -390,37 +391,37 @@ public class VistaAñadirVideojuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuariosActionPerformed
-        VistaGestionClientes vgc = new VistaGestionClientes();
+        VistaGestionClientes vgc = new VistaGestionClientes(token);
         vgc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }
@@ -440,7 +441,7 @@ public class VistaAñadirVideojuego extends javax.swing.JFrame {
                 return;
             }
             VideoJuego videojuego = new VideoJuego(nombre, fechaDePublición, descripcion,publico,tipo);
-            videojuegoApiClient.crearVideojuego(videojuego);
+            videojuegoApiClient.crearVideojuego(videojuego,token);
             JOptionPane.showMessageDialog(this, "videojuego guardado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos ", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
@@ -455,7 +456,7 @@ public class VistaAñadirVideojuego extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaListaDeJuegos vl = new VistaListaDeJuegos();
+        VistaListaDeJuegos vl = new VistaListaDeJuegos(token);
         vl.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -490,7 +491,7 @@ public class VistaAñadirVideojuego extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAñadirVideojuego().setVisible(true);
+                new VistaAñadirVideojuego(null).setVisible(true);
             }
         });
     }

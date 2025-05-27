@@ -14,6 +14,7 @@ import retrofit2.http.Query;
 public interface AdministradorApiService {
 		@GET("/quantumZone/administradores")
 		Call<List<Administrador>> getAdministradores();
+		
 
 		@GET("/quantumZone/administradores/{id}")
 		Call<Administrador> getAdministradorById(@Path("id") String id);

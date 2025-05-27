@@ -7,7 +7,7 @@ import java.util.UUID;
  * @author shadow111285
  */
 public class Puesto {
-	private String id;
+	private Integer id;
     private String numeroDePuesto;
     private Consola consola;
     private int cantidadDeSillas;
@@ -15,7 +15,6 @@ public class Puesto {
     
 
     public Puesto(String numeroDePuesto, Consola consola, int cantidadDeSillas, int cantidadDeControles) {
-    	this.id = UUID.randomUUID().toString();
         this.numeroDePuesto = numeroDePuesto;
         this.consola = consola;
         this.cantidadDeSillas = cantidadDeSillas;
@@ -53,10 +52,10 @@ public class Puesto {
     public void setCanditadDeControles(int canditadDeControles) {
         this.canditadDeControles = canditadDeControles;
     }
-    public String getId() {
+    public Integer getId() {
     		return id;
     }
-    public void setId(String id) {
+    public void setId(Integer id) {
 			this.id = id;
 	}
 

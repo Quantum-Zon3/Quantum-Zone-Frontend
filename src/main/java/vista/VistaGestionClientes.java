@@ -21,16 +21,17 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 	private final VideojuegoRentadoApiClient videojuegoRentadoApiClient;
     private final ClienteApiClient clienteApiClient;
     private Cliente clienteBuscar;
-
+    private String token;
     /**
      * Creates new form VistaGestionClientes
      */
-    public VistaGestionClientes() {
+    public VistaGestionClientes(String token) {
         initComponents();
         setLocationRelativeTo(this);
         this.clienteApiClient = new ClienteApiClient();
         this.videojuegoRentadoApiClient = new VideojuegoRentadoApiClient();
         llenarTablaClientes();
+        this.token = token;
     }
 
     /**
@@ -582,38 +583,38 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaUsuariosActionPerformed
 
     private void btnJuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegosActionPerformed
-        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos();
+        VistaGestionDeVideojuegos vj = new VistaGestionDeVideojuegos(token);
         vj.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnJuegosActionPerformed
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        VistaGestionDeReservas vg = new VistaGestionDeReservas();
+        VistaGestionDeReservas vg = new VistaGestionDeReservas(token);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        VistaInventario vgi = new VistaInventario();
+        VistaInventario vgi = new VistaInventario(token);
         vgi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        VistaMenu vl = new VistaMenu();
+        VistaMenu vl = new VistaMenu(token);
         vl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaGestionDeConsolas va  = new VistaGestionDeConsolas();
+        VistaGestionDeConsolas va  = new VistaGestionDeConsolas(token);
         va.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsolasActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        VistaAñadirCliente va  = new VistaAñadirCliente();
+        VistaAñadirCliente va  = new VistaAñadirCliente(token);
         va.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAñadirActionPerformed
@@ -625,7 +626,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
             String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idCliente + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                this.clienteApiClient.deleteCliente(idCliente);
+                this.clienteApiClient.deleteCliente(idCliente,token);
                 // Mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
                 // Recargar la tabla
@@ -643,7 +644,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
             String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idCliente + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
-                VistaEditarCliente vs = new VistaEditarCliente(idCliente);
+                VistaEditarCliente vs = new VistaEditarCliente(idCliente,token);
                 vs.setVisible(true);
                 this.dispose();
                 llenarTablaClientes();
@@ -655,7 +656,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
-        clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText());
+        clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText(),token);
         if (clienteBuscar != null) {
             llenarDatosCliente(clienteBuscar);
             llenarTablaJuegosAlquilados();
@@ -677,7 +678,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "Cedula", "Nombre", "Edad", "Dirrecion", "Telefono", "correo", "Registro"});
 
-        List<Cliente> aux = clienteApiClient.listarCliente();
+        List<Cliente> aux = clienteApiClient.listarCliente(token);
         for (Cliente cliente : aux) {
             model.addRow(new Object[]{
                 cliente.getId(),
@@ -697,12 +698,12 @@ public class VistaGestionClientes extends javax.swing.JFrame {
 		DefaultTableModel model = new DefaultTableModel();
 		model.setColumnIdentifiers(new Object[]{"id", "Cedula","Juego", "Fecha Alquiler", "Fecha Devolucion"});
 
-		List<VideojuegoRentado> aux = this.videojuegoRentadoApiClient.buscarVideojuegosRentadosDelCliente(clienteBuscar.getCedula());
+		List<VideojuegoRentado> aux = this.videojuegoRentadoApiClient.buscarVideojuegosRentadosDelCliente(clienteBuscar.getCedula(), token);
 		for (VideojuegoRentado videojuego : aux) {
 			model.addRow(new Object[]{
 					videojuego.getId(),
-					videojuego.getCliente().getCedula(),
-					videojuego.getVideojuego().getNombre(),
+					videojuego.getIdCliente(),
+					videojuego.getIdVideojuego(),
 					videojuego.getFechaAlquiler(),
 					videojuego.getFechaDevolucion()
 			});
@@ -740,7 +741,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaGestionClientes().setVisible(true);
+                new VistaGestionClientes(null).setVisible(true);
             }
         });
     }
