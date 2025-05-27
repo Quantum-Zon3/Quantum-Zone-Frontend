@@ -413,7 +413,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
     	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
+            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0).toString();
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al videojuego con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.controladorVideojuegos.eliminarVideojuego(idVideojuego,token);
@@ -433,7 +433,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     	int filaSeleccionada = tablaVideojuegos.getSelectedRow();
         if (filaSeleccionada != -1) {
-            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0);
+            String idVideojuego = (String) tablaVideojuegos.getValueAt(filaSeleccionada, 0).toString();
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al videojuego con ID " + idVideojuego + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 VistaEditarVideojuego vs = new VistaEditarVideojuego(idVideojuego,token);
@@ -518,17 +518,10 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private void btnRentadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentadosActionPerformed
         // TODO add your handling code here:
-        int filaSeleccionada = tablaVideojuegos.getSelectedRow();
-if (filaSeleccionada != -1) {
-    // Suponiendo que tienes un modelo de tabla con una lista de videojuegos
-    VideoJuego videojuegoSeleccionado = videojuegos.get(filaSeleccionada);
 
-    VistaVideojuegosRentados vistaRenta = new VistaVideojuegosRentados(videojuegoSeleccionado,token);
+    VistaVideojuegosRentados vistaRenta = new VistaVideojuegosRentados(token);
     vistaRenta.setVisible(true);
     this.dispose(); // Si quieres cerrar la ventana actual
-} else {
-    JOptionPane.showMessageDialog(this, "Debe seleccionar un videojuego.");
-}
     }//GEN-LAST:event_btnRentadosActionPerformed
 
     /**

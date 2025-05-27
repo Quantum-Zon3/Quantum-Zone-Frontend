@@ -623,7 +623,7 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         int filaSeleccionada = tblClientes.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
+        	Integer idCliente = (Integer) tblClientes.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idCliente + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.clienteApiClient.deleteCliente(idCliente,token);
@@ -639,9 +639,9 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int filaSeleccionada = tblClientes.getSelectedRow();
+    	Integer filaSeleccionada = tblClientes.getSelectedRow();
         if (filaSeleccionada != -1) {
-            String idCliente = (String) tblClientes.getValueAt(filaSeleccionada, 0);
+        	Integer idCliente = (Integer) tblClientes.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar al cliente con ID " + idCliente + "?", "Confirmar editar", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 VistaEditarCliente vs = new VistaEditarCliente(idCliente,token);

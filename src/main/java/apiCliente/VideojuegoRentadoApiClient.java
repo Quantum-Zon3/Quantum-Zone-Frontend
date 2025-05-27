@@ -56,7 +56,7 @@ public class VideojuegoRentadoApiClient {
 	
 	public static List<VideojuegoRentado> listarVideojuegosRentados(String token) {
 		try {
-			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados(token).execute();
+			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados("Bearer "+token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -70,7 +70,7 @@ public class VideojuegoRentadoApiClient {
 	
 	public static VideojuegoRentado buscarVideojuegoRentadoPorId(String id,String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id,token).execute();
+			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id,"Bearer "+token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -84,7 +84,7 @@ public class VideojuegoRentadoApiClient {
 	
 	public static VideojuegoRentado crearVideojuegoRentado(VideojuegoRentado videojuegoRentado,String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.crearVideojuegoRentado(videojuegoRentado, token).execute();
+			Response<VideojuegoRentado> response = videoRService.crearVideojuegoRentado(videojuegoRentado,"Bearer "+ token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {
@@ -97,7 +97,7 @@ public class VideojuegoRentadoApiClient {
 	}
 	
 	public static void updateVideojuegoRentado(String id, VideojuegoRentado videojuegoRentado, String token) throws Exception {
-			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado, token).execute();
+			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado,"Bearer "+ token).execute();
         if(response.isSuccessful()){
             System.out.println("Consola actualizada");
         }
@@ -107,7 +107,7 @@ public class VideojuegoRentadoApiClient {
 	}
 	
 	public static void eliminarVideojuegoRentado(String id, String token) throws Exception {
-		Response<Void> response = videoRService.deleteVideojuegoRentado(id, token).execute();
+		Response<Void> response = videoRService.deleteVideojuegoRentado(id,"Bearer "+ token).execute();
 		if(response.isSuccessful()) {
 			System.out.println("Consola eliminada con exito");
 		}else{
@@ -115,18 +115,18 @@ public class VideojuegoRentadoApiClient {
 		}
 	}
 	public static Integer buscarClientePorCedula(String Cedula, String token) throws Exception {
-		Cliente cliente = ClienteApiClient.buscarClientePorCedula(Cedula, token);
+		Cliente cliente = ClienteApiClient.buscarClientePorCedula(Cedula,"Bearer "+ token);
 			return cliente != null ? cliente.getId() : null;
 	}
 	
 	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
 		try {
-			Integer idCliente = buscarClientePorCedula(cedula, token);
+			Integer idCliente = buscarClientePorCedula(cedula,"Bearer "+ token);
 			if (idCliente == null) {
 				JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
-			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente, token).execute();
+			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente,"Bearer "+ token).execute();
 			if(response.isSuccessful()){
 				return response.body();
 			}else {

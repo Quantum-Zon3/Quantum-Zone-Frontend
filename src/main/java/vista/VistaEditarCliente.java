@@ -20,14 +20,16 @@ public class VistaEditarCliente extends javax.swing.JFrame {
      * Creates new form VistaEditarCliente
      */
 	private final ClienteApiClient clienteApiClient;
-	private String idCliente;
+	private Integer idCliente;
 	private String token;
-    public VistaEditarCliente(String idCliente, String token) {
+    public VistaEditarCliente(Integer idCliente, String token) {
         initComponents();
         this.clienteApiClient = new ClienteApiClient();
-        llenarDatos(idCliente);
-        this.idCliente = idCliente;
         this.token = token;
+        this.idCliente = idCliente;
+        llenarDatos(idCliente);
+        
+        
     }
 
     /**
@@ -456,6 +458,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         try {
+        	String imagen = "imagen";
             String cedula = txtCedula.getText();
             String nombre = txtNombre.getText();
             int edad = Integer.parseInt(txtEdad.getText());
@@ -467,8 +470,8 @@ public class VistaEditarCliente extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-            Cliente cliente = new Cliente(nombre, edad, direccion,null, cedula, telefono, fechaRegistro, correo);
-            clienteApiClient.updateCliente(this.idCliente,cliente, token);
+            Cliente cliente = new Cliente(nombre, edad, direccion,imagen, cedula, telefono, fechaRegistro, correo);
+            clienteApiClient.updateCliente(idCliente,cliente, token);
             JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos (cedula, edad, fecha)", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
@@ -477,7 +480,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAñadirActionPerformed
-    private void llenarDatos(String id){
+    private void llenarDatos(Integer id){
     	try {
     		Cliente cliente = clienteApiClient.buscarClientePorId(id, token);
     		txtCedula.setText(cliente.getCedula());

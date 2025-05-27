@@ -25,15 +25,15 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     /**
      * Creates new form VistaEditarPuesto
      */
-    public VistaEditarPuesto(String idPuesto, String token) {
+    public VistaEditarPuesto(String idPuesto2, String token) {
         setLocationRelativeTo(this);
         initComponents();
         this.token = token;
-        this.idPuesto = idPuesto;
+        this.idPuesto = idPuesto2;
         this.puestoApiClient = new PuestoApiClient();
         this.consolas = new ConsolaClient();
         llenarConsolas();
-        llenarDatos(idPuesto);
+        llenarDatos(idPuesto2);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,7 +60,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
         boxSillas = new javax.swing.JComboBox<>();
         btnVolver = new javax.swing.JButton();
         lblTelefono1 = new javax.swing.JLabel();
-        boxConsolas = new javax.swing.JComboBox<>();
+        boxConsola = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -295,7 +295,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(lblTelefono1)
                                 .addGap(18, 18, 18)
-                                .addComponent(boxConsolas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(boxConsola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                     .addComponent(lblNombre)
@@ -326,7 +326,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefono1)
-                    .addComponent(boxConsolas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxConsola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,20 +418,31 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         try {
             String numeroPuesto = txtNumeroPuesto.getText();
-            int controles = Integer.parseInt(boxControles.getSelectedItem().toString());
-            int sillas = Integer.parseInt(boxSillas.getSelectedItem().toString()); 
-            List<Consola> consolas = this.consolas.buscarConsolasPorNombre(boxConsolas.getSelectedItem().toString(), token);
-            Consola consola = consolas.get(0);
-            if (numeroPuesto.isEmpty() || boxControles.getSelectedIndex() == 0 || boxSillas.getSelectedIndex() == 0 || boxConsolas.getSelectedIndex() == 0) {
+
+            // Validación básica antes de parsear
+            if (numeroPuesto.isEmpty() ||
+                boxControles.getSelectedIndex() == 0 ||
+                boxSillas.getSelectedIndex() == 0 ||
+                boxConsola.getSelectedIndex() == 0) {
+
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            Puesto puesto = new Puesto(numeroPuesto, consola, sillas, controles);
+
+            int controles = Integer.parseInt(boxControles.getSelectedItem().toString());
+            int sillas = Integer.parseInt(boxSillas.getSelectedItem().toString());
+
+            Consola consolaSeleccionada = (Consola) boxConsola.getSelectedItem(); // ✅ casteo correcto
+            int idConsola = consolaSeleccionada.getId(); // ✅ obtenemos el id real
+
+            Puesto puesto = new Puesto(numeroPuesto, idConsola, sillas, controles);
             puestoApiClient.actualizarPuesto(idPuesto, puesto, token);
-            JOptionPane.showMessageDialog(this, "puesto guardado correctamente");
+
+            JOptionPane.showMessageDialog(this, "Puesto guardado correctamente");
             llenarDatos(idPuesto);
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos ", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos", "Entrada inválida", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al añadir el puesto", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
@@ -443,17 +454,17 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
 			txtNumeroPuesto.setText(puesto.getNumeroDePuesto());
 			boxSillas.setSelectedItem(String.valueOf(puesto.getCantidadDeSillas()));
 			boxControles.setSelectedItem(String.valueOf(puesto.getCanditadDeControles()+1));
-			boxConsolas.setSelectedItem(puesto.getConsola().getConsola());
+			boxConsola.setSelectedItem(puesto.getConsola());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Error al cargar los datos del puesto", "Error", JOptionPane.ERROR_MESSAGE);
     	}
     }
     public void llenarConsolas() {
-    	List<Consola> consolas = this.consolas.listarConsola(token);
-    			boxConsolas.addItem("Consolas");
-    	for (Consola c : consolas) {
-			boxConsolas.addItem(c.getConsola());
-		}
+        boxConsola.removeAllItems();
+        List<Consola> consolas = ConsolaClient.listarConsola(token);
+        for (Consola c : consolas) {
+            boxConsola.addItem(c);
+        }
     }
     private void txtNumeroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroPuestoActionPerformed
         // TODO add your handling code here:
@@ -505,7 +516,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxConsolas;
+    private javax.swing.JComboBox<Consola> boxConsola;
     private javax.swing.JComboBox<String> boxControles;
     private javax.swing.JComboBox<String> boxSillas;
     private javax.swing.JButton btnAñadir;

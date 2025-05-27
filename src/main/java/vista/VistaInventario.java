@@ -566,7 +566,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     puesto.getId(),
                     puesto.getNumeroDePuesto(),
-                    puesto.getConsola() != null ? puesto.getConsola().getId() : "Sin consola",
+                    puesto.getConsola(),
                     puesto.getCantidadDeSillas(),
                     puesto.getCanditadDeControles()
                 });

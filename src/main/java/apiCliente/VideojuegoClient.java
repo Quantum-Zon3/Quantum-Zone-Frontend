@@ -55,7 +55,7 @@ public class VideojuegoClient {
 
 	public static List<VideoJuego> listarVideojuego(String token) {
 		try {
-			Response<List<VideoJuego>> response = videojuegoApiService.getAllVideojuegos(token).execute();
+			Response<List<VideoJuego>> response = videojuegoApiService.getAllVideojuegos("Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -68,7 +68,7 @@ public class VideojuegoClient {
 	}
 
 	public static VideoJuego buscarVideojuegoPorId(String id,String token) throws Exception {
-		Response<VideoJuego> videojuego = videojuegoApiService.getVideojuegoById(id,token).execute();
+		Response<VideoJuego> videojuego = videojuegoApiService.getVideojuegoById(id,"Bearer "+token).execute();
 		if (videojuego.isSuccessful()) {
 			if (videojuego.body() == null) {
 				throw new Exception("Videojuego no encontrado");
@@ -81,7 +81,7 @@ public class VideojuegoClient {
 
 	public static VideoJuego crearVideojuego(VideoJuego videojuego,String token) throws Exception {
 		try {
-			Response<VideoJuego> response = videojuegoApiService.createVideojuego(videojuego,token).execute();
+			Response<VideoJuego> response = videojuegoApiService.createVideojuego(videojuego,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -96,7 +96,7 @@ public class VideojuegoClient {
 	public static void eliminarVideojuego(String id,String token) throws Exception {
 
 		try {
-			Response<Void> response = videojuegoApiService.deleteVideojuego(id,token).execute();
+			Response<Void> response = videojuegoApiService.deleteVideojuego(id,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				System.out.println("Videojuego eliminado");
 			} else {
@@ -109,7 +109,7 @@ public class VideojuegoClient {
 
 	public static VideoJuego actualizarVideojuego(String id, VideoJuego videojuego, String token) throws Exception {
 		try {
-			Response<VideoJuego> response = videojuegoApiService.updateVideojuego(id, videojuego, token).execute();
+			Response<VideoJuego> response = videojuegoApiService.updateVideojuego(id, videojuego,"Bearer "+ token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {

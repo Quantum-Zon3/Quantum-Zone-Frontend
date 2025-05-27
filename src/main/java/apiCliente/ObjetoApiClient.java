@@ -58,7 +58,7 @@ public class ObjetoApiClient {
 
 	public List<Objeto> obtenerObjetos(String token) throws IOException {
 		try {
-			Response<List<Objeto>> response = objetoApiService.getAllObjetos(token).execute();
+			Response<List<Objeto>> response = objetoApiService.getAllObjetos("Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -72,7 +72,7 @@ public class ObjetoApiClient {
 
 	public Objeto obtenerObjetoPorId(String id,String token) throws IOException {
 		try {
-			Response<Objeto> response = objetoApiService.getObjetoById(id,token).execute();
+			Response<Objeto> response = objetoApiService.getObjetoById(id,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -85,7 +85,7 @@ public class ObjetoApiClient {
 	}
 	public Objeto crearObjeto(Objeto objeto,String token) throws IOException {
 		try {
-			Response<Objeto> response = objetoApiService.createObjeto(objeto,token).execute();
+			Response<Objeto> response = objetoApiService.createObjeto(objeto,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -98,7 +98,7 @@ public class ObjetoApiClient {
 	}
 	public Objeto actualizarObjeto(String id, Objeto objeto,String token) throws Exception {
 		try {
-			Response<Objeto> response = objetoApiService.updateObjeto(id, objeto, token).execute();
+			Response<Objeto> response = objetoApiService.updateObjeto(id, objeto, "Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
@@ -115,7 +115,7 @@ public class ObjetoApiClient {
 	}
 	public void eliminarObjeto(String id,String token) throws IOException {
 		try {
-			Response<Void> response = objetoApiService.deleteObjeto(id,token).execute();
+			Response<Void> response = objetoApiService.deleteObjeto(id,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				System.out.println("Objeto eliminado con éxito");
 			} else {
@@ -127,7 +127,7 @@ public class ObjetoApiClient {
 	}
 	public static List<Objeto> buscarObjetos(String categoria,String token) throws IOException {
 		try {
-			Response<List<Objeto>> response = objetoApiService.buscarObjetos(categoria,token).execute();
+			Response<List<Objeto>> response = objetoApiService.buscarObjetos(categoria,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
 				return response.body();
 			} else {
