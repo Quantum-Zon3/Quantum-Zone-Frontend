@@ -44,7 +44,7 @@ public class InicioSecion extends javax.swing.JFrame {
             String contraseña = txtContraseña.getText();
             LoginResponse login = adminClient.login(cedula, contraseña);
             if (login != null) {
-				VistaMenu vista = new VistaMenu();
+				VistaMenu vista = new VistaMenu(login.getToken());
                 vista.setVisible(true);
                 this.dispose();
 			}else {
