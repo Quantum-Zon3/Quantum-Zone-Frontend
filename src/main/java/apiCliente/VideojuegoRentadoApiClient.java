@@ -6,6 +6,7 @@ import modelo.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VideojuegoRentadoApiClient {
 
-	private static final String BASE_URL = "http://localHost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static VideojuegoRentadoApiService videoRService;
 	
 	public VideojuegoRentadoApiClient() {
@@ -119,7 +120,7 @@ public class VideojuegoRentadoApiClient {
 			return cliente != null ? cliente.getId() : null;
 	}
 	
-	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
+	/*public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
 		try {
 			Integer idCliente = buscarClientePorCedula(cedula,"Bearer "+ token);
 			if (idCliente == null) {
@@ -139,7 +140,44 @@ public class VideojuegoRentadoApiClient {
 			e.printStackTrace();
 		}
 		return null;
+	}*/
+	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
+	    try {
+	        // Buscar ID del cliente por cédula
+	        Integer idCliente = buscarClientePorCedula(cedula, "Bearer " + token);
+	        if (idCliente == null) {
+	            System.out.println("Cliente con cédula " + cedula + " no encontrado");
+	            JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+	            return new ArrayList<>(); // Devolver lista vacía en lugar de null
+	        }
+	        
+	        System.out.println("Cliente encontrado con ID: " + idCliente);
+	        
+	        // Buscar videojuegos rentados
+	        Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente, "Bearer " + token).execute();
+	        
+	        if (response.isSuccessful()) {
+	            List<VideojuegoRentado> resultado = response.body();
+	            System.out.println("Respuesta exitosa. Juegos encontrados: " + (resultado != null ? resultado.size() : 0));
+	            return resultado != null ? resultado : new ArrayList<>();
+	        } else {
+	            System.out.println("Error HTTP: " + response.code() + " - " + response.message());
+	            JOptionPane.showMessageDialog(null, "Error del servidor: " + response.code() + " - " + response.message(), "Error", JOptionPane.ERROR_MESSAGE);
+	            return new ArrayList<>(); // ← AQUÍ FALTABA EL RETURN
+	        }
+	        
+	    } catch (IOException e) {
+	        System.out.println("Error de conexión: " + e.getMessage());
+	        JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	        return new ArrayList<>();
+	        
+	    } catch (Exception e) {
+	        System.out.println("Error inesperado: " + e.getMessage());
+	        JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	        return new ArrayList<>();
+	    }
 	}
-	
 	
 }

@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdministradorApiClient {
-	private static final String BASE_URL = "http://localHost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static AdministradorApiService administradorApiService;
 	
 	public AdministradorApiClient() {

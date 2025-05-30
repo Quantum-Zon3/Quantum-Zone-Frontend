@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -24,11 +26,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConsolaClient {
 
-    private static final String BASE_URL = "http://localHost:8080";
+    private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
     private static ConsolaApiService consolaService;
 
     public ConsolaClient() {
-
+    	
     	Gson gson = new GsonBuilder()
     			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
     				@Override
@@ -81,7 +83,7 @@ public class ConsolaClient {
         }
     }
 
-    public static Consola buscarConsola(String id,String token) throws Exception {
+    public static Consola buscarConsola(Integer id,String token) throws Exception {
         Response<Consola> response = consolaService.getConsolaById(id,"Bearer "+token).execute();
         if (response.isSuccessful()) {
             System.out.println(response.body());
@@ -92,22 +94,24 @@ public class ConsolaClient {
         }
     }
     
-    public static void eliminarConsola(String id,String token) throws Exception {
+    public static void eliminarConsola(Integer id,String token) throws Exception {
 		Response<Void> response = consolaService.deleteConsola(id,"Bearer "+token).execute();
 		if(response.isSuccessful()) {
+			JOptionPane.showMessageDialog(null, "Consola eliminada exitosamente con id: " + id);
 			System.out.println("Consola eliminada con exito");
 		}else{
 			throw new Exception("Error al eliminar la consola");
 		}
 	}
     
-    public static void actualizarConsola(String id, Consola consola,String token) throws Exception {
+    public static void actualizarConsola(Integer id, Consola consola,String token) throws Exception {
         Response<Consola> response = consolaService.updateConsola(id, consola,"Bearer "+ token).execute();
         if(response.isSuccessful()){
+      	    JOptionPane.showMessageDialog(null, "Consola actualizada exitosamente: " + response.body());
             System.out.println("Consola actualizada");
         }
         else{
-            throw new Exception("Error al actualizar la consola");
+            throw new Exception("Error al actualizara la consola");
                     }
         
     }

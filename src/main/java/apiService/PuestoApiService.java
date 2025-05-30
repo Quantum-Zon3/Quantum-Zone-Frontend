@@ -18,16 +18,16 @@ public interface PuestoApiService {
 	Call<List<Puesto>> getAllPuestos(@Header("Authorization") String token);
 
 	@GET("/quantumZone/puestos/{id}")
-	Call<Puesto> getPuestoById(@Path("id") String id, @Header("Authorization") String token);
+	Call<Puesto> getPuestoById(@Path("id") Integer id, @Header("Authorization") String token);
 
 	@POST("/quantumZone/puestos")
 	Call<Puesto> createPuesto(@Body Puesto puesto, @Header("Authorization") String token);
 
 	@PUT("/quantumZone/puestos/{id}")
-	Call<Puesto> updatePuesto(@Path("id") String id, @Body Puesto puesto, @Header("Authorization") String token);
+	Call<Puesto> updatePuesto(@Path("id") Integer id, @Body Puesto puesto, @Header("Authorization") String token);
 
 	@DELETE("/quantumZone/puestos/{id}")
-	Call<Void> deletePuesto(@Path("id") String id, @Header("Authorization") String token);
+	Call<Void> deletePuesto(@Path("id") Integer id, @Header("Authorization") String token);
 
 	@GET("/quantumZone/puestos/buscar")
 	Call<Puesto> buscarPuestos(

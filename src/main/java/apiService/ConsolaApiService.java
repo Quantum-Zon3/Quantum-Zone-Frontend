@@ -17,16 +17,16 @@ public interface ConsolaApiService {
 	Call<List<Consola>> getAllConsolas(@Header("Authorization") String token);
 
 	@GET("/quantumZone/consolas/{id}")
-	Call<Consola> getConsolaById(@Path("id") String id, @Header("Authorization") String token);
+	Call<Consola> getConsolaById(@Path("id") Integer id, @Header("Authorization") String token);
 
 	@POST("/quantumZone/consolas")
 	Call<Consola> createConsola(@Body Consola consola, @Header("Authorization") String token);
 
 	@PUT("/quantumZone/consolas/{id}")
-	Call<Consola> updateConsola(@Path("id") String id, @Body Consola consola, @Header("Authorization") String token);
+	Call<Consola> updateConsola(@Path("id") Integer id, @Body Consola consola, @Header("Authorization") String token);
 
 	@DELETE("/quantumZone/consolas/{id}")
-	Call<Void> deleteConsola(@Path("id") String id, @Header("Authorization") String token);
+	Call<Void> deleteConsola(@Path("id") Integer id, @Header("Authorization") String token);
 
 	@GET("/quantumZone/consolas/buscar")
 	Call<List<Consola>> buscarConsolasPorNombre(

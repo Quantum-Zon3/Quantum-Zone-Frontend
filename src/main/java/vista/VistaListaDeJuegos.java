@@ -476,6 +476,9 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
 
     private void btnListaUsuarios8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUsuarios8ActionPerformed
         // TODO add your handling code here:
+    	VistaGestionClientes vgc = new VistaGestionClientes(token);
+    	vgc.setVisible(true);
+    	this.setVisible(false);
     }//GEN-LAST:event_btnListaUsuarios8ActionPerformed
 
     private void btnJuegos8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegos8ActionPerformed
@@ -529,7 +532,7 @@ public class VistaListaDeJuegos extends javax.swing.JFrame {
      */
     private void llenarTabla() {
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id", "Consola", "Marca", "FechaDePublicacion"});
+        model.setColumnIdentifiers(new Object[]{"id", "Nombre", "Fecha P.", "Descripcion", "Publico", "Tipo"});
 
         List<VideoJuego> aux = controladorVideojuegos.listarVideojuego(token);
         for (VideoJuego videoRentado : aux) {

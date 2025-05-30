@@ -646,7 +646,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
             int filaSeleccionada = tablaConsolas.getSelectedRow();
 
             if (filaSeleccionada != -1) {
-                String idConsola = (String) tablaConsolas.getValueAt(filaSeleccionada, 0);
+                Integer idConsola = (Integer) tablaConsolas.getValueAt(filaSeleccionada, 0);
                 int confirmacion = JOptionPane.showConfirmDialog(null,
                         "¿Desea buscar la consola " + idConsola + "?",
                         "Confirmar", JOptionPane.YES_NO_OPTION);
@@ -678,14 +678,15 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
         try{
         	if(validarCampos()){
-            int filaSeleccionada = tablaConsolas.getSelectedRow();
+            Integer filaSeleccionada = tablaConsolas.getSelectedRow();
             if(filaSeleccionada != -1){
-                String idConsola = (String) tablaConsolas.getValueAt(filaSeleccionada, 0);
+                Integer idConsola = (Integer) tablaConsolas.getValueAt(filaSeleccionada, 0);
                 Consola con = consolaCliente.buscarConsola(idConsola,token);
+                
                 con.setConsola(txtConsola.getText());
                 con.setMarca(txtMarca.getText());
                 con.setFechaDePublicacion(LocalDate.of(Integer.parseInt(boxAño.getSelectedItem().toString()), boxMes.getSelectedIndex() + 1, Integer.parseInt(boxDia.getSelectedItem().toString())));
-                
+               /* 
                 // Obtener los valores de los campos de texto
                 String consola = txtConsola.getText();
                 String marca = txtMarca.getText();
@@ -695,10 +696,10 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
                 LocalDate fechaRegistro = LocalDate.of(año, mes, dia);
                 // Crear un nuevo objeto Consola con los valores actualizados
                 Consola conAct = new Consola(marca, consola , fechaRegistro);
-            
+             */
                 int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas editar la consola con ID " + idConsola + "?", "Confirmar edición", JOptionPane.YES_NO_OPTION);
                 if (confirmacion == JOptionPane.YES_OPTION) {
-					consolaCliente.actualizarConsola(idConsola, conAct, token);
+					consolaCliente.actualizarConsola(idConsola, con, token);
 					llenarTablaConsolas();
 					// Mostrar mensaje de éxito
 					JOptionPane.showMessageDialog(null, "Consola editada exitosamente");
@@ -727,7 +728,7 @@ public class VistaAgregarConsola extends javax.swing.JFrame {
         int filaSeleccionada = tablaConsolas.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            String idConsola = (String) tablaConsolas.getValueAt(filaSeleccionada, 0);
+            Integer idConsola = (Integer) tablaConsolas.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al cliente con ID " + idConsola + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 consolaCliente.eliminarConsola(idConsola, token);

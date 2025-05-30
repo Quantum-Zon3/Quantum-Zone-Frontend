@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author DARIO LOPEZ
  */
 public class ObjetoApiClient {
-	private static final String BASE_URL = "http://localHost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static ObjetoApiService objetoApiService;
 
 	public ObjetoApiClient() {

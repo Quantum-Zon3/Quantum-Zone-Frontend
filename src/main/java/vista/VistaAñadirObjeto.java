@@ -24,8 +24,9 @@ public class VistaAñadirObjeto extends javax.swing.JFrame {
     public VistaAñadirObjeto(String token) {
 		this.token = token;
     	this.objetoApiClient = new ObjetoApiClient();
+    	initComponents();
 		setLocationRelativeTo(this);
-        initComponents();
+        
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 package vista;
 
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,18 +21,18 @@ import modelo.VideojuegoRentado;
 public class VistaGestionClientes extends javax.swing.JFrame {
 	private final VideojuegoRentadoApiClient videojuegoRentadoApiClient;
     private final ClienteApiClient clienteApiClient;
-    private Cliente clienteBuscar;
     private String token;
     /**
      * Creates new form VistaGestionClientes
      */
     public VistaGestionClientes(String token) {
-        initComponents();
+    	initComponents();
         setLocationRelativeTo(this);
+        this.token = token;
         this.clienteApiClient = new ClienteApiClient();
         this.videojuegoRentadoApiClient = new VideojuegoRentadoApiClient();
         llenarTablaClientes();
-        this.token = token;
+
     }
 
     /**
@@ -656,10 +657,10 @@ public class VistaGestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
-        clienteBuscar = clienteApiClient.buscarClientePorCedula(txtCedula.getText(),token);
-        if (clienteBuscar != null) {
-            llenarDatosCliente(clienteBuscar);
-            llenarTablaJuegosAlquilados();
+        Cliente clienteBuscado = clienteApiClient.buscarClientePorCedula(txtCedula.getText(),token);
+        if (clienteBuscado != null) {
+            llenarDatosCliente(clienteBuscado);
+            llenarTablaJuegosAlquilados(clienteBuscado);
         } else {
             throw new Exception("No se encontro el cliente");
         }
@@ -694,22 +695,64 @@ public class VistaGestionClientes extends javax.swing.JFrame {
         }
         tblClientes.setModel(model);
     }
-    public void llenarTablaJuegosAlquilados() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new Object[]{"id", "Cedula","Juego", "Fecha Alquiler", "Fecha Devolucion"});
+    public void llenarTablaJuegosAlquilados(Cliente clienteBuscando) {
+        try {
+            System.out.println("=== DEBUG INICIO ===");
+            System.out.println("clienteBuscando: " + clienteBuscando);
+            System.out.println("clienteBuscando.getCedula(): " + (clienteBuscando != null ? clienteBuscando.getCedula() : "NULL"));
+            System.out.println("token: " + (token != null ? "OK" : "NULL"));
+            System.out.println("videojuegoRentadoApiClient: " + (videojuegoRentadoApiClient != null ? "OK" : "NULL"));
+            System.out.println("tblJuegosAlquilados: " + (tblJuegosAlquilados != null ? "OK" : "NULL"));
+            
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(new Object[]{"id", "Cedula", "Juego", "Fecha Alquiler", "Fecha Devolucion"});
+            System.out.println("Modelo creado OK");
 
-		List<VideojuegoRentado> aux = this.videojuegoRentadoApiClient.buscarVideojuegosRentadosDelCliente(clienteBuscar.getCedula(), token);
-		for (VideojuegoRentado videojuego : aux) {
-			model.addRow(new Object[]{
-					videojuego.getId(),
-					videojuego.getIdCliente(),
-					videojuego.getIdVideojuego(),
-					videojuego.getFechaAlquiler(),
-					videojuego.getFechaDevolucion()
-			});
-		}
-		tblJuegosAlquilados.setModel(model);
-	}
+            List<VideojuegoRentado> aux = this.videojuegoRentadoApiClient.buscarVideojuegosRentadosDelCliente(clienteBuscando.getCedula(), token);
+            System.out.println("Respuesta API: " + (aux != null ? aux.size() + " elementos" : "NULL"));
+            
+            if (aux == null || aux.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron juegos alquilados para el cliente con cedula: " + clienteBuscando.getCedula());
+                tblJuegosAlquilados.setModel(model);
+                return;
+            }
+            
+            System.out.println("Iniciando bucle...");
+            int contador = 0;
+            for (VideojuegoRentado videojuego : aux) {
+                System.out.println("--- Procesando elemento " + contador + " ---");
+                System.out.println("videojuego: " + (videojuego != null ? "OK" : "NULL"));
+                
+                if (videojuego != null) {
+                    System.out.println("videojuego.getId(): " + videojuego.getId());
+                    System.out.println("videojuego.getIdCliente(): " + videojuego.getIdCliente());
+                    System.out.println("videojuego.getIdVideojuego(): " + videojuego.getIdVideojuego());
+                    System.out.println("videojuego.getFechaAlquiler(): " + videojuego.getFechaAlquiler());
+                    System.out.println("videojuego.getFechaDevolucion(): " + videojuego.getFechaDevolucion());
+                }
+                
+                model.addRow(new Object[]{
+                    videojuego != null ? videojuego.getId() : "NULL",
+                    videojuego != null ? videojuego.getIdCliente() : "NULL",
+                    videojuego != null ? videojuego.getIdVideojuego() : "NULL",
+                    videojuego != null ? videojuego.getFechaAlquiler() : "NULL",
+                    videojuego != null ? videojuego.getFechaDevolucion() : "NULL"
+                });
+                
+                System.out.println("Fila " + contador + " agregada OK");
+                contador++;
+            }
+            
+            System.out.println("Estableciendo modelo en tabla...");
+            tblJuegosAlquilados.setModel(model);
+            System.out.println("=== DEBUG FIN ===");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments

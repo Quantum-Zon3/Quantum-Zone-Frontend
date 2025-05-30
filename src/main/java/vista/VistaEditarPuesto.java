@@ -18,14 +18,14 @@ import modelo.Puesto;
  * @author CARLOS
  */
 public class VistaEditarPuesto extends javax.swing.JFrame {
-	private String idPuesto;
+	private Integer idPuesto;
 	private final PuestoApiClient puestoApiClient;
 	private final ConsolaClient consolas;
 	private String token;
     /**
      * Creates new form VistaEditarPuesto
      */
-    public VistaEditarPuesto(String idPuesto2, String token) {
+    public VistaEditarPuesto(Integer idPuesto2, String token) {
         setLocationRelativeTo(this);
         initComponents();
         this.token = token;
@@ -423,7 +423,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
             if (numeroPuesto.isEmpty() ||
                 boxControles.getSelectedIndex() == 0 ||
                 boxSillas.getSelectedIndex() == 0 ||
-                boxConsola.getSelectedIndex() == 0) {
+                boxConsola.getSelectedIndex() == -1) {
 
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -448,7 +448,7 @@ public class VistaEditarPuesto extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAñadirActionPerformed
-    public void llenarDatos(String id) {
+    public void llenarDatos(Integer id) {
     	try {
     		Puesto puesto = puestoApiClient.buscarPuestoPorId(id, token);
 			txtNumeroPuesto.setText(puesto.getNumeroDePuesto());

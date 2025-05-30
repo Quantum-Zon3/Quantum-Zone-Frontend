@@ -770,6 +770,9 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
         // TODO add your handling code here:
+    	VistaGestionDeReservas vgr = new VistaGestionDeReservas(token);
+    	vgr.setVisible(true);
+    			this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
@@ -786,7 +789,7 @@ public class VistaGestionDeReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnConsolasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolasActionPerformed
-        VistaAgregarPuesto va = new VistaAgregarPuesto(token); 
+        VistaGestionDeConsolas va = new VistaGestionDeConsolas(token); 
         va.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnConsolasActionPerformed

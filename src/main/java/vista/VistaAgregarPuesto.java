@@ -584,9 +584,9 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 	}// GEN-LAST:event_btnAñadirActionPerformed
 
 	private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
-		int fliaSelected = jTable1.getSelectedRow();
+		Integer fliaSelected = jTable1.getSelectedRow();
 		if (fliaSelected != -1) {
-			String idPuesto = (String) jTable1.getValueAt(fliaSelected, 0).toString();
+			Integer idPuesto = (Integer) jTable1.getValueAt(fliaSelected, 0);
 			int confirmacion = JOptionPane.showConfirmDialog(null,
 					"¿Estás seguro que deseas editar al cliente con ID " + idPuesto + "?", "Confirmar editar",
 					JOptionPane.YES_NO_OPTION);
@@ -607,7 +607,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 		int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            String idVideojuego = (String) jTable1.getValueAt(filaSeleccionada, 0).toString();
+            Integer idVideojuego = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar al puesto con ID " + idVideojuego + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 this.puesto.eliminarPuesto(idVideojuego,token);
@@ -626,7 +626,7 @@ public class VistaAgregarPuesto extends javax.swing.JFrame {
 	private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {// GEN-FIRST:event_btnBuscarActionPerformed
 		
 			if (!(txtId.getText().isEmpty())) {
-				String id = txtId.getText();
+				Integer id = Integer.parseInt(txtId.getText());
 				Puesto puestoBuscado = PuestoApiClient.buscarPuestoPorId(id,token);
 				if (puestoBuscado != null) {
 					JOptionPane.showMessageDialog(null, "El puesto fue encontrado");

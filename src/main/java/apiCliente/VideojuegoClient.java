@@ -26,7 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VideojuegoClient {
-	private static final String BASE_URL = "http://localhost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static VideojuegoApiService videojuegoApiService;
 
 	public VideojuegoClient() {

@@ -11,7 +11,7 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 public class ClienteApiClient {
-	private static final String BASE_URL = "http://localHost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static ClienteApiService clienteApiService;
 	
 	public ClienteApiClient() {
@@ -58,17 +58,20 @@ public class ClienteApiClient {
 		}
 		return null;
 	}
-	public static Cliente buscarClientePorCedula(String cedula,String token) throws Exception {
-		Response<List<Cliente>> cliente = clienteApiService.buscarUsuarios("Bearer "+token, cedula).execute();
-		if(cliente.isSuccessful()) {
-			if(cliente.body().isEmpty()){
-				throw new Exception("Cliente no encontrado");
-			}
-			return (Cliente) cliente.body().get(0);
-		}else{
-			throw new Exception("Datos Incorrectos");
-		}
+	public static Cliente buscarClientePorCedula(String cedula, String token) throws IOException {
+	    Response<List<Cliente>> response = clienteApiService.buscarUsuarios("Bearer " + token, cedula).execute();
+
+	    if (response.isSuccessful()) {
+	        List<Cliente> clientes = response.body();
+	        if (clientes == null || clientes.isEmpty()) {
+	            return null;
+	        }
+	        return clientes.get(0);
+	    } else {
+	        throw new IOException("Error en la consulta: " + response.code());
+	    }
 	}
+
 	public static void deleteCliente(Integer id,String token) throws Exception {
 		Response<Void> response = clienteApiService.deleteUsuario(id,"Bearer "+token).execute();
 		if(response.isSuccessful()) {

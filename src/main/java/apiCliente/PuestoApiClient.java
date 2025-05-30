@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PuestoApiClient {
-	private static final String BASE_URL = "http://localhost:8080";
+	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static PuestoApiService puestoApiService;
 	
 	public PuestoApiClient() {
@@ -67,7 +67,7 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	public static Puesto buscarPuestoPorId(String id,String token) throws Exception {
+	public static Puesto buscarPuestoPorId(Integer id,String token) throws Exception {
 		Response<Puesto> puesto = puestoApiService.getPuestoById(id,"Bearer "+token).execute();
 		if (puesto.isSuccessful()) {
 			if (puesto.body() == null) {
@@ -91,7 +91,7 @@ public class PuestoApiClient {
 		}
 		return null;
 	}
-	public static void eliminarPuesto(String id,String token) throws Exception {
+	public static void eliminarPuesto(Integer id,String token) throws Exception {
 		try {
 			Response<Void> response = puestoApiService.deletePuesto(id,"Bearer "+token).execute();
 			if (response.isSuccessful()) {
@@ -103,7 +103,7 @@ public class PuestoApiClient {
 			ex.printStackTrace();
 		}
 	}
-	public static Puesto actualizarPuesto(String id, Puesto puesto,String token) throws Exception {
+	public static Puesto actualizarPuesto(Integer id, Puesto puesto,String token) throws Exception {
 		try {
 			Response<Puesto> response = puestoApiService.updatePuesto(id, puesto,"Bearer "+ token).execute();
 			if (response.isSuccessful()) {
