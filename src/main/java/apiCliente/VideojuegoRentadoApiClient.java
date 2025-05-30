@@ -30,37 +30,35 @@ public class VideojuegoRentadoApiClient {
 
 	private static final String BASE_URL = "https://quantumzone3-qz.onrender.com";
 	private static VideojuegoRentadoApiService videoRService;
-	
+
 	public VideojuegoRentadoApiClient() {
-		Gson gson = new GsonBuilder()
-    			.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
-    				@Override
-    				public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-    					return LocalDate.parse(json.getAsString());
-    				}
-    			})
-    			.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
-    				@Override
-    				public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-    					return new JsonPrimitive(src.toString());
-    				}
-    			})
-    			.create();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+			@Override
+			public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				return LocalDate.parse(json.getAsString());
+			}
+		}).registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+			@Override
+			public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+				return new JsonPrimitive(src.toString());
+			}
+		}).create();
 
-    		Retrofit retrofit = new Retrofit.Builder()
-    			.baseUrl(BASE_URL)
-    			.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
-    			.build();
+		Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+				.addConverterFactory(GsonConverterFactory.create(gson)) // 👈 Este Gson sí importa
+				.build();
 
-        videoRService = retrofit.create(VideojuegoRentadoApiService.class);
-    }
-	
+		videoRService = retrofit.create(VideojuegoRentadoApiService.class);
+	}
+
 	public static List<VideojuegoRentado> listarVideojuegosRentados(String token) {
 		try {
-			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados("Bearer "+token).execute();
-			if(response.isSuccessful()){
+			Response<List<VideojuegoRentado>> response = videoRService.getAllVideojuegosRentados("Bearer " + token)
+					.execute();
+			if (response.isSuccessful()) {
 				return response.body();
-			}else {
+			} else {
 				System.out.println("Error " + response.code());
 			}
 		} catch (IOException e) {
@@ -68,13 +66,14 @@ public class VideojuegoRentadoApiClient {
 		}
 		return null;
 	}
-	
-	public static VideojuegoRentado buscarVideojuegoRentadoPorId(Integer id,String token) {
+
+	public static VideojuegoRentado buscarVideojuegoRentadoPorId(Integer id, String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id,"Bearer "+token).execute();
-			if(response.isSuccessful()){
+			Response<VideojuegoRentado> response = videoRService.getVideojuegoRentadoById(id, "Bearer " + token)
+					.execute();
+			if (response.isSuccessful()) {
 				return response.body();
-			}else {
+			} else {
 				System.out.println("Error " + response.code());
 			}
 		} catch (IOException e) {
@@ -82,13 +81,14 @@ public class VideojuegoRentadoApiClient {
 		}
 		return null;
 	}
-	
-	public static VideojuegoRentado crearVideojuegoRentado(VideojuegoRentado videojuegoRentado,String token) {
+
+	public static VideojuegoRentado crearVideojuegoRentado(VideojuegoRentado videojuegoRentado, String token) {
 		try {
-			Response<VideojuegoRentado> response = videoRService.crearVideojuegoRentado(videojuegoRentado,"Bearer "+ token).execute();
-			if(response.isSuccessful()){
+			Response<VideojuegoRentado> response = videoRService
+					.crearVideojuegoRentado(videojuegoRentado, "Bearer " + token).execute();
+			if (response.isSuccessful()) {
 				return response.body();
-			}else {
+			} else {
 				System.out.println("Error " + response.code());
 			}
 		} catch (IOException e) {
@@ -96,88 +96,47 @@ public class VideojuegoRentadoApiClient {
 		}
 		return null;
 	}
-	
-	public static void updateVideojuegoRentado(Integer id, VideojuegoRentado videojuegoRentado, String token) throws Exception {
-			Response<VideojuegoRentado> response = videoRService.updateVideojuegoRentado(id, videojuegoRentado,"Bearer "+ token).execute();
-        if(response.isSuccessful()){
-            System.out.println("Consola actualizada");
-        }
-        else{
-            throw new IOException("Error al actualizar la consola");
-        }    
+
+	public static void updateVideojuegoRentado(Integer id, VideojuegoRentado videojuegoRentado, String token)
+			throws Exception {
+		Response<VideojuegoRentado> response = videoRService
+				.updateVideojuegoRentado(id, videojuegoRentado, "Bearer " + token).execute();
+		if (response.isSuccessful()) {
+			System.out.println("Consola actualizada");
+		} else {
+			throw new IOException("Error al actualizar la consola");
+		}
 	}
-	
+
 	public static void eliminarVideojuegoRentado(Integer id, String token) throws Exception {
-		Response<Void> response = videoRService.deleteVideojuegoRentado(id,"Bearer "+ token).execute();
-		if(response.isSuccessful()) {
+		Response<Void> response = videoRService.deleteVideojuegoRentado(id, "Bearer " + token).execute();
+		if (response.isSuccessful()) {
 			System.out.println("Consola eliminada con exito");
-		}else{
+		} else {
 			throw new Exception("Error al eliminar la consola");
 		}
 	}
+
 	public static Integer buscarClientePorCedula(String cedula, String token) throws Exception {
-		Cliente cliente = ClienteApiClient.buscarClientePorCedula("Bearer "+ token, cedula);
-			return cliente != null ? cliente.getId() : null;
+		Cliente cliente = ClienteApiClient.buscarClientePorCedula(cedula, "Bearer " + token);
+		return cliente != null ? cliente.getId() : null;
 	}
-	
-	/*public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
+
+	public static List<VideojuegoRentado> buscarVideoJuegosRentadosDelCliente(Integer idCliente, String token) {
 		try {
-			Integer idCliente = buscarClientePorCedula(cedula,"Bearer "+ token);
-			if (idCliente == null) {
-				JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-				return null;
-			}
-			Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente,"Bearer "+ token).execute();
-			if(response.isSuccessful()){
+			Response<List<VideojuegoRentado>> response = videoRService
+					.buscarVideojuegosRentados(idCliente, "Bearer " + token).execute();
+			if (response.isSuccessful()) {
 				return response.body();
-			}else {
-				JOptionPane.showMessageDialog(null,"Error " + response.code());
+			} else {
+				System.out.println("Error " + response.code());
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error al buscar el videojuego", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al buscar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
-	}*/
-	public static List<VideojuegoRentado> buscarVideojuegosRentadosDelCliente(String cedula, String token) {
-	    try {
-	        // Buscar ID del cliente por cédula
-	        Integer idCliente = buscarClientePorCedula(cedula, "Bearer " + token);
-	        if (idCliente == null) {
-	            System.out.println("Cliente con cédula " + cedula + " no encontrado");
-	            JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-	            return new ArrayList<>(); // Devolver lista vacía en lugar de null
-	        }
-	        
-	        System.out.println("Cliente encontrado con ID: " + idCliente);
-	        
-	        // Buscar videojuegos rentados
-	        Response<List<VideojuegoRentado>> response = videoRService.buscarVideojuegosRentados(idCliente, "Bearer " + token).execute();
-	        
-	        if (response.isSuccessful()) {
-	            List<VideojuegoRentado> resultado = response.body();
-	            System.out.println("Respuesta exitosa. Juegos encontrados: " + (resultado != null ? resultado.size() : 0));
-	            return resultado != null ? resultado : new ArrayList<>();
-	        } else {
-	            System.out.println("Error HTTP: " + response.code() + " - " + response.message());
-	            JOptionPane.showMessageDialog(null, "Error del servidor: " + response.code() + " - " + response.message(), "Error", JOptionPane.ERROR_MESSAGE);
-	            return new ArrayList<>(); // ← AQUÍ FALTABA EL RETURN
-	        }
-	        
-	    } catch (IOException e) {
-	        System.out.println("Error de conexión: " + e.getMessage());
-	        JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-	        e.printStackTrace();
-	        return new ArrayList<>();
-	        
-	    } catch (Exception e) {
-	        System.out.println("Error inesperado: " + e.getMessage());
-	        JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-	        e.printStackTrace();
-	        return new ArrayList<>();
-	    }
 	}
-	
+
 }
